@@ -36,17 +36,21 @@ body {
     }
 }
 @media screen and (min-aspect-ratio: 2000/1192){
-    .bg {
+    .bg-registration {
         width: 100%;
         z-index: 0;
     }
 }
 @media screen and (max-aspect-ratio: 2000/1192) {
 
-    .bg {
+    .bg-registration {
         z-index: 0;
         height: 100%; /*min-height hack*/
     }
+}
+.bg-login {
+    width: 100%;
+    z-index: 0;
 }
 
 
