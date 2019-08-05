@@ -50,7 +50,7 @@ namespace WebApplication.Web
             // For Authentication
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAuthProvider, SessionAuthProvider>();
-            services.AddTransient<IUserDAL>(m => new UsersSqlDAL(connectionString));
+            services.AddTransient<IUserDAL>(m => new UserSqlDAL(connectionString));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
