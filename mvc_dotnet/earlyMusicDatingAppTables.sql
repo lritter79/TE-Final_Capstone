@@ -23,6 +23,8 @@ birtdate datetime NOT NULL,
 home_city varchar(50) NOT NULL,
 home_state varchar(50) NOT NULL,
 self_description varchar(Max) NOT NULL,
+password_hash varchar(50) NOT NULL,
+salt varchar(50) NOT NUll,
 CONSTRAINT Pk_users PRIMARY KEY (ID)
 
 );
