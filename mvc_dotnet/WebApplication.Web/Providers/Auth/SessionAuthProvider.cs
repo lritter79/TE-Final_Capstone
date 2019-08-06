@@ -80,8 +80,8 @@ namespace WebApplication.Web.Providers.Auth
                 user.Password = newHash.Password;
                 user.Salt = newHash.Salt;
 
-                // Save into the db
-                userDAL.UpdateUser(user);
+                //// Save into the db
+                //userDAL.UpdateUser(user);
 
                 return true;
             }
