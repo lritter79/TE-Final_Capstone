@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebApplication.Web.Models
 {
-    public class Users
+    public class User
     {
         /// <summary>
         /// The user's id.
@@ -21,6 +21,25 @@ namespace WebApplication.Web.Models
         [MaxLength(50)]
         public string Username { get; set; }
 
+        [Required(ErrorMessage = "Birth Date is required.Min age at least 18, Max age < 110")]
+        [Display(Name = "Date of Birth")]
+        public string BirthDate { get; set; }
+
+        [Required]
+        [Display(Name = "Home City")]
+        public string HomeCity { get; set; }
+
+        [Required]
+        [Display(Name = "Home State")]
+        public string HomeState { get; set; }
+
+        [Required]
+        public string SelfDescription { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
         /// <summary>
         /// The user's password.
         /// </summary>
@@ -31,11 +50,11 @@ namespace WebApplication.Web.Models
         /// The user's salt.
         /// </summary>
         [Required]
-        public string Salt { get; set; }
+        public string salt { get; set; }
 
-        /// <summary>
-        /// The user's role.
-        /// </summary>
-        public string Role { get; set; }
+        [Required]
+        
+
+       
     }
 }

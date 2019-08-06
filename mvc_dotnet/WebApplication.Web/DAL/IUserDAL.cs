@@ -13,24 +13,24 @@ namespace WebApplication.Web.DAL
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        Users GetUser(string username);
+        User GetUser(string username);
 
         /// <summary>
         /// Creates a new user.
         /// </summary>
         /// <param name="user"></param>
-        void CreateUser(Users user);
+        void CreateUser(User user);
 
         /// <summary>
         /// Updates a user.
         /// </summary>
         /// <param name="user"></param>
-        void UpdateUser(Users user);
+        void UpdateUser(User user);
 
         /// <summary>
         /// Deletes a user from the system.
         /// </summary>
         /// <param name="user"></param>
-        void DeleteUser(Users user);
+        void DeleteUser(User user);
     }
 }
