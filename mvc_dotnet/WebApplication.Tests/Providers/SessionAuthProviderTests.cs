@@ -51,7 +51,7 @@ namespace WebApplication.Tests.Providers
         public void GetCurrentUser_Should_ReturnsNullIfNotLoggedIn()
         {
             // Arrange DAL to always return null ensuring that user does not exist           
-            mockUserDal.Setup(m => m.GetUser(It.IsAny<string>())).Returns<User>(null);
+            mockUserDal.Setup(m => m.GetUser(It.IsAny<string>())).Returns<Users>(null);
 
             var provider = new SessionAuthProvider(mockAccessor.Object, mockUserDal.Object);
 
@@ -160,7 +160,7 @@ namespace WebApplication.Tests.Providers
 
             // Assert
             Assert.IsTrue(result);
-            mockUserDal.Verify(m => m.UpdateUser(It.IsAny<User>()));
+            mockUserDal.Verify(m => m.UpdateUser(It.IsAny<Users>()));
         }
 
         [TestMethod]
@@ -173,14 +173,14 @@ namespace WebApplication.Tests.Providers
             provider.Register("test", "password123", "user");
 
             // Assert
-            mockUserDal.Verify(m => m.CreateUser(It.IsAny<User>()));
+            mockUserDal.Verify(m => m.CreateUser(It.IsAny<Users>()));
             mockSession.Verify(m => m.Set(SessionAuthProvider.SessionKey, It.IsAny<byte[]>()));
         }
         
         #region Private Methods
         private void AddUserToDAL(string username)
         {
-            var user = new User { Username = username, Password = "OZpnzNCj1mcK3lvPKxhh89ikT0w=", Salt = "rsD3TaOu0XQ=" };            
+            var user = new Users { Username = username, Password = "OZpnzNCj1mcK3lvPKxhh89ikT0w=", Salt = "rsD3TaOu0XQ=" };            
             mockUserDal.Setup(m => m.GetUser(username)).Returns(user);              
         }
 

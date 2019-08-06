@@ -93,7 +93,7 @@ namespace WebApplication.Web.Providers.Auth
         /// Gets the user using the current username in session.
         /// </summary>
         /// <returns></returns>
-        public User GetCurrentUser()
+        public Users GetCurrentUser()
         {
             var username = Session.GetString(SessionKey);
 
@@ -117,7 +117,7 @@ namespace WebApplication.Web.Providers.Auth
             var hashProvider = new HashProvider();
             var passwordHash = hashProvider.HashPassword(password);
 
-            var user = new User
+            var user = new Users
             {
                 Username = username,
                 Password = passwordHash.Password,

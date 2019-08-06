@@ -18,7 +18,7 @@ namespace WebApplication.Web.Providers.Auth
         /// Returns the current signed in user.
         /// </summary>
         /// <returns></returns>
-        User GetCurrentUser();
+        Users GetCurrentUser();
 
         /// <summary>
         /// Signs a user in.

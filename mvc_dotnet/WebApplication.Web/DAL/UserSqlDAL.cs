@@ -20,16 +20,17 @@ namespace WebApplication.Web.DAL
         /// Saves the user to the database.
         /// </summary>
         /// <param name="user"></param>
-        public void CreateUser(User user)
+        public void CreateUser(Users user)
         {
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO User VALUES (@Username, @Birthdate, @HomeCity, @HomeState, @Email, @Password, @salt, @role, @SelfDescription);", conn);
-                    cmd.Parameters.AddWithValue("@username", user.Username);
-                    cmd.Parameters.AddWithValue("@HomeCity", user.)
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Users VALUES ( @Email, @Username, @Birthdate, @HomeCity, @HomeState,@Password, @salt,  @SelfDescription);", conn);
+                    cmd.Parameters.AddWithValue("@Email", user.email);
+                    cmd.Parameters.AddWithValue("@username", user.username);
+                    cmd.Parameters.AddWithValue("@HomeCity", user.home_city);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
                     cmd.Parameters.AddWithValue("@role", user.Role);
@@ -49,7 +50,7 @@ namespace WebApplication.Web.DAL
         /// Deletes the user from the database.
         /// </summary>
         /// <param name="user"></param>
-        public void DeleteUser(User user)
+        public void DeleteUser(Users user)
         {
             try
             {
@@ -75,9 +76,9 @@ namespace WebApplication.Web.DAL
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        public User GetUser(string username)
+        public Users GetUser(string username)
         {
-            User user = null;
+            Users user = null;
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -106,7 +107,7 @@ namespace WebApplication.Web.DAL
         /// Updates the user in the database.
         /// </summary>
         /// <param name="user"></param>
-        public void UpdateUser(User user)
+        public void UpdateUser(Users user)
         {
             try
             {
@@ -130,9 +131,9 @@ namespace WebApplication.Web.DAL
             }
         }
 
-        private User MapRowToUser(SqlDataReader reader)
+        private Users MapRowToUser(SqlDataReader reader)
         {
-            return new User()
+            return new Users()
             {
                 Id = Convert.ToInt32(reader["id"]),
                 Username = Convert.ToString(reader["username"]),
