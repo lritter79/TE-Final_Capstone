@@ -9,6 +9,23 @@ namespace WebApplication.Web.Models.Account
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
+        [Required]
+        [Display(Name = "Home City")]
+        public string HomeCity { get; set; }
+
+        [Required]
+        [Display(Name = "Home State")]
+        public string HomeState { get; set; }
+
+        [Required(ErrorMessage = "Birth Date is required.Min age at least 18, Max age < 110")]
+        [Display(Name = "Date of Birth")]
+        public string BirthDate { get; set; }
+
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -23,5 +40,9 @@ namespace WebApplication.Web.Models.Account
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Description of Self")]
+        public string SelfDescription { get; set; }
     }
 }
