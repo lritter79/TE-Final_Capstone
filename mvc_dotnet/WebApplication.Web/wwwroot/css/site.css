@@ -68,7 +68,7 @@ body {
 .center-form {
     margin-left: 20%;
 }
-html, body {
+body {
     overflow-x: hidden;
     background-color: black;
     color: gray;
