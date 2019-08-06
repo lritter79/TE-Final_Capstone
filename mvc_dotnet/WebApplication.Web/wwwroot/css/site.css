@@ -35,3 +35,45 @@ body {
         display: none;
     }
 }
+@media screen and (min-aspect-ratio: 2000/1192){
+    .bg-registration {
+        width: 100%;
+        z-index: 0;
+    }
+}
+@media screen and (max-aspect-ratio: 2000/1192) {
+
+    .bg-registration {
+        z-index: 0;
+        height: 100%; /*min-height hack*/
+    }
+}
+.bg-login {
+    width: 100%;
+    z-index: 0;
+}
+
+
+.transparent-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.3);
+    padding-bottom: 25px;
+}
+.transparent-overlay label, .transparent-overlay h2 {
+    color: white;
+}
+.center-form {
+    margin-left: 20%;
+}
+html, body {
+    overflow-x: hidden;
+    background-color: black;
+    color: gray;
+    height: 100%;
+}
+footer, #push {
+    height: 4em;
+}
