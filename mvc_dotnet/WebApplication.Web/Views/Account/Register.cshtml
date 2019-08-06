@@ -10,7 +10,28 @@
         <div class="center-form">
             <h2>Register</h2>
             <div class="container body-content">
-                <form asp-controller="account" asp-action="register" method="post">
+                <form asp-controller="account" asp-action="register" method="post"> 
+                    <div class="form-group">
+                        <label asp-for="Username"></label><br /> 
+                        <input type="text" asp-for="Username" /> 
+                        <span asp-validation-for="Username"></span>
+                    </div> 
+                    <div class="form-group">
+                        <label asp-for="HomeCity"></label><br /> 
+                        <input type="text" asp-for="HomeCity" /> 
+                        <span asp-validation-for="HomeCity"></span>
+                    </div> 
+                    <div class="form-group">
+                        <label asp-for="HomeState"></label><br /> 
+                        <input type="text" asp-for="HomeState" /> 
+                        <span asp-validation-for="HomeCity"></span>
+                    </div> 
+                    <div class="form-group">
+                        <label asp-for="BirthDate"></label><br /> 
+                        <input type="date" asp-for="BirthDate"/> 
+                        <span asp-validation-for="BirthDate"></span>
+
+                    </div>
                     <div class="form-group">
                         <label asp-for="Email"></label><br />
                         <input type="email" asp-for="Email" />

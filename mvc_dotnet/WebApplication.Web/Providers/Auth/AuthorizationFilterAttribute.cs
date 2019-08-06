@@ -50,12 +50,12 @@ namespace WebApplication.Web.Providers.Auth
 
             // If they are logged in and the user doesn't have any of the roles
             // give them a 403
-            if (roles.Length > 0 && !authProvider.UserHasRole(roles))
-            {
-                // User shouldn't have access
-                context.Result = new StatusCodeResult(403);
-                return;
-            }
+            //if (roles.Length > 0 && !authProvider.UserHasRole(roles))
+            //{
+            //    // User shouldn't have access
+            //    context.Result = new StatusCodeResult(403);
+            //    return;
+            //}
 
             // If our code gets this far then the filter "lets them through".
         }
