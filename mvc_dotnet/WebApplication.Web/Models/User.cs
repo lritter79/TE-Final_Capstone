@@ -50,7 +50,7 @@ namespace WebApplication.Web.Models
         /// The user's salt.
         /// </summary>
         [Required]
-        public string salt { get; set; }
+        public string Salt { get; set; }
 
         [Required]
         

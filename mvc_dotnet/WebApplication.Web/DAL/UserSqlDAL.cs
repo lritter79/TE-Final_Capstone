@@ -35,7 +35,7 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@HomeState", user.HomeState);
                     cmd.Parameters.AddWithValue("@SelfDescription", user.SelfDescription);
                     cmd.Parameters.AddWithValue("@password", user.Password);
-                    cmd.Parameters.AddWithValue("@salt", user.salt);
+                    cmd.Parameters.AddWithValue("@salt", user.Salt);
                    
 
                     cmd.ExecuteNonQuery();
@@ -120,7 +120,7 @@ namespace WebApplication.Web.DAL
                     SqlCommand cmd = new SqlCommand("UPDATE users SET password = @password, salt = @salt, role = @role WHERE id = @id;", conn);                    
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
-                    cmd.Parameters.AddWithValue("@role", user.Role);
+                    
                     cmd.Parameters.AddWithValue("@id", user.Id);
 
                     cmd.ExecuteNonQuery();
@@ -142,7 +142,7 @@ namespace WebApplication.Web.DAL
                 Username = Convert.ToString(reader["username"]),
                 Password = Convert.ToString(reader["password"]),
                 Salt = Convert.ToString(reader["salt"]),
-                Role = Convert.ToString(reader["role"])
+                
             };
         }
     }
