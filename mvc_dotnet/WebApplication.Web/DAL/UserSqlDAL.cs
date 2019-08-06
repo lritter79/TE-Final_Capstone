@@ -110,29 +110,30 @@ namespace WebApplication.Web.DAL
         /// Updates the user in the database.
         /// </summary>
         /// <param name="user"></param>
-        public void UpdateUser(User user)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand("UPDATE users SET password = @password, salt = @salt, role = @role WHERE id = @id;", conn);                    
-                    cmd.Parameters.AddWithValue("@password", user.Password);
-                    cmd.Parameters.AddWithValue("@salt", user.Salt);
+        //public void UpdateUser(User user)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            conn.Open();
+        //            SqlCommand cmd = new SqlCommand("UPDATE users SET password = @password, salt = @salt, 
+        //                = @role WHERE id = @id;", conn);                    
+        //            cmd.Parameters.AddWithValue("@password", user.Password);
+        //            cmd.Parameters.AddWithValue("@salt", user.Salt);
                     
-                    cmd.Parameters.AddWithValue("@id", user.Id);
+        //            cmd.Parameters.AddWithValue("@id", user.Id);
 
-                    cmd.ExecuteNonQuery();
+        //            cmd.ExecuteNonQuery();
 
-                    return;
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-        }
+        //            return;
+        //        }
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         private User MapRowToUser(SqlDataReader reader)
         {

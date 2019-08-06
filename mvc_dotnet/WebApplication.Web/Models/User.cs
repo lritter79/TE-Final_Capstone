@@ -53,6 +53,13 @@ namespace WebApplication.Web.Models
         public string Salt { get; set; }
 
         [Required]
+        [Display(Name = "Intrument(s) played. Choose up to three. If voice is entered please give range.")]
+        public string Instrument { get; set; }
+
+        [Display(Name = "")]
+        public string Places { get; set; }
+
+       
         
 
        
