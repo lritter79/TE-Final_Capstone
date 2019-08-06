@@ -52,7 +52,7 @@ namespace WebApplication.Web.Models
         [Required]
         public string Salt { get; set; }
 
-        [Required]
+       
         
 
        
