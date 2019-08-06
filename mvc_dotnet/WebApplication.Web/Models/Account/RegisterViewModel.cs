@@ -24,7 +24,7 @@ namespace WebApplication.Web.Models.Account
         [Display(Name = "Date of Birth")]
         public string BirthDate { get; set; }
 
-            
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -40,5 +40,9 @@ namespace WebApplication.Web.Models.Account
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Description of Self")]
+        public string SelfDescription { get; set; }
     }
 }
