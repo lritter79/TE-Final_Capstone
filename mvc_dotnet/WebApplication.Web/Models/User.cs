@@ -9,6 +9,18 @@ namespace WebApplication.Web.Models
     public class User
     {
         /// <summary>
+        /// The user's email address
+        /// </summary>
+        [Required]
+        public string Email { get; set; }
+
+        /// <summary>
+        /// The user's birthdate
+        /// </summary>
+        [Required]
+        public string BirthDate { get; set; }
+
+        /// <summary>
         /// The user's id.
         /// </summary>
         [Required]

@@ -27,12 +27,14 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO User VALUES (@Username, @Birthdate, @HomeCity, @HomeState, @Email, @Password, @salt, @role, @SelfDescription);", conn);
-                    cmd.Parameters.AddWithValue("@username", user.Username);
-                    cmd.Parameters.AddWithValue("@HomeCity", user.)
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Users VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @Salt);", conn);
+
+                    cmd.Parameters.AddWithValue("@Email", user.Email);
+                    cmd.Parameters.AddWithValue("@Username", user.Username);
+                    cmd.Parameters.AddWithValue("@Birthdate", user.);
+
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
-                    cmd.Parameters.AddWithValue("@role", user.Role);
 
                     cmd.ExecuteNonQuery();
 
@@ -137,6 +139,7 @@ namespace WebApplication.Web.DAL
                 Id = Convert.ToInt32(reader["id"]),
                 Username = Convert.ToString(reader["username"]),
                 Password = Convert.ToString(reader["password"]),
+                Email = Convert.ToString(reader["email"]),
                 Salt = Convert.ToString(reader["salt"]),
                 Role = Convert.ToString(reader["role"])
             };
