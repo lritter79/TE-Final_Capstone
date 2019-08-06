@@ -15,7 +15,7 @@ namespace WebApplication.Tests.DAL
     public class DatabaseTests
     {
 
-        protected string ConnectionString = "Server=.\\SQLEXPRESS;Database=EarlyMusicDating;Trusted_Connection=True;";
+        public string ConnectionString = "Server=.\\SQLEXPRESS;Database=EarlyMusicDating;Trusted_Connection=True;";
         private TransactionScope transaction;
 
         [TestInitialize]
@@ -55,24 +55,6 @@ namespace WebApplication.Tests.DAL
                 Assert.AreEqual("x@y.com", $"{userEmail}");
             }
         }
-
-        [TestMethod]
-        public void GetUserID()
-        {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
-
-                string cmdText = "SELECT id FROM users WHERE username = 'luteMan'";
-                SqlCommand command = new SqlCommand(cmdText, connection);
-                int userId = Convert.ToInt32(command.ExecuteScalar());
-
-
-                Assert.AreEqual(1, $"{userId}");
-            }
-        }
-
-
 
         [TestCleanup]
         public void CleanUp()
