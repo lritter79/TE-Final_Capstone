@@ -80,8 +80,8 @@ namespace WebApplication.Web.Providers.Auth
                 user.Password = newHash.Password;
                 user.Salt = newHash.Salt;
 
-                // Save into the db
-                userDAL.UpdateUser(user);
+                //// Save into the db
+                //userDAL.UpdateUser(user);
 
                 return true;
             }
@@ -112,7 +112,7 @@ namespace WebApplication.Web.Providers.Auth
         /// <param name="password"></param>
         /// <param name="role"></param>
         /// <returns></returns>
-        public void Register(string username, string password, string role)
+        public void Register(string username, string password)
         {
             var hashProvider = new HashProvider();
             var passwordHash = hashProvider.HashPassword(password);
@@ -122,11 +122,16 @@ namespace WebApplication.Web.Providers.Auth
                 Username = username,
                 Password = passwordHash.Password,
                 Salt = passwordHash.Salt,
-                Role = role
+                
             };
 
             userDAL.CreateUser(user);
             Session.SetString(SessionKey, user.Username);            
+        }
+
+        public bool UserHasRole(string[] roles)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -134,11 +139,6 @@ namespace WebApplication.Web.Providers.Auth
         /// </summary>
         /// <param name="roles"></param>
         /// <returns></returns>
-        public bool UserHasRole(string[] roles)
-        {            
-            var user = GetCurrentUser();
-            return (user != null) && 
-                roles.Any(r => r.ToLower() == user.Role.ToLower());
-        }
+
     }
 }

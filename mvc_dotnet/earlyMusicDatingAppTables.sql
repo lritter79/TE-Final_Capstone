@@ -18,8 +18,9 @@ BEGIN TRANSACTION;
 
 CREATE TABLE Users (
 ID int identity (1, 1) NOT NULL,
+email varchar (100) NOT NULL,
 username varchar(50) NOT NULL,
-birtdate datetime NOT NULL,
+birthdate datetime NOT NULL,
 home_city varchar(50) NOT NULL,
 home_state varchar(50) NOT NULL,
 self_description varchar(Max) NOT NULL,
