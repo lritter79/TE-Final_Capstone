@@ -20,11 +20,11 @@ namespace WebApplication.Web.Models.Account
         [Display(Name = "Home State")]
         public string HomeState { get; set; }
 
-        [Required(ErrorMessage = "Birth Date is required.Min age > 18, Max age < 110")]
+        [Required(ErrorMessage = "Birth Date is required.Min age at least 18, Max age < 110")]
         [Display(Name = "Date of Birth")]
         public string BirthDate { get; set; }
 
-            
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -40,5 +40,9 @@ namespace WebApplication.Web.Models.Account
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Description of Self")]
+        public string SelfDescription { get; set; }
     }
 }
