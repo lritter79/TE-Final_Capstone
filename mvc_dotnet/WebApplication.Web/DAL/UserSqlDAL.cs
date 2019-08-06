@@ -37,7 +37,6 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
                    
-
                     cmd.ExecuteNonQuery();
 
                     return;

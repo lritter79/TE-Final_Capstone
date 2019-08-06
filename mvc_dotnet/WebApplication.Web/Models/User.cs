@@ -15,6 +15,13 @@ namespace WebApplication.Web.Models
         public int Id { get; set; }
 
         /// <summary>
+        /// The user's email address
+        /// </summary>
+        [Required(ErrorMessage = "*Required Field")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "You must enter a valid email address")]
+        public string Email { get; set; }
+
+        /// <summary>
         /// The user's username.
         /// </summary>
         [Required]
@@ -35,10 +42,6 @@ namespace WebApplication.Web.Models
 
         [Required]
         public string SelfDescription { get; set; }
-
-        [Required]
-        [EmailAddress]
-        public string Email { get; set; }
 
         /// <summary>
         /// The user's password.

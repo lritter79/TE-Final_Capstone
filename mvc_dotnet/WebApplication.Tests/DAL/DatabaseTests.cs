@@ -29,10 +29,7 @@ namespace WebApplication.Tests.DAL
                 //Delete everything from our tables
                 string cmdText = "delete from Users; ";
                 SqlCommand command = new SqlCommand(cmdText, connection);
-                command.ExecuteNonQuery();
-
-                ////Add row to park table
-                
+                command.ExecuteNonQuery();                
 
                 ///Add row to user table
                 cmdText = $"INSERT INTO Users VALUES('x@y.com','luteMan', 12/09/1990,'Pittsburgh','PA','Just a small-town girl','pep','salty');SELECT SCOPE_IDENTITY();";
