@@ -67,6 +67,24 @@ namespace WebApplication.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Register(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                // Register them as a new user (and set default role)
+                // When a user registeres they need to be given a role. If you don't need anything special
+                // just give them "User".
+                authProvider.Register(user.Email, user.Password);
+
+                // Redirect the user where you want them to go after registering
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(user);
+        }
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
         //public IActionResult Register(RegisterViewModel registerViewModel)
