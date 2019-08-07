@@ -56,6 +56,11 @@ body {
     z-index: 0;
 }
 
+.bg-regComplete{
+    width: 100%;
+    z-index: 0;
+}
+
 
 .transparent-overlay {
     position: absolute;
