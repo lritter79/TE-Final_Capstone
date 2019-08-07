@@ -46,10 +46,18 @@ instrument_name varchar(50) NOT NULL,
 CONSTRAINT fk_instuments_played_users FOREIGN KEY (user_id) REFERENCES Users (ID)
 );
 
+CREATE TABLE Composers (
+user_id int NOT NULL,
+composer_name varchar(50) NOT NULL,
+
+CONSTRAINT fk_instuments_played_users FOREIGN KEY (user_id) REFERENCES Users (ID)
+);
 
 
 
 COMMIT
+
+
 
 
 

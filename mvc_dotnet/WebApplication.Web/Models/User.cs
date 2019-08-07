@@ -13,6 +13,7 @@ namespace WebApplication.Web.Models
         {
             this.ListOfInstruments = new List<Instrument>();
             this.ListOfPlaces = new List<Place>();
+            this.ListOfComposers = new List<Composer>();
         }
         /// <summary>
         /// The user's id.
@@ -70,5 +71,8 @@ namespace WebApplication.Web.Models
 
         [Display(Name = "Touring cities this year")]
         public List<Place> ListOfPlaces { get; set; }
+
+        [Display(Name = "Favorite Composers")]
+        public List<Composer> ListOfComposers { get; set; }
     }
 }
