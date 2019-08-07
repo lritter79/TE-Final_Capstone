@@ -18,12 +18,12 @@ namespace WebApplication.Tests.DAL
             User user = new User();
 
             //populates our fake user with info
-            user.BirthDate = "08/22/1990";
+            user.BirthDate = new DateTime(2018, 1, 15);
             user.Email = "fake@gmail.com";
             user.HomeCity = "pittsburgh";
             user.HomeState = "PA";
             
-            user.Password = "fake";
+            user.PasswordHash = "fake";
             user.Salt = "testSalt";
             
             user.SelfDescription = "testdescription";
@@ -81,6 +81,8 @@ namespace WebApplication.Tests.DAL
         public void GetUserTest()
         {
             UserSqlDAL dal = new UserSqlDAL(ConnectionString);
+            User user = dal.GetUser("luteMan");
+            Assert.IsNotNull(user);
         }
     }
     

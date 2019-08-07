@@ -36,7 +36,7 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@HomeCity", user.HomeCity);
                     cmd.Parameters.AddWithValue("@HomeState", user.HomeState);
                     cmd.Parameters.AddWithValue("@SelfDescription", user.SelfDescription);
-                    cmd.Parameters.AddWithValue("@password", user.Password);
+                    cmd.Parameters.AddWithValue("@password", user.PasswordHash);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
                    
                     int i = cmd.ExecuteNonQuery();
@@ -123,6 +123,29 @@ namespace WebApplication.Web.DAL
                     {
                         user = MapRowToUser(reader);
                     }
+
+                    reader.Close();
+
+                    cmd = new SqlCommand("SELECT ID FROM users WHERE username = '@username'", conn);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    string userId = Convert.ToString(cmd.ExecuteScalar());
+
+
+                    cmd = new SqlCommand($"SELECT instrument_name FROM Instruments_Played WHERE user_id = '{userId}';", conn);
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        user.ListOfInstruments.Add(MapRowToInstrument(reader));
+                    }
+
+                    //cmd = new SqlCommand($"SELECT ine FROM Instruments_Played WHERE user_id = {userId};", conn);
+                    //reader = cmd.ExecuteReader();
+
+                    //while (reader.Read())
+                    //{
+                    //    user.ListOfInstruments.Add(MapRowToInstrument(reader));
+                    //}
                 }
 
                 return user;
@@ -166,12 +189,23 @@ namespace WebApplication.Web.DAL
         {
             return new User()
             {
-                Id = Convert.ToInt32(reader["id"]),
+                Id = Convert.ToInt32(reader["ID"]),
                 Username = Convert.ToString(reader["username"]),
-                Password = Convert.ToString(reader["password"]),
+                BirthDate = Convert.ToDateTime(reader["birthdate"]),
+                PasswordHash = Convert.ToString(reader["password_hash"]),
+                Email = Convert.ToString(reader["email"]),
+                HomeCity = Convert.ToString(reader["home_city"]),
+                HomeState = Convert.ToString(reader["home_state"]),
+                SelfDescription = Convert.ToString(reader["self_description"]),
                 Salt = Convert.ToString(reader["salt"]),
                 
             };
+        }
+
+        private Instrument MapRowToInstrument(SqlDataReader reader)
+        {
+            string Name = Convert.ToString(reader["instrument_name"]);
+            return new Instrument(Name);
         }
     }
 }

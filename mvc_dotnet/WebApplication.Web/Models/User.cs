@@ -30,7 +30,7 @@ namespace WebApplication.Web.Models
 
         [Required(ErrorMessage = "Birth Date is required.Min age at least 18, Max age < 110")]
         [Display(Name = "Date of Birth")]
-        public string BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         [Required]
         [Display(Name = "Home City")]
@@ -47,7 +47,7 @@ namespace WebApplication.Web.Models
         /// The user's password.
         /// </summary>
         [Required]
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
 
         /// <summary>
         /// The user's salt.
@@ -57,14 +57,10 @@ namespace WebApplication.Web.Models
 
         [Required]
         [Display(Name = "Intrument(s) played. Choose up to three. If voice is entered please give range.")]
+
         public List<Instrument> ListOfInstruments { get; set; }
 
         [Display(Name = "Touring cities this year")]
         public List<Place> ListOfPlaces { get; set; }
-
-       
-        
-
-       
     }
 }
