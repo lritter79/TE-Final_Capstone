@@ -16,16 +16,36 @@ namespace WebApplication.Tests.DAL
         {
             UserSqlDAL dal = new UserSqlDAL(ConnectionString);
             User user = new User();
+
+            //populates our fake user with info
             user.BirthDate = "08/22/1990";
             user.Email = "fake@gmail.com";
             user.HomeCity = "pittsburgh";
             user.HomeState = "PA";
-            user.Instrument = "lute";
+            
             user.Password = "fake";
             user.Salt = "testSalt";
-            user.Places = "testplaces";
+            
             user.SelfDescription = "testdescription";
             user.Username = "fakeuser";
+            user.ListOfInstruments = new List<Instrument>();
+            Instrument horn = new Instrument("Horn");
+            
+            Instrument violin = new Instrument("Violin");
+            
+            Instrument viola = new Instrument("Viola");
+            
+            
+            user.ListOfInstruments.Add(horn);
+            user.ListOfInstruments.Add(violin);
+            user.ListOfInstruments.Add(viola);
+
+            Place firstPlace = new Place("foo", "bar", DateTime.Today, DateTime.Today);
+            Place secondPlace = new Place("fooburgh", "barland", DateTime.Today, DateTime.Today);
+
+            user.ListOfPlaces = new List<Place>();
+            user.ListOfPlaces.Add(firstPlace);
+            user.ListOfPlaces.Add(secondPlace);
 
             dal.CreateUser(user);
 
@@ -37,8 +57,30 @@ namespace WebApplication.Tests.DAL
                 SqlCommand command = new SqlCommand(cmdText, connection);
                 string userEmail = Convert.ToString(command.ExecuteScalar());
 
+                cmdText = "SELECT ID FROM users WHERE username = 'fakeuser'";
+                command = new SqlCommand(cmdText, connection);
+                string userId = Convert.ToString(command.ExecuteScalar());
+
+
+                cmdText = $"SELECT instrument_name FROM Instruments_Played WHERE user_id = '{userId}' ORDER BY instrument_name ASC";
+                command = new SqlCommand(cmdText, connection);
+                string userInstrument = Convert.ToString(command.ExecuteScalar());
+
+                cmdText = $"SELECT from_date FROM PLaces WHERE user_id = '{userId}'";
+                command = new SqlCommand(cmdText, connection);
+                string userDate = Convert.ToString(command.ExecuteScalar());
+
                 Assert.AreEqual("fake@gmail.com", $"{userEmail}");
+                Assert.AreEqual("Horn", $"{userInstrument}");
+                Assert.AreEqual($"{DateTime.Today}", actual: $"{userDate}");
+                
             }
+        }
+
+        [TestMethod]
+        public void GetUserTest()
+        {
+            UserSqlDAL dal = new UserSqlDAL(ConnectionString);
         }
     }
     

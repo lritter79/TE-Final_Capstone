@@ -27,9 +27,9 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string cmdStr = "INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password_hash, salt) VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @salt )";
+                    string cmdStr = "INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password_hash, salt) VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @salt);";
                     SqlCommand cmd = new SqlCommand(cmdStr, conn);
-
+                    
                     cmd.Parameters.AddWithValue("@Email", user.Email);
                     cmd.Parameters.AddWithValue("@username", user.Username);
                     cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
@@ -39,7 +39,33 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
                    
-                    cmd.ExecuteNonQuery();
+                    int i = cmd.ExecuteNonQuery();
+                    //gets the id of the new user so we can add instruments and places with the users ID as the foreign key
+                    cmdStr = $"SELECT ID FROM Users WHERE username = '{user.Username}' and email = '{user.Email}';";
+                    cmd = new SqlCommand(cmdStr, conn);
+                    string userId = Convert.ToString(cmd.ExecuteScalar());
+
+                    foreach (Instrument instrument in user.ListOfInstruments)
+                    {
+                        cmdStr = $"INSERT INTO Instruments_Played VALUES ('{userId}',@Name);";
+                        cmd = new SqlCommand(cmdStr, conn);
+                        cmd.Parameters.AddWithValue("@Name", instrument.Name);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    foreach (Place place in user.ListOfPlaces)
+                    {
+                        cmdStr = $"INSERT INTO Places VALUES ('{userId}',@City,@State,@FromDate,@ToDate);";
+                        cmd = new SqlCommand(cmdStr, conn);
+                        cmd.Parameters.AddWithValue("@City", place.CityName);
+                        cmd.Parameters.AddWithValue("@State", place.StateName);
+                        cmd.Parameters.AddWithValue("@FromDate", place.FromDate);
+                        cmd.Parameters.AddWithValue("@ToDate", place.ToDate);
+
+
+                        cmd.ExecuteNonQuery();
+                    }
 
                     return;
                 }
