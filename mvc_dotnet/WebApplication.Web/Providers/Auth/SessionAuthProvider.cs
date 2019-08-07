@@ -44,7 +44,7 @@ namespace WebApplication.Web.Providers.Auth
             var user = userDAL.GetUser(username);
             var hashProvider = new HashProvider();                        
             
-            if (user != null && hashProvider.VerifyPasswordMatch(user.Password, password, user.Salt))
+            if (user != null && hashProvider.VerifyPasswordMatch(user.PasswordHash, password, user.Salt))
             {                
                 Session.SetString(SessionKey, user.Username);
                 return true;
@@ -73,15 +73,15 @@ namespace WebApplication.Web.Providers.Auth
             var user = GetCurrentUser();
             
             // Confirm existing password match
-            if (user != null && hashProvider.VerifyPasswordMatch(user.Password, existingPassword, user.Salt))
+            if (user != null && hashProvider.VerifyPasswordMatch(user.PasswordHash, existingPassword, user.Salt))
             {
                 // Hash new password
                 var newHash = hashProvider.HashPassword(newPassword);
-                user.Password = newHash.Password;
+                user.PasswordHash = newHash.Password;
                 user.Salt = newHash.Salt;
 
-                // Save into the db
-                userDAL.UpdateUser(user);
+                //// Save into the db
+                //userDAL.UpdateUser(user);
 
                 return true;
             }
@@ -112,7 +112,7 @@ namespace WebApplication.Web.Providers.Auth
         /// <param name="password"></param>
         /// <param name="role"></param>
         /// <returns></returns>
-        public void Register(string username, string password, string role)
+        public void Register(string username, string password)
         {
             var hashProvider = new HashProvider();
             var passwordHash = hashProvider.HashPassword(password);
@@ -120,13 +120,18 @@ namespace WebApplication.Web.Providers.Auth
             var user = new User
             {
                 Username = username,
-                Password = passwordHash.Password,
+                PasswordHash = passwordHash.Password,
                 Salt = passwordHash.Salt,
-                Role = role
+                
             };
 
             userDAL.CreateUser(user);
             Session.SetString(SessionKey, user.Username);            
+        }
+
+        public bool UserHasRole(string[] roles)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -134,11 +139,6 @@ namespace WebApplication.Web.Providers.Auth
         /// </summary>
         /// <param name="roles"></param>
         /// <returns></returns>
-        public bool UserHasRole(string[] roles)
-        {            
-            var user = GetCurrentUser();
-            return (user != null) && 
-                roles.Any(r => r.ToLower() == user.Role.ToLower());
-        }
+
     }
 }

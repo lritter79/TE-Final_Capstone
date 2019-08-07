@@ -16,11 +16,11 @@ GO
 
 BEGIN TRANSACTION;
 
-CREATE TABLE User (
+CREATE TABLE Users (
 ID int identity (1, 1) NOT NULL,
 email varchar (100) NOT NULL,
 username varchar(50) NOT NULL,
-birtdate datetime NOT NULL,
+birthdate datetime NOT NULL,
 home_city varchar(50) NOT NULL,
 home_state varchar(50) NOT NULL,
 self_description varchar(Max) NOT NULL,
@@ -31,20 +31,25 @@ CONSTRAINT pk_users PRIMARY KEY (ID)
 );
 
 CREATE TABLE Places (
-ID int identity (1, 1) NOT NULL,
+user_id int NOT NULL,
 city varchar(50) NOT NULL,
 state_name varchar(50) NOT NULL,
 from_date datetime NOT NULL,
 to_date datetime NOT NULL,
-CONSTRAINT fk_places_users FOREIGN KEY (ID) REFERENCES Users (ID)
+CONSTRAINT fk_places_users FOREIGN KEY (user_id) REFERENCES Users (ID)
 );
 
 CREATE TABLE Instruments_Played (
-ID int identity (1, 1) NOT NULL,
+user_id int NOT NULL,
 instrument_name varchar(50) NOT NULL,
 
-CONSTRAINT fk_instuments_played_users FOREIGN KEY (ID) REFERENCES Users (ID)
+CONSTRAINT fk_instuments_played_users FOREIGN KEY (user_id) REFERENCES Users (ID)
 );
 
+
+
+
 COMMIT
+
+
 
