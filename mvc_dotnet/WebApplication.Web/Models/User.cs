@@ -57,10 +57,12 @@ namespace WebApplication.Web.Models
 
         [Required]
         [Display(Name = "Intrument(s) played. Choose up to three. If voice is entered please give range.")]
-        public string Instrument { get; set; }
+
+        public List<string> Instruments { get; set; }
 
         [Display(Name = "Touring cities this year")]
-        public string Places { get; set; }
+        public List<string> Places { get; set; }
+
 
        
         
