@@ -11,30 +11,29 @@
             <h2>Register</h2>
             <div class="container body-content">
                 <form asp-controller="account" asp-action="PostAccount" method="post"> 
+
+
                     <div class="form-group">
-                        <label asp-for="Username"></label><br /> 
-                        <input type="text" asp-for="Username" /> 
+                        <label asp-for="Username"></label><br />
+                        <input type="text" asp-for="Username" />
                         <span asp-validation-for="Username"></span>
-                    </div> 
+                    </div>
                     <div class="form-group">
-                        <label asp-for="HomeCity"></label><br /> 
-                        <input type="text" asp-for="HomeCity" /> 
+                        <label asp-for="HomeCity"></label><br />
+                        <input type="text" asp-for="HomeCity" />
                         <span asp-validation-for="HomeCity"></span>
-                    </div> 
+                    </div>
                     <div class="form-group">
-                        <label asp-for="HomeState"></label><br /> 
-                        <input type="text" asp-for="HomeState" /> 
-                        <span asp-validation-for="HomeCity"></span>
-                    </div> 
+                        <label asp-for="HomeState"></label><br />
+                        <input type="text" asp-for="HomeState" />
+                        <span asp-validation-for="HomeState"></span>
+                    </div>
                     <div class="form-group">
-                        <label asp-for="BirthDate"></label><br /> 
-                        <input type="date" asp-for="BirthDate"/> 
+                        <label asp-for="BirthDate"></label><br />
+                        <input type="date" asp-for="BirthDate" />
                         <span asp-validation-for="BirthDate"></span>
 
                     </div>
-                    
-                    
-                    
                     <div class="form-group">
                         <label asp-for="Email"></label><br />
                         <input type="email" asp-for="Email" />
@@ -55,7 +54,6 @@
                        <textarea name="paragraph_text" cols="50" rows="10"></textarea> 
                         <span asp-validation-for="SelfDescription"></span>
                     </div>
-                   
 
                     <input type="submit" value="Register" class="btn btn-default" />
                 </form>
