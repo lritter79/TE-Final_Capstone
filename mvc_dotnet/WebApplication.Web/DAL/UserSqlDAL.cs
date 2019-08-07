@@ -27,19 +27,45 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string cmdStr = "INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password_hash, salt) VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @salt )";
+                    string cmdStr = "INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password_hash, salt) VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @salt);";
                     SqlCommand cmd = new SqlCommand(cmdStr, conn);
-
+                    
                     cmd.Parameters.AddWithValue("@Email", user.Email);
                     cmd.Parameters.AddWithValue("@username", user.Username);
                     cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
                     cmd.Parameters.AddWithValue("@HomeCity", user.HomeCity);
                     cmd.Parameters.AddWithValue("@HomeState", user.HomeState);
                     cmd.Parameters.AddWithValue("@SelfDescription", user.SelfDescription);
-                    cmd.Parameters.AddWithValue("@password", user.Password);
+                    cmd.Parameters.AddWithValue("@password", user.PasswordHash);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
                    
-                    cmd.ExecuteNonQuery();
+                    int i = cmd.ExecuteNonQuery();
+                    //gets the id of the new user so we can add instruments and places with the users ID as the foreign key
+                    cmdStr = $"SELECT ID FROM Users WHERE username = '{user.Username}' and email = '{user.Email}';";
+                    cmd = new SqlCommand(cmdStr, conn);
+                    string userId = Convert.ToString(cmd.ExecuteScalar());
+
+                    foreach (Instrument instrument in user.ListOfInstruments)
+                    {
+                        cmdStr = $"INSERT INTO Instruments_Played VALUES ('{userId}',@Name);";
+                        cmd = new SqlCommand(cmdStr, conn);
+                        cmd.Parameters.AddWithValue("@Name", instrument.Name);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    foreach (Place place in user.ListOfPlaces)
+                    {
+                        cmdStr = $"INSERT INTO Places VALUES ('{userId}',@City,@State,@FromDate,@ToDate);";
+                        cmd = new SqlCommand(cmdStr, conn);
+                        cmd.Parameters.AddWithValue("@City", place.CityName);
+                        cmd.Parameters.AddWithValue("@State", place.StateName);
+                        cmd.Parameters.AddWithValue("@FromDate", place.FromDate);
+                        cmd.Parameters.AddWithValue("@ToDate", place.ToDate);
+
+
+                        cmd.ExecuteNonQuery();
+                    }
 
                     return;
                 }
@@ -97,6 +123,29 @@ namespace WebApplication.Web.DAL
                     {
                         user = MapRowToUser(reader);
                     }
+
+                    reader.Close();
+
+                    cmd = new SqlCommand("SELECT ID FROM users WHERE username = '@username'", conn);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    string userId = Convert.ToString(cmd.ExecuteScalar());
+
+
+                    cmd = new SqlCommand($"SELECT instrument_name FROM Instruments_Played WHERE user_id = '{userId}';", conn);
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        user.ListOfInstruments.Add(MapRowToInstrument(reader));
+                    }
+
+                    //cmd = new SqlCommand($"SELECT ine FROM Instruments_Played WHERE user_id = {userId};", conn);
+                    //reader = cmd.ExecuteReader();
+
+                    //while (reader.Read())
+                    //{
+                    //    user.ListOfInstruments.Add(MapRowToInstrument(reader));
+                    //}
                 }
 
                 return user;
@@ -140,12 +189,23 @@ namespace WebApplication.Web.DAL
         {
             return new User()
             {
-                Id = Convert.ToInt32(reader["id"]),
+                Id = Convert.ToInt32(reader["ID"]),
                 Username = Convert.ToString(reader["username"]),
-                Password = Convert.ToString(reader["password"]),
+                BirthDate = Convert.ToDateTime(reader["birthdate"]),
+                PasswordHash = Convert.ToString(reader["password_hash"]),
+                Email = Convert.ToString(reader["email"]),
+                HomeCity = Convert.ToString(reader["home_city"]),
+                HomeState = Convert.ToString(reader["home_state"]),
+                SelfDescription = Convert.ToString(reader["self_description"]),
                 Salt = Convert.ToString(reader["salt"]),
                 
             };
+        }
+
+        private Instrument MapRowToInstrument(SqlDataReader reader)
+        {
+            string Name = Convert.ToString(reader["instrument_name"]);
+            return new Instrument(Name);
         }
     }
 }
