@@ -180,7 +180,7 @@ namespace WebApplication.Tests.Providers
         #region Private Methods
         private void AddUserToDAL(string username)
         {
-            var user = new User { Username = username, Password = "OZpnzNCj1mcK3lvPKxhh89ikT0w=", Salt = "rsD3TaOu0XQ=" };            
+            var user = new User { Username = username, PasswordHash = "OZpnzNCj1mcK3lvPKxhh89ikT0w=", Salt = "rsD3TaOu0XQ=" };            
             mockUserDal.Setup(m => m.GetUser(username)).Returns(user);              
         }
 

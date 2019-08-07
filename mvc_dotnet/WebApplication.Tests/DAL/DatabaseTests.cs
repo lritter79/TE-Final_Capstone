@@ -27,7 +27,7 @@ namespace WebApplication.Tests.DAL
             {
                 connection.Open();
                 //Delete everything from our tables
-                string cmdText = "delete from Users; ";
+                string cmdText = "delete from Users;delete from Instruments_Played;delete from Places;";
                 SqlCommand command = new SqlCommand(cmdText, connection);
                 command.ExecuteNonQuery();                
 
@@ -36,6 +36,13 @@ namespace WebApplication.Tests.DAL
                 command = new SqlCommand(cmdText, connection);
                 command.ExecuteNonQuery();
 
+                cmdText = "SELECT ID FROM users WHERE username = 'luteMan'";
+                command = new SqlCommand(cmdText, connection);
+                string userId = Convert.ToString(command.ExecuteScalar());
+
+                cmdText = $"INSERT INTO Instruments_Played VALUES('{userId}','lute');INSERT INTO Instruments_Played VALUES('{userId}','archlute');INSERT INTO Instruments_Played VALUES('{userId}','theorbo');";
+                command = new SqlCommand(cmdText, connection);
+                command.ExecuteNonQuery();
 
             }
         }
@@ -50,9 +57,18 @@ namespace WebApplication.Tests.DAL
                 string cmdText = "SELECT email FROM users WHERE username = 'luteMan'";
                 SqlCommand command = new SqlCommand(cmdText, connection);
                 string userEmail = Convert.ToString(command.ExecuteScalar());
-                
+
+                cmdText = "SELECT ID FROM users WHERE username = 'luteMan'";
+                command = new SqlCommand(cmdText, connection);
+                string userId = Convert.ToString(command.ExecuteScalar());
+
+                cmdText = $"SELECT instrument_name FROM Instruments_Played WHERE user_id = '{userId}' ORDER BY instrument_name ASC";
+                command = new SqlCommand(cmdText, connection);
+                string firstInstrument = Convert.ToString(command.ExecuteScalar());
+
 
                 Assert.AreEqual("x@y.com", $"{userEmail}");
+                Assert.AreEqual("archlute", $"{firstInstrument}");
             }
         }
 
