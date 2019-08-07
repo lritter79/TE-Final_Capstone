@@ -20,10 +20,10 @@ namespace WebApplication.Tests.DAL
             user.Email = "fake@gmail.com";
             user.HomeCity = "pittsburgh";
             user.HomeState = "PA";
-            user.Instrument = "lute";
+            //user.Instrument = "lute";
             user.Password = "fake";
             user.Salt = "testSalt";
-            user.Places = "testplaces";
+            //user.Places = "testplaces";
             user.SelfDescription = "testdescription";
             user.Username = "fakeuser";
 
