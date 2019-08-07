@@ -8,9 +8,16 @@ namespace WebApplication.Web.Models
 {
     public class User
     {
+
+        public User()
+        {
+            this.ListOfInstruments = new List<Instrument>();
+            this.ListOfPlaces = new List<Place>();
+        }
         /// <summary>
         /// The user's id.
         /// </summary>
+        /// 
         [Required]
         public int Id { get; set; }
 
@@ -59,6 +66,7 @@ namespace WebApplication.Web.Models
         [Display(Name = "Intrument(s) played. Choose up to three. If voice is entered please give range.")]
 
         public List<Instrument> ListOfInstruments { get; set; }
+        
 
         [Display(Name = "Touring cities this year")]
         public List<Place> ListOfPlaces { get; set; }
