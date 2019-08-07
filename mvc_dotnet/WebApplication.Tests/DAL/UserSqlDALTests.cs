@@ -22,7 +22,7 @@ namespace WebApplication.Tests.DAL
             user.Email = "fake@gmail.com";
             user.HomeCity = "pittsburgh";
             user.HomeState = "PA";
-            
+            user.IsPublic = true;
             user.PasswordHash = "fake";
             user.Salt = "testSalt";
             
@@ -39,6 +39,17 @@ namespace WebApplication.Tests.DAL
             user.ListOfInstruments.Add(horn);
             user.ListOfInstruments.Add(violin);
             user.ListOfInstruments.Add(viola);
+
+            Composer b = new Composer("Bach");
+
+            Composer l = new Composer("Lully");
+
+            Composer r = new Composer("Rameau");
+
+
+            user.ListOfComposers.Add(l);
+            user.ListOfComposers.Add(b);
+            user.ListOfComposers.Add(r);
 
             Place firstPlace = new Place("foo", "bar", DateTime.Today, DateTime.Today);
             Place secondPlace = new Place("fooburgh", "barland", DateTime.Today, DateTime.Today);
@@ -70,9 +81,14 @@ namespace WebApplication.Tests.DAL
                 command = new SqlCommand(cmdText, connection);
                 string userDate = Convert.ToString(command.ExecuteScalar());
 
+                cmdText = $"SELECT composer_name FROM Composers WHERE user_id = '{userId}' ORDER BY composer_name ASC";
+                command = new SqlCommand(cmdText, connection);
+                string userComposer = Convert.ToString(command.ExecuteScalar());
+
                 Assert.AreEqual("fake@gmail.com", $"{userEmail}");
                 Assert.AreEqual("Horn", $"{userInstrument}");
                 Assert.AreEqual($"{DateTime.Today}", actual: $"{userDate}");
+                Assert.AreEqual($"Bach", actual: $"{userComposer}");
                 
             }
         }

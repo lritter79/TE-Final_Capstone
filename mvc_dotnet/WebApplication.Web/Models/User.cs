@@ -63,6 +63,8 @@ namespace WebApplication.Web.Models
         [Required]
         public string Salt { get; set; }
 
+        public bool IsPublic { get; set; }
+
         [Required]
         [Display(Name = "Intrument(s) played. Choose up to three. If voice is entered please give range.")]
 

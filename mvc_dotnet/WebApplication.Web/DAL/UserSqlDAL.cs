@@ -27,7 +27,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string cmdStr = "INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password_hash, salt) VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @salt);";
+                    string cmdStr = "INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password_hash, salt, is_public) VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @Salt, @IsPublic);";
                     SqlCommand cmd = new SqlCommand(cmdStr, conn);
                     
                     cmd.Parameters.AddWithValue("@Email", user.Email);
@@ -37,8 +37,17 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@HomeState", user.HomeState);
                     cmd.Parameters.AddWithValue("@SelfDescription", user.SelfDescription);
                     cmd.Parameters.AddWithValue("@password", user.PasswordHash);
-                    cmd.Parameters.AddWithValue("@salt", user.Salt);
-                   
+                    cmd.Parameters.AddWithValue("@Salt", user.Salt);
+                    if (user.IsPublic == true)
+                    {
+                        cmd.Parameters.AddWithValue("@IsPublic", 1);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@IsPublic", 0);
+                    }
+
+
                     int i = cmd.ExecuteNonQuery();
                     //gets the id of the new user so we can add instruments and places with the users ID as the foreign key
                     cmdStr = $"SELECT ID FROM Users WHERE username = '{user.Username}' and email = '{user.Email}';";
@@ -50,6 +59,15 @@ namespace WebApplication.Web.DAL
                         cmdStr = $"INSERT INTO Instruments_Played VALUES ('{userId}',@Name);";
                         cmd = new SqlCommand(cmdStr, conn);
                         cmd.Parameters.AddWithValue("@Name", instrument.Name);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    foreach (Composer composer in user.ListOfComposers)
+                    {
+                        cmdStr = $"INSERT INTO Composers VALUES ('{userId}',@Name);";
+                        cmd = new SqlCommand(cmdStr, conn);
+                        cmd.Parameters.AddWithValue("@Name", composer.Name);
 
                         cmd.ExecuteNonQuery();
                     }
@@ -143,6 +161,17 @@ namespace WebApplication.Web.DAL
 
                     reader.Close();
 
+                    cmd = new SqlCommand($"SELECT composer_name FROM Composers WHERE user_id = '{userId}';", conn);
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        user.ListOfComposers.Add(MapRowToComposer(reader));
+                    }
+
+                    reader.Close();
+
+
                     cmd = new SqlCommand($"SELECT city, state_name,from_date,to_date FROM Places WHERE user_id = '{userId}';", conn);
                     reader = cmd.ExecuteReader();
 
@@ -204,6 +233,7 @@ namespace WebApplication.Web.DAL
                 HomeState = Convert.ToString(reader["home_state"]),
                 SelfDescription = Convert.ToString(reader["self_description"]),
                 Salt = Convert.ToString(reader["salt"]),
+                IsPublic = Convert.ToBoolean(reader["is_public"])
                 
             };
         }
@@ -212,6 +242,12 @@ namespace WebApplication.Web.DAL
         {
             string Name = Convert.ToString(reader["instrument_name"]);
             return new Instrument(Name);
+        }
+
+        private Composer MapRowToComposer(SqlDataReader reader)
+        {
+            string Name = Convert.ToString(reader["composer_name"]);
+            return new Composer(Name);
         }
 
         private Place MapRowToPlace(SqlDataReader reader)

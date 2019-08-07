@@ -26,6 +26,8 @@ home_state varchar(50) NOT NULL,
 self_description varchar(Max) NOT NULL,
 password_hash varchar(50) NOT NULL,
 salt varchar(50) NOT NUll,
+--1 is true and 0 is false for a bit value being converted to a bool
+is_public bit NOT NULL,
 CONSTRAINT pk_users PRIMARY KEY (ID)
 
 );
@@ -50,7 +52,7 @@ CREATE TABLE Composers (
 user_id int NOT NULL,
 composer_name varchar(50) NOT NULL,
 
-CONSTRAINT fk_instuments_played_users FOREIGN KEY (user_id) REFERENCES Users (ID)
+CONSTRAINT fk_composers_users FOREIGN KEY (user_id) REFERENCES Users (ID)
 );
 
 
