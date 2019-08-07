@@ -26,6 +26,15 @@ namespace WebApplication.Web.Controllers
             return View(user);
         }
 
+        //Posting register view and redirecting to Login view
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PostAccount(RegisterViewModel register)
+        {
+            //save to dao.SaveRegister
+            return RedirectToAction("Login");
+        }
+
         [HttpGet]
         public IActionResult Login()
         {            
