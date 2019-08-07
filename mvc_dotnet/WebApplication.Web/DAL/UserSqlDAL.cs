@@ -80,26 +80,26 @@ namespace WebApplication.Web.DAL
         /// Deletes the user from the database.
         /// </summary>
         /// <param name="user"></param>
-        public void DeleteUser(User user)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand("DELETE FROM users WHERE id = @id;", conn);
-                    cmd.Parameters.AddWithValue("@id", user.Id);                    
+        //public void DeleteUser(User user)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            conn.Open();
+        //            SqlCommand cmd = new SqlCommand("DELETE FROM users WHERE id = @id;", conn);
+        //            cmd.Parameters.AddWithValue("@id", user.Id);                    
 
-                    cmd.ExecuteNonQuery();
+        //            cmd.ExecuteNonQuery();
 
-                    return;
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-        }
+        //            return;
+        //        }
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         /// <summary>
         /// Gets the user from the database.
@@ -124,9 +124,11 @@ namespace WebApplication.Web.DAL
                         user = MapRowToUser(reader);
                     }
 
+
+
                     reader.Close();
 
-                    cmd = new SqlCommand("SELECT ID FROM users WHERE username = '@username'", conn);
+                    cmd = new SqlCommand("SELECT ID FROM users WHERE username = @username", conn);
                     cmd.Parameters.AddWithValue("@username", username);
                     string userId = Convert.ToString(cmd.ExecuteScalar());
 
@@ -139,13 +141,17 @@ namespace WebApplication.Web.DAL
                         user.ListOfInstruments.Add(MapRowToInstrument(reader));
                     }
 
-                    //cmd = new SqlCommand($"SELECT ine FROM Instruments_Played WHERE user_id = {userId};", conn);
-                    //reader = cmd.ExecuteReader();
+                    reader.Close();
 
-                    //while (reader.Read())
-                    //{
-                    //    user.ListOfInstruments.Add(MapRowToInstrument(reader));
-                    //}
+                    cmd = new SqlCommand($"SELECT city, state_name,from_date,to_date FROM Places WHERE user_id = '{userId}';", conn);
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        user.ListOfPlaces.Add(MapRowToPlace(reader));
+                    }
+
+                    reader.Close();
                 }
 
                 return user;
@@ -206,6 +212,15 @@ namespace WebApplication.Web.DAL
         {
             string Name = Convert.ToString(reader["instrument_name"]);
             return new Instrument(Name);
+        }
+
+        private Place MapRowToPlace(SqlDataReader reader)
+        {
+            string CityName = Convert.ToString(reader["city"]);
+            string StateName = Convert.ToString(reader["state_name"]);
+            DateTime FromDate = Convert.ToDateTime(reader["from_date"]);
+            DateTime ToDate = Convert.ToDateTime(reader["to_date"]);
+            return new Place(CityName, StateName, FromDate, ToDate);
         }
     }
 }

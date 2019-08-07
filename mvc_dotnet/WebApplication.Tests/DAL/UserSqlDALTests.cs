@@ -28,7 +28,7 @@ namespace WebApplication.Tests.DAL
             
             user.SelfDescription = "testdescription";
             user.Username = "fakeuser";
-            user.ListOfInstruments = new List<Instrument>();
+            
             Instrument horn = new Instrument("Horn");
             
             Instrument violin = new Instrument("Violin");
@@ -43,7 +43,7 @@ namespace WebApplication.Tests.DAL
             Place firstPlace = new Place("foo", "bar", DateTime.Today, DateTime.Today);
             Place secondPlace = new Place("fooburgh", "barland", DateTime.Today, DateTime.Today);
 
-            user.ListOfPlaces = new List<Place>();
+            
             user.ListOfPlaces.Add(firstPlace);
             user.ListOfPlaces.Add(secondPlace);
 

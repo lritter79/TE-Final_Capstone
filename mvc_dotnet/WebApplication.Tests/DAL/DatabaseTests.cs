@@ -44,6 +44,10 @@ namespace WebApplication.Tests.DAL
                 command = new SqlCommand(cmdText, connection);
                 command.ExecuteNonQuery();
 
+                cmdText = $"INSERT INTO Places VALUES('{userId}','footown','barland','{DateTime.Now}','{DateTime.Now}');INSERT INTO Places VALUES('{userId}','fooville','baristan','{DateTime.Now}','{DateTime.Now}');";
+                command = new SqlCommand(cmdText, connection);
+                command.ExecuteNonQuery();
+
             }
         }
 
