@@ -8,6 +8,7 @@ namespace WebApplication.Web.Models.Account
 {
     public class RegisterViewModel
     {
+        
         [Required]
         [Display(Name = "Username")]
         public string Username { get; set; }
@@ -20,7 +21,8 @@ namespace WebApplication.Web.Models.Account
         [Display(Name = "Home State")]
         public string HomeState { get; set; }
 
-        [Required(ErrorMessage = "Birth Date is required.Min age at least 18, Max age < 110")]
+
+        [Required(ErrorMessage = "Birth Date is required. Min age at least 18, Max age < 110")]
         [Display(Name = "Date of Birth")]
         public string BirthDate { get; set; }
 

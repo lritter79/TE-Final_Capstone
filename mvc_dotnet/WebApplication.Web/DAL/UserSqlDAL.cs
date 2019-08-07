@@ -27,12 +27,18 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO users VALUES (@username, @password, @salt, @role);", conn);
+                    string cmdStr = "INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password_hash, salt) VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @salt )";
+                    SqlCommand cmd = new SqlCommand(cmdStr, conn);
+
+                    cmd.Parameters.AddWithValue("@Email", user.Email);
                     cmd.Parameters.AddWithValue("@username", user.Username);
+                    cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
+                    cmd.Parameters.AddWithValue("@HomeCity", user.HomeCity);
+                    cmd.Parameters.AddWithValue("@HomeState", user.HomeState);
+                    cmd.Parameters.AddWithValue("@SelfDescription", user.SelfDescription);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
-                    cmd.Parameters.AddWithValue("@role", user.Role);
-
+                   
                     cmd.ExecuteNonQuery();
 
                     return;
@@ -105,29 +111,30 @@ namespace WebApplication.Web.DAL
         /// Updates the user in the database.
         /// </summary>
         /// <param name="user"></param>
-        public void UpdateUser(User user)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand("UPDATE users SET password = @password, salt = @salt, role = @role WHERE id = @id;", conn);                    
-                    cmd.Parameters.AddWithValue("@password", user.Password);
-                    cmd.Parameters.AddWithValue("@salt", user.Salt);
-                    cmd.Parameters.AddWithValue("@role", user.Role);
-                    cmd.Parameters.AddWithValue("@id", user.Id);
+        //public void UpdateUser(User user)
+        //{
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(connectionString))
+        //        {
+        //            conn.Open();
+        //            SqlCommand cmd = new SqlCommand("UPDATE users SET password = @password, salt = @salt, 
+        //                = @role WHERE id = @id;", conn);                    
+        //            cmd.Parameters.AddWithValue("@password", user.Password);
+        //            cmd.Parameters.AddWithValue("@salt", user.Salt);
+                    
+        //            cmd.Parameters.AddWithValue("@id", user.Id);
 
-                    cmd.ExecuteNonQuery();
+        //            cmd.ExecuteNonQuery();
 
-                    return;
-                }
-            }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
-        }
+        //            return;
+        //        }
+        //    }
+        //    catch (SqlException ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         private User MapRowToUser(SqlDataReader reader)
         {
@@ -137,7 +144,7 @@ namespace WebApplication.Web.DAL
                 Username = Convert.ToString(reader["username"]),
                 Password = Convert.ToString(reader["password"]),
                 Salt = Convert.ToString(reader["salt"]),
-                Role = Convert.ToString(reader["role"])
+                
             };
         }
     }
