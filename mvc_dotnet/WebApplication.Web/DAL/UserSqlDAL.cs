@@ -27,17 +27,17 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    //string cmdStr = "INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password_hash, salt, is_public) VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @Salt, @IsPublic);";
+                    //string cmdStr = "INSERT INTO Users (email, username, Age , home_city, home_state, self_description, password_hash, salt, is_public) VALUES (@Email, @Username, @Age , @HomeCity, @HomeState, @SelfDescription, @Password, @Salt, @IsPublic);";
 
                     //commenting out salt for now
-                    string cmdStr = "INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password_hash, is_public) VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @IsPublic);";
+                    string cmdStr = "INSERT INTO Users (email, username, age , home_city, home_state, self_description, password_hash, is_public) VALUES (@Email, @Username, @Age , @HomeCity, @HomeState, @SelfDescription, @Password, @IsPublic);";
 
 
                     SqlCommand cmd = new SqlCommand(cmdStr, conn);
                     
                     cmd.Parameters.AddWithValue("@Email", user.Email);
                     cmd.Parameters.AddWithValue("@username", user.Username);
-                    cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
+                    cmd.Parameters.AddWithValue("@Age ", user.Age );
                     cmd.Parameters.AddWithValue("@HomeCity", user.HomeCity);
                     cmd.Parameters.AddWithValue("@HomeState", user.HomeState);
                     cmd.Parameters.AddWithValue("@SelfDescription", user.SelfDescription);
@@ -127,9 +127,9 @@ namespace WebApplication.Web.DAL
         /// <summary>
         /// Gets the user from the database.
         /// </summary>
-        /// <param name="username"></param>
+        /// <param email="email"></param>
         /// <returns></returns>
-        public User GetUser(string username)
+        public User GetUser(string email)
         {
             User user = null;
             try
@@ -137,8 +137,8 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM USERS WHERE username = @username;", conn);
-                    cmd.Parameters.AddWithValue("@username", username);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM USERS WHERE email = @email;", conn);
+                    cmd.Parameters.AddWithValue("@email", email);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -151,8 +151,8 @@ namespace WebApplication.Web.DAL
 
                     reader.Close();
 
-                    cmd = new SqlCommand("SELECT ID FROM users WHERE username = @username", conn);
-                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd = new SqlCommand("SELECT ID FROM users WHERE email = @email", conn);
+                    cmd.Parameters.AddWithValue("@email", email);
                     string userId = Convert.ToString(cmd.ExecuteScalar());
 
 
@@ -225,13 +225,71 @@ namespace WebApplication.Web.DAL
         //    }
         //}
 
+
+        public List<User> GetUsers()
+        {
+            List<User> UserList = new List<User>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM USERS WHERE email = @email;", conn);
+                    
+
+                    cmd = new SqlCommand($"SELECT * FROM Users WHERE is_public = 1;", conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        UserList.Add(MapRowToUser(reader));
+                    }
+                    reader.Close();
+                    
+                    foreach (User user in UserList)
+                    {
+                        cmd = new SqlCommand($"SELECT city, state_name,from_date,to_date FROM Places WHERE user_id = '{user.Id}';", conn);
+                        reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            user.ListOfPlaces.Add(MapRowToPlace(reader));
+                        }
+
+                        reader.Close();
+
+                        cmd = new SqlCommand($"SELECT composer_name FROM Composers WHERE user_id = '{user.Id}';", conn);
+                        reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            user.ListOfComposers.Add(MapRowToComposer(reader));
+                        }
+
+                        reader.Close();
+                    }
+
+                }
+
+                return UserList;
+            }
+
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+
+            
+
+        }
         private User MapRowToUser(SqlDataReader reader)
         {
             return new User()
             {
                 Id = Convert.ToInt32(reader["ID"]),
                 Username = Convert.ToString(reader["username"]),
-                BirthDate = Convert.ToDateTime(reader["birthdate"]),
+                Age  = Convert.ToInt32(reader["age"]),
                 PasswordHash = Convert.ToString(reader["password_hash"]),
                 Email = Convert.ToString(reader["email"]),
                 HomeCity = Convert.ToString(reader["home_city"]),

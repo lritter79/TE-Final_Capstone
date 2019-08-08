@@ -18,7 +18,7 @@ namespace WebApplication.Tests.DAL
             User user = new User();
 
             //populates our fake user with info
-            user.BirthDate = new DateTime(2018, 1, 15);
+            user.Age  = 19;
             user.Email = "fake@gmail.com";
             user.HomeCity = "pittsburgh";
             user.HomeState = "PA";
@@ -97,8 +97,18 @@ namespace WebApplication.Tests.DAL
         public void GetUserTest()
         {
             UserSqlDAL dal = new UserSqlDAL(ConnectionString);
-            User user = dal.GetUser("luteMan");
+            string email = "x@y.com";
+            User user = dal.GetUser(email);
             Assert.IsNotNull(user);
+        }
+
+        [TestMethod]
+        public void GetUsersListTest()
+        {
+            UserSqlDAL dal = new UserSqlDAL(ConnectionString);
+            
+            List<User> users = dal.GetUsers();
+            Assert.IsNotNull(users);
         }
     }
     
