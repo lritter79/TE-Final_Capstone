@@ -37,18 +37,43 @@ namespace WebApplication.Web.Controllers
         public IActionResult Login(LoginViewModel loginViewModel)
         {
             // Ensure the fields were filled out
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                // Check that they provided correct credentials
-                bool validLogin = authProvider.SignIn(loginViewModel.Email, loginViewModel.Password);
-                if (validLogin)
-                {
-                    // Redirect the user where you want them to go after successful login
-                    return RedirectToAction("Index", "Home");
-                }
+                return View(loginViewModel);
             }
+            // Check that they provided correct credentials
+             /*   bool validLogin = authProvider.SignIn(loginViewModel.Email, loginViewModel.Password);
+                if (!validLogin)
+                {
+                    
+                    return View(loginViewModel);
+                }
+                else
+            {
+                //dao.*/
+            
+            // Redirect the user where you want them to go after successful login
+            return RedirectToAction("BioPage", "Account");
+        }
 
-            return View(loginViewModel);
+        [HttpGet]
+        public IActionResult BioPage()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult PerspectiveDates()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PostBioPage(User user)
+        {
+            //dao.SaveBioPage(User user); this is where the code will go to save this page.
+            return RedirectToAction("PerspectiveDates", "Account");
         }
         
         [HttpGet]
@@ -79,10 +104,15 @@ namespace WebApplication.Web.Controllers
                 authProvider.Register(user.Email, user.PasswordHash);
 
                 // Redirect the user where you want them to go after registering
-                return RedirectToAction("Index", "Home");
             }
+            return RedirectToAction("RegistrationComplete", "Account");
+        }
 
-            return View(user);
+
+        [HttpGet]
+        public IActionResult RegistrationComplete()
+        {
+            return View();
         }
 
         //[HttpPost]
