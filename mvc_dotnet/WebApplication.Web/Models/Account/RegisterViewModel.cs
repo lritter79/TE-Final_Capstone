@@ -24,7 +24,7 @@ namespace WebApplication.Web.Models.Account
 
         [Required(ErrorMessage = "Birth Date is required. Min age at least 18, Max age < 110")]
         [Display(Name = "Date of Birth")]
-        public string BirthDate { get; set; }
+        public string Age  { get; set; }
 
 
         [Required]

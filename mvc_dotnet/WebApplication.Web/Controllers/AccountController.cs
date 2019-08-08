@@ -38,32 +38,37 @@ namespace WebApplication.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(LoginViewModel loginViewModel)
+        public IActionResult Login(LoginViewModel login)
         {
             // Ensure the fields were filled out
+
             if (!ModelState.IsValid)
             {
-                return View(loginViewModel);
+                return View();
             }
             // Check that they provided correct credentials
-             /*   bool validLogin = authProvider.SignIn(loginViewModel.Email, loginViewModel.Password);
-                if (!validLogin)
-                {
-                    
-                    return View(loginViewModel);
-                }
-                else
-            {
-                //dao.*/
-            
+            /*   bool validLogin = authProvider.SignIn(loginViewModel.Email, loginViewModel.Password);
+               if (!validLogin)
+               {
+
+                   return View(loginViewModel);
+               }
+               else
+           {
+               //dao.*/
+
             // Redirect the user where you want them to go after successful login
-            return RedirectToAction("BioPage", "Account");
+            else
+            {
+                
+                return RedirectToAction("BioPage", "Account");
+            }
         }
 
         [HttpGet]
-        public IActionResult BioPage(string username)
+        public IActionResult BioPage(string email)
         {
-            User user = UserDAL.GetUser(username);
+            User user = UserDAL.GetUser(email);
             return View(user);
         }
 
