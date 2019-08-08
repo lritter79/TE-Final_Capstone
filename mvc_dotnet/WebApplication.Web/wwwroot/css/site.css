@@ -62,13 +62,20 @@ body {
 }
 
 
-.transparent-overlay {
-    position: absolute;
+.overlay {
+    background: rgb(2,0,36);
+    background: linear-gradient(186deg, rgba(2,0,36,1) 0%, rgba(182,144,150,1) 0%, rgba(235,215,107,1) 100%);
+    color: #13474d;
+    padding-top: 10px;
+    border-radius: 3%;
+}
+.overlay-border {
     top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.3);
-    padding-bottom: 25px;
+    background: rgb(2,0,36);
+    background: linear-gradient(8deg, rgba(2,0,36,1) 0%, rgba(182,144,150,1) 0%, rgba(235,215,107,1) 100%);
+    color: #13474d;
+    padding: 1px;
+    border-radius: 3%;
 }
 
     .transparent-overlay label, .transparent-overlay h2 {
@@ -81,7 +88,7 @@ body {
     }
 
 .center-form {
-    margin-left: 20%;
+    //margin-left: 20%;
 }
 
 body {
@@ -99,4 +106,33 @@ footer, #push {
     color: black;
     text-shadow: 2px 2px 5px red;
     font-size: 80%;
+}
+
+.confirmation-bg {
+    width: 100%;
+    height: auto;
+    background: url(../images/sheetmusic.jpg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.registration-bg {
+    width: 100%;
+    height: auto;
+    background: url(../images/musicdatingSmall.jpg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.form-table {
+    width: 100%;
+}
+
+.form-table th, .form-table td {
+        width: 33%;
+    }
+.submit-button {
+    margin-left: 30%;
 }
