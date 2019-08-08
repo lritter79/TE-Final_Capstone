@@ -52,6 +52,27 @@ namespace WebApplication.Tests.DAL
                 command = new SqlCommand(cmdText, connection);
                 command.ExecuteNonQuery();
 
+                ///Add row to user table
+                cmdText = $"INSERT INTO Users VALUES('x@y.com','luteMan2', 12/09/1990,'Pittsburgh','PA','Just a small-town girl','pep','salty', '1');SELECT SCOPE_IDENTITY();";
+                command = new SqlCommand(cmdText, connection);
+                command.ExecuteNonQuery();
+
+                cmdText = "SELECT ID FROM users WHERE username = 'luteMan2'";
+                command = new SqlCommand(cmdText, connection);
+                string userIdTwo = Convert.ToString(command.ExecuteScalar());
+
+                cmdText = $"INSERT INTO Instruments_Played VALUES('{userIdTwo}','lute');INSERT INTO Instruments_Played VALUES('{userIdTwo}','archlute');INSERT INTO Instruments_Played VALUES('{userIdTwo}','theorbo');";
+                command = new SqlCommand(cmdText, connection);
+                command.ExecuteNonQuery();
+
+                cmdText = $"INSERT INTO Places VALUES('{userIdTwo}','footown','barland','{DateTime.Now}','{DateTime.Now}');INSERT INTO Places VALUES('{userIdTwo}','fooville','baristan','{DateTime.Now}','{DateTime.Now}');";
+                command = new SqlCommand(cmdText, connection);
+                command.ExecuteNonQuery();
+
+                cmdText = $"INSERT INTO Composers VALUES('{userIdTwo}','Purcell');INSERT INTO Composers VALUES('{userIdTwo}','Monteverdi');";
+                command = new SqlCommand(cmdText, connection);
+                command.ExecuteNonQuery();
+
             }
         }
 

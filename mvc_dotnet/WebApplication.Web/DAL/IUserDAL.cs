@@ -11,9 +11,9 @@ namespace WebApplication.Web.DAL
         /// <summary>
         /// Retrieves a user from the system by username.
         /// </summary>
-        /// <param name="username"></param>
+        /// <param email="email"></param>
         /// <returns></returns>
-        User GetUser(string username);
+        User GetUser(string email);
 
         /// <summary>
         /// Creates a new user.

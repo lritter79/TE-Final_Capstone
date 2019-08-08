@@ -39,11 +39,11 @@ namespace WebApplication.Web.Models
         [MaxLength(50)]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "Birth Date is required. Min age at least 18")]
+        [Required(ErrorMessage = "Age is required. Min age at least 18")]
         // still needs a way to aasert that the user registering is 18 or older
-        [Display(Name = "Date of Birth")]
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime BirthDate { get; set; }
+        [Display(Name = "Age")]
+        
+        public int Age  { get; set; }
 
         [Required(ErrorMessage = "Home city is required.")]
         [Display(Name = "Home City")]
