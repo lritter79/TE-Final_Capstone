@@ -25,7 +25,7 @@ home_city varchar(50) NOT NULL,
 home_state varchar(50) NOT NULL,
 self_description varchar(Max) NOT NULL,
 password_hash varchar(50) NOT NULL,
-salt varchar(50) NOT NUll,
+salt varchar(50) NUll,
 --1 is true and 0 is false for a bit value being converted to a bool
 is_public bit NOT NULL,
 CONSTRAINT pk_users PRIMARY KEY (ID)

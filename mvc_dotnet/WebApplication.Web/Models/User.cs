@@ -14,12 +14,14 @@ namespace WebApplication.Web.Models
             this.ListOfInstruments = new List<Instrument>();
             this.ListOfPlaces = new List<Place>();
             this.ListOfComposers = new List<Composer>();
+            this.SelfDescription = "";
+            this.IsPublic = true;
         }
         /// <summary>
         /// The user's id.
         /// </summary>
         /// 
-        [Required]
+        
         public int Id { get; set; }
 
         /// <summary>
@@ -32,40 +34,51 @@ namespace WebApplication.Web.Models
         /// <summary>
         /// The user's username.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Username is required.")]
+        [Display(Name = "Username")]
         [MaxLength(50)]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "Birth Date is required.Min age at least 18, Max age < 110")]
+        [Required(ErrorMessage = "Birth Date is required. Min age at least 18")]
+        // still needs a way to aasert that the user registering is 18 or older
         [Display(Name = "Date of Birth")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Home city is required.")]
         [Display(Name = "Home City")]
         public string HomeCity { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Home state is required.")]
         [Display(Name = "Home State")]
         public string HomeState { get; set; }
 
-        [Required]
+        [Display(Name = "Bio")]
         public string SelfDescription { get; set; }
 
         /// <summary>
         /// The user's password.
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Password is required.")]
+        [StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
+        [Display(Name = "Password")]
         public string PasswordHash { get; set; }
 
+
+        [Required(ErrorMessage = "Confirm Password is required")]
+        [StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
+        [DataType(DataType.Password)]
+        [Compare("PasswordHash", ErrorMessage = "Must be the same as password")]
+        public string ConfirmPassword { get; set; }
         /// <summary>
         /// The user's salt.
         /// </summary>
-        [Required]
+        
         public string Salt { get; set; }
 
         public bool IsPublic { get; set; }
 
-        [Required]
+        
         [Display(Name = "Intrument(s) played. Choose up to three. If voice is entered please give range.")]
 
         public List<Instrument> ListOfInstruments { get; set; }

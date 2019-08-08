@@ -5,11 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Web.Models;
+using WebApplication.Web.DAL;
 
 namespace WebApplication.Web.Controllers
 {
+
     public class HomeController : Controller
     {
+        private IUserDAL UserDAL { get; }
+
         public IActionResult Index()
         {            
             return View();

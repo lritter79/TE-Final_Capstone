@@ -6,15 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using WebApplication.Web.Models;
 using WebApplication.Web.Models.Account;
 using WebApplication.Web.Providers.Auth;
+using WebApplication.Web.DAL;
 
 namespace WebApplication.Web.Controllers
 {    
     public class AccountController : Controller
     {
+        private IUserDAL UserDAL { get; }
         private readonly IAuthProvider authProvider;
-        public AccountController(IAuthProvider authProvider)
+        public AccountController(IAuthProvider authProvider, IUserDAL UserDAL)
         {
             this.authProvider = authProvider;
+            this.UserDAL = UserDAL;
         }
         
         //[AuthorizationFilter] // actions can be filtered to only those that are logged in
@@ -28,7 +31,8 @@ namespace WebApplication.Web.Controllers
 
         [HttpGet]
         public IActionResult Login()
-        {            
+        {
+            
             return View();
         }
 
@@ -57,9 +61,10 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult BioPage()
+        public IActionResult BioPage(string username)
         {
-            return View();
+            User user = UserDAL.GetUser(username);
+            return View(user);
         }
 
         [HttpGet]
@@ -101,11 +106,20 @@ namespace WebApplication.Web.Controllers
                 // Register them as a new user (and set default role)
                 // When a user registeres they need to be given a role. If you don't need anything special
                 // just give them "User".
-                authProvider.Register(user.Email, user.PasswordHash);
+                //authProvider.Register(user.Email, user.PasswordHash);
+                UserDAL.CreateUser(user);
+
 
                 // Redirect the user where you want them to go after registering
+                return RedirectToAction("RegistrationComplete");
             }
-            return RedirectToAction("RegistrationComplete", "Account");
+            
+
+            else 
+            {
+                return View(user);
+                
+            }
         }
 
 

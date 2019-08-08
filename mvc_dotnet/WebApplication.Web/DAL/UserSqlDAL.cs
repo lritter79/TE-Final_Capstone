@@ -27,7 +27,12 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    string cmdStr = "INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password_hash, salt, is_public) VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @Salt, @IsPublic);";
+                    //string cmdStr = "INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password_hash, salt, is_public) VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @Salt, @IsPublic);";
+
+                    //commenting out salt for now
+                    string cmdStr = "INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password_hash, is_public) VALUES (@Email, @Username, @Birthdate, @HomeCity, @HomeState, @SelfDescription, @Password, @IsPublic);";
+
+
                     SqlCommand cmd = new SqlCommand(cmdStr, conn);
                     
                     cmd.Parameters.AddWithValue("@Email", user.Email);
@@ -37,7 +42,7 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@HomeState", user.HomeState);
                     cmd.Parameters.AddWithValue("@SelfDescription", user.SelfDescription);
                     cmd.Parameters.AddWithValue("@password", user.PasswordHash);
-                    cmd.Parameters.AddWithValue("@Salt", user.Salt);
+                    //cmd.Parameters.AddWithValue("@Salt", user.Salt);
                     if (user.IsPublic == true)
                     {
                         cmd.Parameters.AddWithValue("@IsPublic", 1);
