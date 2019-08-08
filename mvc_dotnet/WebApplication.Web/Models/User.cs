@@ -13,6 +13,7 @@ namespace WebApplication.Web.Models
         {
             this.ListOfInstruments = new List<Instrument>();
             this.ListOfPlaces = new List<Place>();
+            this.ListOfComposers = new List<Composer>();
         }
         /// <summary>
         /// The user's id.
@@ -62,6 +63,8 @@ namespace WebApplication.Web.Models
         [Required]
         public string Salt { get; set; }
 
+        public bool IsPublic { get; set; }
+
         [Required]
         [Display(Name = "Intrument(s) played. Choose up to three. If voice is entered please give range.")]
 
@@ -70,5 +73,8 @@ namespace WebApplication.Web.Models
 
         [Display(Name = "Touring cities this year")]
         public List<Place> ListOfPlaces { get; set; }
+
+        [Display(Name = "Favorite Composers")]
+        public List<Composer> ListOfComposers { get; set; }
     }
 }

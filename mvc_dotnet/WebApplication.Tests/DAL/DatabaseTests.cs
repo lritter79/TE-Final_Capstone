@@ -32,7 +32,7 @@ namespace WebApplication.Tests.DAL
                 command.ExecuteNonQuery();                
 
                 ///Add row to user table
-                cmdText = $"INSERT INTO Users VALUES('x@y.com','luteMan', 12/09/1990,'Pittsburgh','PA','Just a small-town girl','pep','salty');SELECT SCOPE_IDENTITY();";
+                cmdText = $"INSERT INTO Users VALUES('x@y.com','luteMan', 12/09/1990,'Pittsburgh','PA','Just a small-town girl','pep','salty', '1');SELECT SCOPE_IDENTITY();";
                 command = new SqlCommand(cmdText, connection);
                 command.ExecuteNonQuery();
 
@@ -48,11 +48,15 @@ namespace WebApplication.Tests.DAL
                 command = new SqlCommand(cmdText, connection);
                 command.ExecuteNonQuery();
 
+                cmdText = $"INSERT INTO Composers VALUES('{userId}','Purcell');INSERT INTO Composers VALUES('{userId}','Locke');";
+                command = new SqlCommand(cmdText, connection);
+                command.ExecuteNonQuery();
+
             }
         }
 
         [TestMethod]
-        public void GetEmailAddress()
+        public void GetInfo()
         {
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
@@ -70,9 +74,14 @@ namespace WebApplication.Tests.DAL
                 command = new SqlCommand(cmdText, connection);
                 string firstInstrument = Convert.ToString(command.ExecuteScalar());
 
+                cmdText = $"SELECT composer_name FROM Composers WHERE user_id = '{userId}' ORDER BY composer_name ASC";
+                command = new SqlCommand(cmdText, connection);
+                string firstComposer = Convert.ToString(command.ExecuteScalar());
+
 
                 Assert.AreEqual("x@y.com", $"{userEmail}");
                 Assert.AreEqual("archlute", $"{firstInstrument}");
+                Assert.AreEqual("Locke", $"{firstComposer}");
             }
         }
 
