@@ -78,6 +78,23 @@ body {
     padding: 1px;
     border-radius: 3%;
 }
+.overlay-login {
+    background: rgb(2,0,36);
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(112,73,27,1) 0%, rgba(218,187,117,1) 100%);
+    color: black;
+    padding-top: 10px;
+    border-radius: 3%;
+}
+
+.overlay-border-login {
+    top: 80%;
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(112,73,27,1) 0%, rgba(218,187,117,1) 100%);
+    color: black;
+    padding: 1px;
+    border-radius: 3%;
+}
+
 
 .transparent-overlay label, .transparent-overlay h2 {
     color: white;
