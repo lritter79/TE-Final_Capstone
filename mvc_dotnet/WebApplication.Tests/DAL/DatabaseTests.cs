@@ -32,9 +32,14 @@ namespace WebApplication.Tests.DAL
                 command.ExecuteNonQuery();
 
                 ///Add row to user table
-                cmdText = $"INSERT INTO Users VALUES('x@y.com','luteMan', '69','Pittsburgh','PA','Just a small-town girl','pep','salty', 'User', '1');SELECT SCOPE_IDENTITY();";
+                cmdText = $"INSERT INTO Users (email, username, age, home_city, home_state, self_description, password, salt,is_public) VALUES('x@y.com','luteMan', '69','Pittsburgh','PA','Just a small-town girl','pep','salty', '1');SELECT SCOPE_IDENTITY();";
                 command = new SqlCommand(cmdText, connection);
                 command.ExecuteNonQuery();
+
+                //cmdText = $"INSERT INTO Users VALUES('x@y.com','luteMan', 12/09/1990,'Pittsburgh','PA','Just a small-town girl','pep','salty', '1');SELECT SCOPE_IDENTITY();";
+                //command = new SqlCommand(cmdText, connection);
+                //command.ExecuteNonQuery();
+
 
                 cmdText = "SELECT ID FROM users WHERE username = 'luteMan'";
                 command = new SqlCommand(cmdText, connection);
