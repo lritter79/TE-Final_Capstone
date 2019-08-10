@@ -35,3 +35,138 @@ body {
         display: none;
     }
 }
+
+@media screen and (min-aspect-ratio: 2000/1192) {
+    .bg-registration {
+        width: 100%;
+        z-index: 0;
+    }
+}
+
+@media screen and (max-aspect-ratio: 2000/1192) {
+
+    .bg-registration {
+        z-index: 0;
+        height: 100%; /*min-height hack*/
+    }
+}
+
+.bg-login {
+    width: 100%;
+    z-index: 0;
+}
+
+.bg-regComplete {
+    width: 100%;
+    z-index: 0;
+}
+
+
+.overlay {
+    background: rgb(2,0,36);
+    background: linear-gradient(186deg, rgba(2,0,36,1) 0%, rgba(182,144,150,1) 0%, rgba(235,215,107,1) 100%);
+    color: #13474d;
+    padding-top: 10px;
+    border-radius: 3%;
+}
+
+.overlay-border {
+    top: 80%;
+    background: rgb(2,0,36);
+    background: linear-gradient(8deg, rgba(2,0,36,1) 0%, rgba(182,144,150,1) 0%, rgba(235,215,107,1) 100%);
+    color: #13474d;
+    padding: 1px;
+    border-radius: 3%;
+}
+
+.overlay-login {
+    background: rgb(2,0,36);
+    background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(112,73,27,1) 0%, rgba(218,187,117,1) 100%);
+    color: black;
+    padding-top: 10px;
+    border-radius: 3%;
+}
+
+.overlay-border-login {
+    top: 80%;
+    background: rgb(2,0,36);
+    background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(112,73,27,1) 0%, rgba(218,187,117,1) 100%);
+    color: black;
+    padding: 1px;
+    border-radius: 3%;
+}
+
+
+.transparent-overlay label, .transparent-overlay h2 {
+    color: white;
+}
+
+.transparent-overlay textarea {
+    width: 200px;
+    height: 80px;
+}
+
+.center-form {
+    //margin-left: 20%;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: black;
+    color: gray;
+    height: 100%;
+}
+
+footer, #push {
+    height: 4em;
+}
+
+.field-validation-error {
+    color: black;
+    text-shadow: 2px 2px 5px red;
+    font-size: 80%;
+}
+
+.confirmation-bg {
+    width: 100%;
+    height: auto;
+    background: url(../images/sheetmusic.jpg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.registration-bg {
+    width: 100%;
+    height: auto;
+    background: url(../images/musicdatingSmall.jpg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.login-bg {
+    width: 100%;
+    height: auto;
+    padding-bottom: 30%;
+    padding-top: 10%;
+    background: url(../images/lutepassion.jpg) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.form-table {
+    width: 100%;
+}
+
+    .form-table th, .form-table td {
+        width: 33%;
+    }
+
+.submit-button {
+    margin-left: 30%;
+}
