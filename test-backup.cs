@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -18,24 +18,24 @@ namespace WebApplication.Tests.DAL
             User user = new User();
 
             //populates our fake user with info
-            user.Age = 19;
+            user.Age  = 19;
             user.Email = "fake@gmail.com";
             user.HomeCity = "pittsburgh";
             user.HomeState = "PA";
             user.IsPublic = true;
             user.PasswordHash = "fake";
             user.Salt = "testSalt";
-
+            
             user.SelfDescription = "testdescription";
             user.Username = "fakeuser";
-
+            
             Instrument horn = new Instrument("Horn");
-
+            
             Instrument violin = new Instrument("Violin");
-
+            
             Instrument viola = new Instrument("Viola");
-
-
+            
+            
             user.ListOfInstruments.Add(horn);
             user.ListOfInstruments.Add(violin);
             user.ListOfInstruments.Add(viola);
@@ -54,7 +54,7 @@ namespace WebApplication.Tests.DAL
             Place firstPlace = new Place("foo", "bar", DateTime.Today, DateTime.Today);
             Place secondPlace = new Place("fooburgh", "barland", DateTime.Today, DateTime.Today);
 
-
+            
             user.ListOfPlaces.Add(firstPlace);
             user.ListOfPlaces.Add(secondPlace);
 
@@ -89,7 +89,7 @@ namespace WebApplication.Tests.DAL
                 Assert.AreEqual("Horn", $"{userInstrument}");
                 Assert.AreEqual($"{DateTime.Today}", actual: $"{userDate}");
                 Assert.AreEqual($"Bach", actual: $"{userComposer}");
-
+                
             }
         }
 
@@ -102,14 +102,14 @@ namespace WebApplication.Tests.DAL
             Assert.IsNotNull(user);
         }
 
-        //[TestMethod]
-        //public void GetUsersListTest()
-        //{
-        //    UserSqlDAL dal = new UserSqlDAL(ConnectionString);
-
-        //    List<User> users = dal.GetUsers();
-        //    Assert.IsNotNull(users);
-        //}
+        [TestMethod]
+        public void GetUsersListTest()
+        {
+            UserSqlDAL dal = new UserSqlDAL(ConnectionString);
+            
+            List<User> users = dal.GetUsers();
+            Assert.IsNotNull(users);
+        }
     }
-
+    
 }

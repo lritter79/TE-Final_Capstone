@@ -27,6 +27,7 @@ namespace WebApplication.Web.Models
         [Required]
         public string Password { get; set; }
 
+        /// The user's role.
         /// <summary>
         /// The user's salt.
         /// </summary>
@@ -34,7 +35,6 @@ namespace WebApplication.Web.Models
         public string Salt { get; set; }
 
         /// <summary>
-        /// The user's role.
         /// </summary>
         public string Role { get; set; }
     }
