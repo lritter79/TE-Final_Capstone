@@ -48,8 +48,6 @@ namespace WebApplication.Web.Models.Account
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-       
-
         public static List<SelectListItem> StateList = new List<SelectListItem>()
         {
             new SelectListItem() { Text = "Alabama", Value = "AL" },
@@ -103,5 +101,7 @@ namespace WebApplication.Web.Models.Account
             new SelectListItem() { Text = "Wisconsin", Value = "WI" },
             new SelectListItem() { Text = "Wyoming", Value = "WY" }
         };
+
+       
     }
 }
