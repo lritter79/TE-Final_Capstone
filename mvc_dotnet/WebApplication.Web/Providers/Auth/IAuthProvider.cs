@@ -27,6 +27,9 @@ namespace WebApplication.Web.Providers.Auth
         /// <returns>True if the user signed in.</returns>
         bool SignIn(string username, string password);
 
+        void AddPic(string filename);
+        void AddDescription(string description);
+
         /// <summary>
         /// Logs the user off from the system.
         /// </summary>

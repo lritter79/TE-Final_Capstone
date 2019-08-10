@@ -105,6 +105,16 @@ namespace WebApplication.Web.Providers.Auth
             return null;
         }
 
+        public void AddPic(string filename)
+        {
+            userDAL.UpdatePic(GetCurrentUser(), filename);
+        }
+
+        public void AddDescription(string description)
+        {
+            userDAL.UpdateDescription(GetCurrentUser(), description);
+        }
+
         /// <summary>
         /// Creates a new user and saves their username in session.
         /// </summary>

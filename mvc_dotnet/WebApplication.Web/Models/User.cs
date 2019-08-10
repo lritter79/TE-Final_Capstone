@@ -58,6 +58,9 @@ namespace WebApplication.Web.Models
         [Display(Name = "Bio")]
         public string SelfDescription { get; set; }
 
+        [Display(Name = "Profile URL")]
+        public string ProfilePic { get; set; }
+
         /// <summary>
         /// The user's password.
         /// </summary>

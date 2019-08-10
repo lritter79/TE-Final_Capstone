@@ -15,6 +15,9 @@ namespace WebApplication.Web.DAL
         /// <returns></returns>
         User GetUser(string username);
 
+        void UpdatePic(User user, string filename);
+        void UpdateDescription(User user, string description);
+
         /// <summary>
         /// Creates a new user.
         /// </summary>

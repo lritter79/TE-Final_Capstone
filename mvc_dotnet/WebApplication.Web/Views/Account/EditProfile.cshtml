@@ -1,0 +1,11 @@
+﻿@using WebApplication.Web.Models.Account;
+@{
+    ViewData["Title"] = "EditProfile";
+}
+
+
+<form method="post" action="/Account/ShowProfile" enctype="multipart/form-data">
+    <input type="file" name="pic" /></br>
+    <input type="text" name="description" />
+    <input type="submit" value="Go" />
+</form>

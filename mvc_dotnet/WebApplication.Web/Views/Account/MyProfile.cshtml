@@ -1,0 +1,37 @@
+﻿@model User
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+
+<h2>@Model.Username</h2>
+<div class="thumb1">
+
+</div>
+<img class="fit-square" src="@Model.ProfilePic">
+<form method="post" action="/Account/AddPic" enctype="multipart/form-data">
+    <label>Update Profile Pic</label>
+    <input type="file" name="pic" /></br>
+    <input type="submit" value="Go" />
+</form>
+
+<hr />
+
+<p class="self-description">@Model.SelfDescription</p><br />
+<form method="post" action="/Account/AddDescription">
+    <label>Update Bio</label><br />
+    <textarea rows="4" cols="50" name="description"></textarea><br />
+    <input type="submit" value="Go" />
+</form>
+
+<style>
+    .fit-square {
+        object-fit: cover;
+        width: 230px;
+        height: 230px;
+    }
+    .self-description {
+        white-space: pre-line;
+    }
+
+</style>

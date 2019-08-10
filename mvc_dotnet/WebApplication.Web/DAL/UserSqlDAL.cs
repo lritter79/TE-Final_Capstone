@@ -106,6 +106,25 @@ namespace WebApplication.Web.DAL
             }            
         }
 
+        private User MapRowToUser(SqlDataReader reader)
+        {
+            var test = reader["self_description"];
+
+            User user = new User()
+            {
+                Id = Convert.ToInt32(reader["id"]),
+                Username = Convert.ToString(reader["username"]),
+                Password = Convert.ToString(reader["password"]),
+                SelfDescription = Convert.ToString(reader["self_description"]),
+                ProfilePic = Convert.ToString(reader["profile_pic"]),
+                Salt = Convert.ToString(reader["salt"]),
+                Role = Convert.ToString(reader["role"])
+            };
+            return user;
+        }
+
+
+
         /// <summary>
         /// Updates the user in the database.
         /// </summary>
@@ -133,17 +152,49 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
-
-        private User MapRowToUser(SqlDataReader reader)
+        public void UpdateDescription(User user, string description)
         {
-            return new User()
+            try
             {
-                Id = Convert.ToInt32(reader["id"]),
-                Username = Convert.ToString(reader["username"]),
-                Password = Convert.ToString(reader["password"]),
-                Salt = Convert.ToString(reader["salt"]),
-                Role = Convert.ToString(reader["role"])
-            };
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("UPDATE users SET self_description = @description WHERE id = @id;", conn);
+                    cmd.Parameters.AddWithValue("@description", description);
+                    cmd.Parameters.AddWithValue("@id", user.Id);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void UpdatePic(User user, string filename)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("UPDATE users SET profile_pic = @filename WHERE id = @id;", conn);
+                    cmd.Parameters.AddWithValue("@filename", filename);
+                    cmd.Parameters.AddWithValue("@id", user.Id);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
         }
     }
 }
+

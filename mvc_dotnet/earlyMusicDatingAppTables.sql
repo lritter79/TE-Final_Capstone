@@ -24,6 +24,9 @@ birthdate datetime NOT NULL,
 home_city varchar(50) NOT NULL,
 home_state varchar(50) NOT NULL,
 self_description varchar(Max) NULL,
+profile_pic varchar(200) NULL,
+
+
 password	varchar(50)	not null,
 salt		varchar(50)	not null,
 role		varchar(50)	default('user'),
@@ -58,6 +61,16 @@ composer_name varchar(50) NOT NULL,
 
 CONSTRAINT fk_composers_users FOREIGN KEY (user_id) REFERENCES Users (ID)
 );
+
+Create table tblImages
+(
+    Id int primary key identity,
+    Name nvarchar(255),
+    Size int,
+    ImageData varbinary(max)
+);
+
+
 
 COMMIT
 

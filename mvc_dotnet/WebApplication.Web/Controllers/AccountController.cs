@@ -2,18 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebApplication.Web.Models;
 using WebApplication.Web.Models.Account;
 using WebApplication.Web.Providers.Auth;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace WebApplication.Web.Controllers
 {    
     public class AccountController : Controller
     {
+        private readonly IHostingEnvironment he;
+
         private readonly IAuthProvider authProvider;
-        public AccountController(IAuthProvider authProvider)
+        public AccountController(IAuthProvider authProvider, IHostingEnvironment e)
         {
             this.authProvider = authProvider;
+            he = e;
         }
         
         //[AuthorizationFilter] // actions can be filtered to only those that are logged in
@@ -82,6 +89,84 @@ namespace WebApplication.Web.Controllers
             }
 
             return View(registerViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult BioPage(string email)
+        {
+            User user = authProvider.GetCurrentUser();
+            return View(user);
+        }
+
+        [HttpGet]
+        public IActionResult PerspectiveDates()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PostBioPage(User user)
+        {
+            //dao.SaveBioPage(User user); this is where the code will go to save this page.
+            return RedirectToAction("PerspectiveDates", "Account");
+        }
+
+
+        [HttpGet]
+        public IActionResult EditProfile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ShowProfile(string description, IFormFile pic)
+        {
+            ViewData["description"] = description;
+            if(pic != null)
+            {
+                var profilePicsPath = he.WebRootPath + "\\images\\profile_pics";
+                var fileName = Path.Combine(profilePicsPath, Path.GetFileName(pic.FileName));
+                pic.CopyTo(new FileStream(fileName, FileMode.Create));
+                var imagePath = "/images/profile_pics/" + Path.GetFileName(pic.FileName);
+                ViewData["fileLocation"] = imagePath;
+
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult MyProfile()
+        {
+            var user = authProvider.GetCurrentUser();
+            return View(user);
+        }
+
+        [HttpPost]
+        public IActionResult AddPic(IFormFile pic)
+        {
+            if (pic != null)
+            {
+                var profilePicsPath = he.WebRootPath + "\\images\\profile_pics";
+                var fileName = Path.Combine(profilePicsPath, Path.GetFileName(pic.FileName));
+                pic.CopyTo(new FileStream(fileName, FileMode.Create));
+                var imagePath = "/images/profile_pics/" + Path.GetFileName(pic.FileName);
+                ViewData["fileLocation"] = imagePath;
+
+                authProvider.AddPic(imagePath);
+
+                return RedirectToAction("MyProfile", "Account");
+
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddDescription(string description)
+        {
+
+            authProvider.AddDescription(description);
+            return RedirectToAction("MyProfile", "Account");
         }
     }
 }
