@@ -43,7 +43,7 @@
                                 <td>
                                     <div class="form-group">
                                         <label asp-for="HomeState"></label><br />
-                                        <input type="text" asp-for="HomeState" />
+                                        <select class="well-sm well" asp-for="HomeState" asp-items="@RegisterViewModel.StateList"></select>
                                         <span asp-validation-for="HomeState"></span>
                                     </div>
                                 </td>
@@ -53,9 +53,9 @@
                                 <td></td>
                                 <td>
                                     <div class="form-group">
-                                        <label asp-for="Age "></label><br />
-                                        <input type="text" asp-for="Age " />
-                                        <span asp-validation-for="Age "></span>
+                                        <label asp-for="BirthDate "></label><br />
+                                        <input type="date" asp-for="BirthDate " />
+                                        <span asp-validation-for="BirthDate"></span>
                                     </div>
                                 </td>
                                 <td></td>
@@ -75,9 +75,9 @@
                                 <td></td>
                                 <td>
                                     <div class="form-group">
-                                        <label asp-for="PasswordHash"></label><br />
-                                        <input type="password" asp-for="PasswordHash" />
-                                        <span asp-validation-for="PasswordHash"></span>
+                                        <label asp-for="Password"></label><br />
+                                        <input type="password" asp-for="Password" />
+                                        <span asp-validation-for="Password"></span>
                                     </div>
                                 </td>
                                 <td></td>
@@ -90,6 +90,18 @@
                                             <label asp-for="ConfirmPassword"></label><br />
                                             <input type="password" asp-for="ConfirmPassword" />
                                             <span asp-validation-for="ConfirmPassword"></span>
+                                        </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label asp-for="SelfDescription"></label><br />
+                                            <input type="text" asp-for="SelfDescription" />
+                                            <span asp-validation-for="SelfDescription"></span>
                                         </div>
                                 </td>
                                 <td></td>
