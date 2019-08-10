@@ -18,7 +18,7 @@ namespace WebApplication.Tests.DAL
             User user = new User();
 
             //populates our fake user with info
-            user.Age = 19;
+            //user.Age = 19;
             user.Email = "fake@gmail.com";
             user.HomeCity = "pittsburgh";
             user.HomeState = "PA";

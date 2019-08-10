@@ -105,6 +105,16 @@ namespace WebApplication.Web.Providers.Auth
             return null;
         }
 
+        public void AddPic(string filename)
+        {
+            userDAL.UpdatePic(GetCurrentUser(), filename);
+        }
+
+        public void AddDescription(string description)
+        {
+            userDAL.UpdateDescription(GetCurrentUser(), description);
+        }
+
         /// <summary>
         /// Creates a new user and saves their username in session.
         /// </summary>
@@ -112,17 +122,24 @@ namespace WebApplication.Web.Providers.Auth
         /// <param name="password"></param>
         /// <param name="role"></param>
         /// <returns></returns>
-        public void Register(string username, string password, string role)
+        public void Register(string email, string username, DateTime birthdate, string homeCity, string homeState, string selfDescription, string password, string role)
         {
             var hashProvider = new HashProvider();
             var passwordHash = hashProvider.HashPassword(password);
 
             var user = new User
             {
+                Email = email,
                 Username = username,
+                BirthDate = birthdate,
+                HomeCity = homeCity,
+                HomeState = homeState,
+                SelfDescription = selfDescription,
                 Password = passwordHash.Password,
                 Salt = passwordHash.Salt,
+                IsPublic = true,
                 Role = role
+               
             };
 
             userDAL.CreateUser(user);

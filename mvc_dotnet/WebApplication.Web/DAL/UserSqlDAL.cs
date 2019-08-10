@@ -27,9 +27,17 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
+<<<<<<< HEAD
                     SqlCommand cmd = new SqlCommand("INSERT INTO users (email, username, password, salt, role, age , home_city, home_state, self_description, is_public) VALUES (@email, @username, @password, @salt, @role, @age, @homeCity, @homeState, @selfDescription, '1');", conn);
+=======
+                    SqlCommand cmd = new SqlCommand("INSERT INTO users (email, username, birthdate, home_city, home_state, password, salt, role, is_public) VALUES (@email, @username, @birthdate, @home_city, @home_state, @password, @salt, @role, '1');", conn);
+>>>>>>> 8db9eab4a82704de87f1d3502644ce9e8a277979
                     cmd.Parameters.AddWithValue("@email", user.Email);
                     cmd.Parameters.AddWithValue("@username", user.Username);
+                    cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
+                    cmd.Parameters.AddWithValue("@home_city", user.HomeCity);
+                    cmd.Parameters.AddWithValue("@home_state", user.HomeState);
+                    //cmd.Parameters.AddWithValue("@self_description", user.SelfDescription);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
                     cmd.Parameters.AddWithValue("@role", user.Role);
@@ -181,6 +189,25 @@ namespace WebApplication.Web.DAL
             }            
         }
 
+        private User MapRowToUser(SqlDataReader reader)
+        {
+            var test = reader["self_description"];
+
+            User user = new User()
+            {
+                Id = Convert.ToInt32(reader["id"]),
+                Username = Convert.ToString(reader["username"]),
+                Password = Convert.ToString(reader["password"]),
+                SelfDescription = Convert.ToString(reader["self_description"]),
+                ProfilePic = Convert.ToString(reader["profile_pic"]),
+                Salt = Convert.ToString(reader["salt"]),
+                Role = Convert.ToString(reader["role"])
+            };
+            return user;
+        }
+
+
+
         /// <summary>
         /// Updates the user in the database.
         /// </summary>
@@ -208,11 +235,25 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
-
-        private User MapRowToUser(SqlDataReader reader)
+        public void UpdateDescription(User user, string description)
         {
-            return new User()
+            try
             {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("UPDATE users SET self_description = @description WHERE id = @id;", conn);
+                    cmd.Parameters.AddWithValue("@description", description);
+                    cmd.Parameters.AddWithValue("@id", user.Id);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+<<<<<<< HEAD
                 Id = Convert.ToInt32(reader["id"]),
                 Username = Convert.ToString(reader["username"]),
                 Password = Convert.ToString(reader["password"]),
@@ -241,6 +282,33 @@ namespace WebApplication.Web.DAL
             DateTime ToDate = Convert.ToDateTime(reader["to_date"]);
             return new Place(CityName, StateName, FromDate, ToDate);
         }
+=======
+                throw ex;
+            }
+        }
+
+        public void UpdatePic(User user, string filename)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("UPDATE users SET profile_pic = @filename WHERE id = @id;", conn);
+                    cmd.Parameters.AddWithValue("@filename", filename);
+                    cmd.Parameters.AddWithValue("@id", user.Id);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+>>>>>>> 8db9eab4a82704de87f1d3502644ce9e8a277979
     }
 }
 
