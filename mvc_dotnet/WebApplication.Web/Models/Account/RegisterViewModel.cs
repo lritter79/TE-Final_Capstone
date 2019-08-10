@@ -23,7 +23,7 @@ namespace WebApplication.Web.Models.Account
         [Required(ErrorMessage = "*")]
         [DataType(DataType.Date, ErrorMessage = " You must enter a valid date.")]
         [Display(Name = "Birth Date")]
-        public DateTime? BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         [Required]
         [Display(Name = "Home City")]

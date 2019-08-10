@@ -38,11 +38,14 @@ namespace WebApplication.Web.Models
         [MaxLength(50)]
         public string Username { get; set; }
 
+        public DateTime BirthDate { get; set; }
+
         [Required(ErrorMessage = "Age is required. Min age at least 18")]
         // still needs a way to aasert that the user registering is 18 or older
         [Display(Name = "Age")]
-
-        public int Age { get; set; }
+        public int Age { get {
+                return 21;
+            } }
 
         [Required(ErrorMessage = "Home city is required.")]
         [Display(Name = "Home City")]
