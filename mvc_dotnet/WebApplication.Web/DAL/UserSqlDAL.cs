@@ -132,10 +132,49 @@ namespace WebApplication.Web.DAL
                         user = MapRowToUser(reader);
                         
                     }
-                }
 
+                    reader.Close();
+
+                    cmd = new SqlCommand("SELECT ID FROM users WHERE email = @email", conn);
+                    cmd.Parameters.AddWithValue("@email", email);
+                    string userId = Convert.ToString(cmd.ExecuteScalar());
+
+
+                    cmd = new SqlCommand($"SELECT instrument_name FROM Instruments_Played WHERE user_id = '{userId}';", conn);
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        user.ListOfInstruments.Add(MapRowToInstrument(reader));
+                    }
+
+                    reader.Close();
+
+                    cmd = new SqlCommand($"SELECT composer_name FROM Composers WHERE user_id = '{userId}';", conn);
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        user.ListOfComposers.Add(MapRowToComposer(reader));
+                    }
+
+                    reader.Close();
+
+
+                    cmd = new SqlCommand($"SELECT city, state_name,from_date,to_date FROM Places WHERE user_id = '{userId}';", conn);
+                    reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        user.ListOfPlaces.Add(MapRowToPlace(reader));
+                    }
+
+                    reader.Close();
+                }
+            
                 return user;
             }
+
             catch (SqlException ex)
             {
                 throw ex;
