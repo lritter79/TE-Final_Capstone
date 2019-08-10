@@ -23,9 +23,9 @@ namespace WebApplication.Tests.DAL
             user.HomeCity = "pittsburgh";
             user.HomeState = "PA";
             user.IsPublic = true;
-            user.PasswordHash = "fake";
+            user.Password = "fake";
             user.Salt = "testSalt";
-
+            user.Role = "User";
             user.SelfDescription = "testdescription";
             user.Username = "fakeuser";
 

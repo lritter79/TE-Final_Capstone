@@ -81,35 +81,35 @@ namespace WebApplication.Tests.DAL
             }
         }
 
-        [TestMethod]
-        public void GetInfo()
-        {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
+        //[TestMethod]
+        //public void GetInfo()
+        //{
+        //    using (SqlConnection connection = new SqlConnection(ConnectionString))
+        //    {
+        //        connection.Open();
 
-                string cmdText = "SELECT email FROM users WHERE username = 'luteMan'";
-                SqlCommand command = new SqlCommand(cmdText, connection);
-                string userEmail = Convert.ToString(command.ExecuteScalar());
+        //        string cmdText = "SELECT email FROM users WHERE username = 'luteMan'";
+        //        SqlCommand command = new SqlCommand(cmdText, connection);
+        //        string userEmail = Convert.ToString(command.ExecuteScalar());
 
-                cmdText = "SELECT ID FROM users WHERE username = 'luteMan'";
-                command = new SqlCommand(cmdText, connection);
-                string userId = Convert.ToString(command.ExecuteScalar());
+        //        cmdText = "SELECT ID FROM users WHERE username = 'luteMan'";
+        //        command = new SqlCommand(cmdText, connection);
+        //        string userId = Convert.ToString(command.ExecuteScalar());
 
-                cmdText = $"SELECT instrument_name FROM Instruments_Played WHERE user_id = '{userId}' ORDER BY instrument_name ASC";
-                command = new SqlCommand(cmdText, connection);
-                string firstInstrument = Convert.ToString(command.ExecuteScalar());
+        //        cmdText = $"SELECT instrument_name FROM Instruments_Played WHERE user_id = '{userId}' ORDER BY instrument_name ASC";
+        //        command = new SqlCommand(cmdText, connection);
+        //        string firstInstrument = Convert.ToString(command.ExecuteScalar());
 
-                cmdText = $"SELECT composer_name FROM Composers WHERE user_id = '{userId}' ORDER BY composer_name ASC";
-                command = new SqlCommand(cmdText, connection);
-                string firstComposer = Convert.ToString(command.ExecuteScalar());
+        //        cmdText = $"SELECT composer_name FROM Composers WHERE user_id = '{userId}' ORDER BY composer_name ASC";
+        //        command = new SqlCommand(cmdText, connection);
+        //        string firstComposer = Convert.ToString(command.ExecuteScalar());
 
 
-                Assert.AreEqual("x@y.com", $"{userEmail}");
-                Assert.AreEqual("archlute", $"{firstInstrument}");
-                Assert.AreEqual("Locke", $"{firstComposer}");
-            }
-        }
+        //        Assert.AreEqual("x@y.com", $"{userEmail}");
+        //        Assert.AreEqual("archlute", $"{firstInstrument}");
+        //        Assert.AreEqual("Locke", $"{firstComposer}");
+        //    }
+        //}
 
         [TestCleanup]
         public void CleanUp()
