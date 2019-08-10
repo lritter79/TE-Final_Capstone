@@ -33,7 +33,6 @@ namespace WebApplication.Web.Models.Account
         [Display(Name = "Home State")]
         public string HomeState { get; set; }
 
-        [Required]
         [Display(Name = "Description of Self")]
         public string SelfDescription { get; set; }
 
