@@ -27,13 +27,53 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO users (username, password, salt, role, is_public) VALUES (@username, @password, @salt, @role, '1');", conn);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO users (email, username, password, salt, role, age , home_city, home_state, self_description, is_public) VALUES (@email, @username, @password, @salt, @role, @age, @homeCity, @homeState, @selfDescription, '1');", conn);
+                    cmd.Parameters.AddWithValue("@email", user.Email);
                     cmd.Parameters.AddWithValue("@username", user.Username);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
                     cmd.Parameters.AddWithValue("@role", user.Role);
+                    cmd.Parameters.AddWithValue("@homeCity", user.HomeCity);
+                    cmd.Parameters.AddWithValue("@homeState", user.HomeState);
+                    cmd.Parameters.AddWithValue("@selfDescription", user.SelfDescription);
+                    cmd.Parameters.AddWithValue("@age ", user.Age);
 
-                    cmd.ExecuteNonQuery();
+                    int i = cmd.ExecuteNonQuery();
+                    //gets the id of the new user so we can add instruments and places with the users ID as the foreign key
+                    string cmdQuery = $"SELECT ID FROM Users WHERE username = '{user.Username}' and email = '{user.Email}';";
+                    cmd = new SqlCommand(cmdQuery, conn);
+                    string userId = Convert.ToString(cmd.ExecuteScalar());
+
+                    foreach (Instrument instrument in user.ListOfInstruments)
+                    {
+                        cmdQuery = $"INSERT INTO Instruments_Played VALUES ('{userId}',@Name);";
+                        cmd = new SqlCommand(cmdQuery, conn);
+                        cmd.Parameters.AddWithValue("@Name", instrument.Name);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    foreach (Composer composer in user.ListOfComposers)
+                    {
+                        cmdQuery = $"INSERT INTO Composers VALUES ('{userId}',@Name);";
+                        cmd = new SqlCommand(cmdQuery, conn);
+                        cmd.Parameters.AddWithValue("@Name", composer.Name);
+
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    foreach (Place place in user.ListOfPlaces)
+                    {
+                        cmdQuery = $"INSERT INTO Places VALUES ('{userId}',@City,@State,@FromDate,@ToDate);";
+                        cmd = new SqlCommand(cmdQuery, conn);
+                        cmd.Parameters.AddWithValue("@City", place.CityName);
+                        cmd.Parameters.AddWithValue("@State", place.StateName);
+                        cmd.Parameters.AddWithValue("@FromDate", place.FromDate);
+                        cmd.Parameters.AddWithValue("@ToDate", place.ToDate);
+
+
+                        cmd.ExecuteNonQuery();
+                    }
 
                     return;
                 }
@@ -72,9 +112,9 @@ namespace WebApplication.Web.DAL
         /// <summary>
         /// Gets the user from the database.
         /// </summary>
-        /// <param name="username"></param>
+        /// <param name="email"></param>
         /// <returns></returns>
-        public User GetUser(string username)
+        public User GetUser(string email)
         {
             User user = null;
             try
@@ -82,14 +122,15 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM USERS WHERE username = @username;", conn);
-                    cmd.Parameters.AddWithValue("@username", username);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM USERS WHERE email = @email;", conn);
+                    cmd.Parameters.AddWithValue("@email", email);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())
                     {
                         user = MapRowToUser(reader);
+                        
                     }
                 }
 
@@ -140,5 +181,27 @@ namespace WebApplication.Web.DAL
                 Role = Convert.ToString(reader["role"])
             };
         }
+
+        private Instrument MapRowToInstrument(SqlDataReader reader)
+        {
+            string Name = Convert.ToString(reader["instrument_name"]);
+            return new Instrument(Name);
+        }
+
+        private Composer MapRowToComposer(SqlDataReader reader)
+        {
+            string Name = Convert.ToString(reader["composer_name"]);
+            return new Composer(Name);
+        }
+
+        private Place MapRowToPlace(SqlDataReader reader)
+        {
+            string CityName = Convert.ToString(reader["city"]);
+            string StateName = Convert.ToString(reader["state_name"]);
+            DateTime FromDate = Convert.ToDateTime(reader["from_date"]);
+            DateTime ToDate = Convert.ToDateTime(reader["to_date"]);
+            return new Place(CityName, StateName, FromDate, ToDate);
+        }
     }
 }
+
