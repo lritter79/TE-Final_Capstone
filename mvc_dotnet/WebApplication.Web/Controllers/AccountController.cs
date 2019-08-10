@@ -39,7 +39,7 @@ namespace WebApplication.Web.Controllers
             if (ModelState.IsValid)
             {
                 // Check that they provided correct credentials
-                bool validLogin = authProvider.SignIn(loginViewModel.Email, loginViewModel.Password);
+                bool validLogin = authProvider.SignIn(loginViewModel.Username, loginViewModel.Password);
                 if (validLogin)
                 {
                     // Redirect the user where you want them to go after successful login
