@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -89,6 +90,17 @@ namespace WebApplication.Web.Models
 
         [Display(Name = "Favorite Composers")]
         public List<Composer> ListOfComposers { get; set; }
+
+
+        //public static List<SelectListItem> ComposersMenu = new List<SelectListItem>()
+        //{
+        //    new SelectListItem() { Text = "Beethoven", Value = "Beethoven" },
+        //    new SelectListItem() { Text = "Mozart", Value = "Mozart" },
+        //    new SelectListItem() { Text = "Brahms", Value = "Brahms" },
+        //    new SelectListItem() { Text = "Bach", Value = "Bach" },
+        //    new SelectListItem() { Text = "John Dowland", Value = "John Dowland" },
+        //    new SelectListItem() { Text = "Joss Quan", Value = "Joss Quan" },
+        //};
 
         /// <summary>
         /// </summary>

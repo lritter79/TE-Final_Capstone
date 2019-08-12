@@ -29,6 +29,8 @@ namespace WebApplication.Web.Providers.Auth
 
         void AddPic(string filename);
         void AddDescription(string description);
+        void ChangePrivacy(bool isPublic);
+        void AddComposer(string composer);
 
         /// <summary>
         /// Logs the user off from the system.

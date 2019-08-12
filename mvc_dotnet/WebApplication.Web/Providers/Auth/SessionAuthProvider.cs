@@ -115,6 +115,16 @@ namespace WebApplication.Web.Providers.Auth
             userDAL.UpdateDescription(GetCurrentUser(), description);
         }
 
+        public void ChangePrivacy(bool isPublic)
+        {
+            userDAL.UpdatePrivacy(GetCurrentUser(), isPublic);
+        }
+
+        public void AddComposer(string composer)
+        {
+            userDAL.AddComposer(GetCurrentUser(), composer);
+        }
+
         /// <summary>
         /// Creates a new user and saves their username in session.
         /// </summary>

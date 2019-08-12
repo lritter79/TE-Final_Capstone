@@ -1,6 +1,7 @@
 ﻿@model User
 @{
     ViewData["Title"] = "My Profile";
+
 }
 
 
@@ -16,7 +17,46 @@
 </form>
 
 <hr />
+<ul>
+    @foreach(Composer composer in Model.ListOfComposers)
+    {
+        <li>@composer.Name</li>
+    }
+</ul>
 
+
+<form method="post" action="/Account/AddComposer">
+    <label>add a favorite composer</label><br />
+    <input type="text" name="composer"><br />
+    <input type="submit" value="Go" />
+</form>
+
+<p>
+    @if (Model.IsPublic)
+    {
+        <span>Your Profile is Public</span>
+    }
+    else
+    {
+        <span>Your Profile is Private</span>
+    }
+</p>
+<form method="post" action="/Account/ChangePrivacy">
+    <label>Update Privacy</label><br />
+    @if (Model.IsPublic)
+    {
+        <input readonly="readonly" type="hidden" value="0" name="isPublic"/>
+        <input type="submit" value="Go Private" />
+    }
+    else
+    {
+        <input readonly="readonly" type="hidden" value="1" name="isPublic"/>
+        <input type="submit" value="Go Public" />
+    }
+</form>
+
+<p>composers:</p>
+<p></p>
 <p class="self-description">@Model.SelfDescription</p><br />
 <form method="post" action="/Account/AddDescription">
     <label>Update Bio</label><br />
@@ -24,14 +64,16 @@
     <input type="submit" value="Go" />
 </form>
 
+
+
 <style>
     .fit-square {
         object-fit: cover;
         width: 230px;
         height: 230px;
     }
+
     .self-description {
         white-space: pre-line;
     }
-
 </style>

@@ -40,6 +40,7 @@ namespace WebApplication.Web.DAL
 
                     cmd.ExecuteNonQuery();
 
+
                     return;
                 }
             }
@@ -74,12 +75,15 @@ namespace WebApplication.Web.DAL
             }
         }
 
-        /// <summary>
-        /// Gets the user from the database.
-        /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        public User GetUser(string username)
+
+
+       
+/// <summary>
+/// Gets the user from the database.
+/// </summary>
+/// <param name="username"></param>
+/// <returns></returns>
+public User GetUser(string username)
         {
             User user = null;
             try
@@ -96,6 +100,15 @@ namespace WebApplication.Web.DAL
                     {
                         user = MapRowToUser(reader);
                     }
+                    reader.Close();
+                    SqlCommand composerCmd = new SqlCommand($"SELECT composer_name FROM composers WHERE user_id={user.Id}", conn);
+                    reader = composerCmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        user.ListOfComposers.Add(MapRowToComposer(reader));
+                    }
+                    reader.Close();
                 }
 
                 return user;
@@ -116,11 +129,17 @@ namespace WebApplication.Web.DAL
                 Username = Convert.ToString(reader["username"]),
                 Password = Convert.ToString(reader["password"]),
                 SelfDescription = Convert.ToString(reader["self_description"]),
+                IsPublic = Convert.ToBoolean(reader["is_public"]),
                 ProfilePic = Convert.ToString(reader["profile_pic"]),
                 Salt = Convert.ToString(reader["salt"]),
                 Role = Convert.ToString(reader["role"])
             };
             return user;
+        }
+        private Composer MapRowToComposer(SqlDataReader reader)
+        {
+            string Name = Convert.ToString(reader["composer_name"]);
+            return new Composer(Name);
         }
 
 
@@ -152,6 +171,7 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+
         public void UpdateDescription(User user, string description)
         {
             try
@@ -194,6 +214,65 @@ namespace WebApplication.Web.DAL
             {
                 throw ex;
             }
+        }
+
+        public void UpdatePrivacy(User user, bool isPublic)
+        {
+            int privacyVal;
+            if (!isPublic)
+            {
+                privacyVal = 0;
+            }
+            else
+            {
+                privacyVal = 1;
+            }
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("UPDATE users SET is_public = @ispublic WHERE id = @id;", conn);
+                    cmd.Parameters.AddWithValue("@ispublic", privacyVal);
+                    cmd.Parameters.AddWithValue("@id", user.Id);
+
+                    cmd.ExecuteNonQuery();
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void AddComposer(User user, string composer)
+        {
+            int userId = user.Id;
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    
+                    string cmdStr = $"INSERT INTO Composers VALUES ('{user.Id}',@Name);";
+                    SqlCommand cmd = new SqlCommand(cmdStr, conn);
+                    cmd.Parameters.AddWithValue("@Name", composer);
+
+                    cmd.ExecuteNonQuery();
+                    
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            
         }
     }
 }

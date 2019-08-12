@@ -17,6 +17,7 @@ namespace WebApplication.Web.DAL
 
         void UpdatePic(User user, string filename);
         void UpdateDescription(User user, string description);
+        void UpdatePrivacy(User user, bool isPublic);
 
         /// <summary>
         /// Creates a new user.
@@ -35,5 +36,7 @@ namespace WebApplication.Web.DAL
         /// </summary>
         /// <param name="user"></param>
         void DeleteUser(User user);
+
+        void AddComposer(User user, string composer);
     }
 }
