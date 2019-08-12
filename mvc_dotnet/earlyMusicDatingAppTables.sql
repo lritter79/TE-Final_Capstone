@@ -2,15 +2,15 @@
 USE master;
 GO
 
--- Delete the NPGeek Database (IF EXISTS)
+-- Delete the EarlyMusicDating Database (IF EXISTS)
 DROP DATABASE IF EXISTS EarlyMusicDating;
 GO
 
--- Create a new NPGeek Database
+-- Create a new EarlyMusicDating Database
 CREATE DATABASE EarlyMusicDating;
 GO
 
--- Switch to the NPGeek Database
+-- Switch to the EarlyMusicDating Database
 USE EarlyMusicDating;
 GO
 
