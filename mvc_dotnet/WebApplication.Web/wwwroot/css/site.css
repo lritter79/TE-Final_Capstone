@@ -78,6 +78,9 @@ body {
     padding: 1px;
     border-radius: 3%;
 }
+.reg-complete {
+    background: url(../images/balcony.jpg) no-repeat center center;
+}
 
 .overlay-login {
     background: rgb(2,0,36);
@@ -130,7 +133,7 @@ footer, #push {
 .confirmation-bg {
     width: 100%;
     height: auto;
-    background: url(../images/sheetmusic.jpg) no-repeat center center;
+    background: url(../images/balcony.jpg) no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

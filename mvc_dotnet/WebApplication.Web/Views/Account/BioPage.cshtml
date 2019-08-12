@@ -4,34 +4,35 @@
 
 }
 
+<img class="musicimage" src="~/images/sheetmusic.jpg" /> 
+<div class="profileinput">
+ <h2>@Model.Username</h2>
+ <div class="thumb1">
 
-<h2>@Model.Username</h2>
-<div class="thumb1">
-
-</div>
-<img class="fit-square" src="@Model.ProfilePic">
-<form method="post" action="/Account/AddPic" enctype="multipart/form-data">
+ </div>
+ <img class="fit-square" src="@Model.ProfilePic">
+ <form method="post" action="/Account/AddPic" enctype="multipart/form-data">
     <label>Update Profile Pic</label>
     <input type="file" name="pic" /></br>
     <input type="submit" value="Go" />
-</form>
+ </form>
 
-<hr />
-<ul>
+ <hr />
+ <ul>
     @foreach(Composer composer in Model.ListOfComposers)
     {
         <li>@composer.Name</li>
     }
-</ul>
+ </ul>
 
 
-<form method="post" action="/Account/AddComposer">
+ <form method="post" action="/Account/AddComposer">
     <label>add a favorite composer</label><br />
     <input type="text" name="composer"><br />
     <input type="submit" value="Go" />
-</form>
+ </form>
 
-<p>
+ <p>
     @if (Model.IsPublic)
     {
         <span>Your Profile is Public</span>
@@ -40,8 +41,8 @@
     {
         <span>Your Profile is Private</span>
     }
-</p>
-<form method="post" action="/Account/ChangePrivacy">
+ </p>
+ <form method="post" action="/Account/ChangePrivacy">
     <label>Update Privacy</label><br />
     @if (Model.IsPublic)
     {
@@ -53,20 +54,26 @@
         <input readonly="readonly" type="hidden" value="1" name="isPublic"/>
         <input type="submit" value="Go Public" />
     }
-</form>
+ </form>
 
-<p>composers:</p>
-<p></p>
-<p class="self-description">@Model.SelfDescription</p><br />
-<form method="post" action="/Account/AddDescription">
+ <p>composers:</p>
+ <p></p>
+ <p class="self-description">@Model.SelfDescription</p><br />
+ <form method="post" action="/Account/AddDescription">
     <label>Update Bio</label><br />
     <textarea rows="4" cols="50" name="description"></textarea><br />
     <input type="submit" value="Go" />
-</form>
+ </form> 
+</div>
 
 
 
-<style>
+<style> 
+    .profileinput{ 
+         
+        position:absolute; 
+        
+    }
     .fit-square {
         object-fit: cover;
         width: 230px;
