@@ -105,6 +105,18 @@ namespace WebApplication.Web.Providers.Auth
             return null;
         }
 
+        public List<User> GetAllUsers()
+        {
+            var username = Session.GetString(SessionKey);
+
+            if (!String.IsNullOrEmpty(username))
+            {
+                return userDAL.GetUsers();
+            }
+
+            return null;
+        }
+
         public void AddPic(string filename)
         {
             userDAL.UpdatePic(GetCurrentUser(), filename);

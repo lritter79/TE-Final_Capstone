@@ -142,7 +142,32 @@ public User GetUser(string username)
             return new Composer(Name);
         }
 
+        public List<User> GetUsers()
+        {
+            List<User> users = new List<User>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM USERS;", conn);
 
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        users.Add(MapRowToUser(reader));
+                    }
+                    reader.Close();
+                }
+
+                return users;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
 
         /// <summary>
         /// Updates the user in the database.

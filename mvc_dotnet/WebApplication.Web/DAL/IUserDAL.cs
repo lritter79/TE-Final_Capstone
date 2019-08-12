@@ -37,6 +37,8 @@ namespace WebApplication.Web.DAL
         /// <param name="user"></param>
         void DeleteUser(User user);
 
+        List<User> GetUsers();
+
         void AddComposer(User user, string composer);
     }
 }

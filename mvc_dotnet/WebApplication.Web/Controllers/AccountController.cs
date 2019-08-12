@@ -85,12 +85,9 @@ namespace WebApplication.Web.Controllers
                 authProvider.Register(registerViewModel.Email, registerViewModel.Username, registerViewModel.BirthDate, registerViewModel.HomeCity, registerViewModel.HomeState, registerViewModel.SelfDescription, registerViewModel.Password, role: "User"); 
 
                 // Redirect the user where you want them to go after registering
-<<<<<<< HEAD
-                return RedirectToAction("Index", "Home");
-            }
 
-            return View(registerViewModel);
-=======
+          
+
                 return RedirectToAction("RegistrationComplete", "Account");
             }
 
@@ -101,13 +98,15 @@ namespace WebApplication.Web.Controllers
         public IActionResult RegistrationComplete()
         {
             return View();
->>>>>>> ea482559e5c189e00a8440bbc6973587fe595024
+
         }
 
         [HttpGet]
         public IActionResult PerspectiveDates()
         {
-            return View();
+            MembersModel members = new MembersModel();
+            members.Members = authProvider.GetAllUsers();
+            return View(members);
         }
 
         [HttpPost]
