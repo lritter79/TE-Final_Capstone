@@ -85,10 +85,16 @@ namespace WebApplication.Web.Controllers
                 authProvider.Register(registerViewModel.Email, registerViewModel.Username, registerViewModel.BirthDate, registerViewModel.HomeCity, registerViewModel.HomeState, registerViewModel.SelfDescription, registerViewModel.Password, role: "User"); 
 
                 // Redirect the user where you want them to go after registering
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("RegistrationComplete", "Account");
             }
 
             return View(registerViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult RegistrationComplete()
+        {
+            return View();
         }
 
         [HttpGet]
