@@ -1,24 +1,79 @@
-﻿@using WebApplication.Web.Models.Account;
-@model RegisterViewModel
+﻿@model User
 @{
-    ViewData["Title"] = "BioPage";
+    ViewData["Title"] = "My Profile";
+
 }
-<img class="bg-BioPage" src="https://pixabay.com/illustrations/music-melody-old-fashioned-1363069/">
-<div id="push"></div>
-<div class="container body-content">
-    <div class="transparent-overlay col-xs-11 col-sm-7 col-md-4 col-lg-4">
-        <div class="center-form">
-            <h2>Bio Page</h2>
-            <div class="container body-content">
-                <form asp-controller="account" asp-action="EditProfile" method="post">
-                    <div class="form-group">
-                        <label asp-for="SelfDescription"></label><br />
-                        <input type="text" asp-for="SelfDescription" />
-                        <span asp-validation-for="SelfDescription"></span>
-                    </div>
-                    <input type="submit" value="Submit" class="btn btn-default" />
-                </form>
-            </div>
-        </div>
-    </div>
+
+
+<h2>@Model.Username</h2>
+<div class="thumb1">
+
 </div>
+<img class="fit-square" src="@Model.ProfilePic">
+<form method="post" action="/Account/AddPic" enctype="multipart/form-data">
+    <label>Update Profile Pic</label>
+    <input type="file" name="pic" /></br>
+    <input type="submit" value="Go" />
+</form>
+
+<hr />
+<ul>
+    @foreach(Composer composer in Model.ListOfComposers)
+    {
+        <li>@composer.Name</li>
+    }
+</ul>
+
+
+<form method="post" action="/Account/AddComposer">
+    <label>add a favorite composer</label><br />
+    <input type="text" name="composer"><br />
+    <input type="submit" value="Go" />
+</form>
+
+<p>
+    @if (Model.IsPublic)
+    {
+        <span>Your Profile is Public</span>
+    }
+    else
+    {
+        <span>Your Profile is Private</span>
+    }
+</p>
+<form method="post" action="/Account/ChangePrivacy">
+    <label>Update Privacy</label><br />
+    @if (Model.IsPublic)
+    {
+        <input readonly="readonly" type="hidden" value="0" name="isPublic"/>
+        <input type="submit" value="Go Private" />
+    }
+    else
+    {
+        <input readonly="readonly" type="hidden" value="1" name="isPublic"/>
+        <input type="submit" value="Go Public" />
+    }
+</form>
+
+<p>composers:</p>
+<p></p>
+<p class="self-description">@Model.SelfDescription</p><br />
+<form method="post" action="/Account/AddDescription">
+    <label>Update Bio</label><br />
+    <textarea rows="4" cols="50" name="description"></textarea><br />
+    <input type="submit" value="Go" />
+</form>
+
+
+
+<style>
+    .fit-square {
+        object-fit: cover;
+        width: 230px;
+        height: 230px;
+    }
+
+    .self-description {
+        white-space: pre-line;
+    }
+</style>

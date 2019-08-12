@@ -92,13 +92,6 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult BioPage(string email)
-        {
-            User user = authProvider.GetCurrentUser();
-            return View(user);
-        }
-
-        [HttpGet]
         public IActionResult PerspectiveDates()
         {
             return View();
@@ -136,7 +129,7 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult MyProfile()
+        public IActionResult BioPage()
         {
             var user = authProvider.GetCurrentUser();
             return View(user);
@@ -155,7 +148,7 @@ namespace WebApplication.Web.Controllers
 
                 authProvider.AddPic(imagePath);
 
-                return RedirectToAction("MyProfile", "Account");
+                return RedirectToAction("BioPage", "Account");
 
             }
             return View();
@@ -166,7 +159,7 @@ namespace WebApplication.Web.Controllers
         {
 
             authProvider.AddDescription(description);
-            return RedirectToAction("MyProfile", "Account");
+            return RedirectToAction("BioPage", "Account");
         }
 
         [HttpPost]
@@ -174,14 +167,14 @@ namespace WebApplication.Web.Controllers
         {
             bool publicBool = isPublic == 1 ? true : false;
             authProvider.ChangePrivacy(publicBool);
-            return RedirectToAction("MyProfile", "Account");
+            return RedirectToAction("BioPage", "Account");
         }
 
         [HttpPost]
         public IActionResult AddComposer(string composer)
         {
             authProvider.AddComposer(composer);
-            return RedirectToAction("MyProfile", "Account");
+            return RedirectToAction("BioPage", "Account");
         }
     }
 }
