@@ -142,7 +142,66 @@ public User GetUser(string username)
             return new Composer(Name);
         }
 
+        /// <summary>
+        /// get's all users in our database
+        /// </summary>
+        /// <returns></returns>
+        public List<User> GetAllUsers()
+        {
+            List<User> UserList = new List<User>();
 
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+
+                    cmd = new SqlCommand($"SELECT * FROM Users WHERE is_public = 1;", conn);
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        UserList.Add(MapRowToUser(reader));
+                    }
+                    reader.Close();
+
+                    foreach (User user in UserList)
+                    {
+                        //cmd = new SqlCommand($"SELECT city, state_name,from_date,to_date FROM Places WHERE user_id = '{user.Id}';", conn);
+                        //reader = cmd.ExecuteReader();
+
+                        //while (reader.Read())
+                        //{
+                        //    user.ListOfPlaces.Add(MapRowToPlace(reader));
+                        //}
+
+                        //reader.Close();
+
+                        cmd = new SqlCommand($"SELECT composer_name FROM Composers WHERE user_id = '{user.Id}';", conn);
+                        reader = cmd.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            user.ListOfComposers.Add(MapRowToComposer(reader));
+                        }
+
+                        reader.Close();
+                    }
+
+                }
+
+                return UserList;
+            }
+
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+
+
+
+        }
 
         /// <summary>
         /// Updates the user in the database.
@@ -274,6 +333,8 @@ public User GetUser(string username)
             }
             
         }
+
+
     }
 }
 
