@@ -1,0 +1,234 @@
+﻿@using WebApplication.Web.Models.Account;
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "PerspectiveDates";
+}
+
+<div class="full-page dates-bg">
+    <div class="container ">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2></h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2></h2>
+            </div>
+        </div><div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2></h2>
+            </div>
+        </div>
+        <div class="row bg-danger text-center text-dark">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2>Active Members</h2>
+            </div>
+            @*@foreach(User member in Model.User)*@
+            <div class="row text-center text-dark">
+                <div class="col-md-3">
+                    <h4>Welcome "PlaceholderUser" <span id="logoutColor">(LogOut)</span> </h4>
+                </div>
+                <div class="col-md-3 dropdown">
+                    Show by
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Your Age Range <span class="carat"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"></a></li>
+                        <li><a href="#">All Men and Women</a></li>
+                        <li><a href="#">All Women</a></li>
+                        <li><a href="#">All Men</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 dropdown">
+                    sort by
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Residence<span class="carat"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">City</a></li>
+                        <li><a href="#">State</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 dropdown">
+                    Tour Schedule
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        City <span class="carat"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">choose City</a></li>
+                        <li><a href="#">choose State</a></li>
+                        <li><a href="#">Choose All Men</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+
+        <div class="row  text-center text-dark memberBios">
+            <div class="col-md-3">
+                <h5><strong>Status: </strong>Standard Member</h5>
+                <h1>Choices</h1>
+                <div class="list-group ">
+                    <p class="choices text=left">
+                        <ul class="noBullets">
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-home"></span>
+                                </a>  Home
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="glyphicon glyphicon-heart"></span>
+                                </a> Saved Favorites
+                            </li>
+                        </ul>
+                    </p>
+
+                </div>
+            </div>
+            <div id=" memberImage" class="col-md-3">
+                <h5><span id="cName">UserCodeName</span></h5>
+                <a href="#" class="thumbnail">
+                    <img src="~/images/Male avatar.jpg">
+                </a>
+                <p class="heart text-left">
+                    Favorite
+                    <a href="#">
+                        <span class="glyphicon glyphicon-heart"></span>
+                    </a>
+                </p>
+                <p class="music text-right">
+                    Exchange Notes
+                    <a href="#">
+                        <span class="glyphicon glyphicon-music"></span>
+                    </a>
+                </p>
+                <h5><strong>Int </strong>years old</h5>
+                <h5><strong>City, ST</strong></h5>
+                <h5>Placeholder for bio sheet personal discription first four lines. Figure out how to make sure text is wrapping.</h5>
+            </div>
+            <div class="col-md-3">
+                <h5><span id="cName">UserCodeName</span></h5>
+                <a href="#" class="thumbnail">
+                    <img src="~/images/Male avatar.jpg">
+                </a>
+                <p class="heart text-left">
+                    Favorite
+                    <a href="#">
+                        <span class="glyphicon glyphicon-heart"></span>
+                    </a>
+                <p class="music text-right">
+                    Exchange Notes
+                    <a href="#">
+                        <span class="glyphicon glyphicon-music"></span>
+                    </a>
+                </p>
+                <h5><strong>Int </strong>years old</h5>
+                <h5><strong>City, ST</strong></h5>
+                <h5>Placeholder for bio sheet personal discription first four lines. Figure out how to make sure text is wrapping.</h5>
+            </div>
+            <div class="col-md-3">
+                <h5><span id="cName">UserCodeName</span></h5>
+                <a href="#" class="thumbnail">
+                    <img class="imgHolder" src="~/images/Male avatar.jpg" display="none">
+                </a>
+                <p class="heart text-left">
+                    Favorite
+                    <a href="#">
+                        <span class="glyphicon glyphicon-heart"></span>
+                    </a>
+                <p class="music text-right">
+                    Exchange Notes
+                    <a href="#">
+                        <span class="glyphicon glyphicon-music"></span>
+                    </a>
+                </p>
+                <h5><strong>Int </strong>years old</h5>
+                <h5><strong>City, ST</strong></h5>
+                <h5>Placeholder for bio sheet personal discription first four lines. Figure out how to make sure text is wrapping.</h5>
+            </div>
+
+
+        </div>
+        <form asp-controller="account" asp-action="PerspectiveDates" method="post">
+            <input type="submit" value="Submit" class="btn btn-default" />
+        </form>
+    </div>
+</div>
+
+
+
+<style>
+
+    .dates-bg {
+        width: 100%;
+        height: auto;
+        background: url(../images/sheetmusic.jpg) no-repeat center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        color: #8a6d3b;
+    }
+
+    .bg-danger {
+        background-color: #fcf8e3;
+        margin-left: 5%;
+        margin-right: 5%
+    }
+
+    #logoutColor {
+        color: darkcyan;
+    }
+
+    .memberBios {
+        background-color: antiquewhite;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .choices {
+        display: block;
+        text-align: left;
+    }
+
+    .glyphicon-heart {
+        color: red;
+    }
+
+    .noBullets {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        text-align: left;
+    }
+
+    #cName {
+        color: #bb635f;
+    }
+
+    .heart {
+        font-size: x-small;
+        color: #bb635f;
+    }
+
+    .music {
+        font-size: x-small;
+        color: #bb635f;
+    }
+</style>
