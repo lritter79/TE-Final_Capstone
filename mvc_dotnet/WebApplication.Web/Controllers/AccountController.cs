@@ -86,8 +86,11 @@ namespace WebApplication.Web.Controllers
 
                 // Redirect the user where you want them to go after registering
 
+<<<<<<< HEAD
           
 
+=======
+>>>>>>> a54bfba88c51c263672b63c59c4c60273108f2fb
                 return RedirectToAction("RegistrationComplete", "Account");
             }
 
@@ -98,7 +101,11 @@ namespace WebApplication.Web.Controllers
         public IActionResult RegistrationComplete()
         {
             return View();
+<<<<<<< HEAD
 
+=======
+
+>>>>>>> a54bfba88c51c263672b63c59c4c60273108f2fb
         }
 
         [HttpGet]
