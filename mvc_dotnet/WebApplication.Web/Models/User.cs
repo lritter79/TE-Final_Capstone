@@ -44,7 +44,10 @@ namespace WebApplication.Web.Models
         // still needs a way to aasert that the user registering is 18 or older
         [Display(Name = "Age")]
         public int Age { get {
-                return 21;
+                DateTime now = DateTime.Today;
+                int age = now.Year - BirthDate.Year;
+
+                return age;
             } }
 
         [Required(ErrorMessage = "Home city is required.")]
