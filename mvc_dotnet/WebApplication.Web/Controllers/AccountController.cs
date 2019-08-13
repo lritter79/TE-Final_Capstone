@@ -64,12 +64,12 @@ namespace WebApplication.Web.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        public IActionResult RegistrationComplete(RegisterViewModel registerViewMode)
-        {
-            return RedirectToAction("Login", "Account");
-        }
+        //////[HttpPost]
+        //////[ValidateAntiForgeryToken]
+        ////public IActionResult RegistrationComplete(RegisterViewModel registerViewMode)
+        ////{
+        ////    return RedirectToAction("Login", "Account");
+        ////}
 
         [HttpGet]
         public IActionResult Login()
@@ -105,7 +105,14 @@ namespace WebApplication.Web.Controllers
             // Redirect the user where you want them to go after logoff
             return RedirectToAction("Index", "Home");
         }
-        
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PostBioPage(User user)
+        {
+            //dao.SaveBioPage(User user); this is where the code will go to save this page.
+            return RedirectToAction("PerspectiveDates", "Account");
+        }
 
 
         [HttpGet]
@@ -116,13 +123,6 @@ namespace WebApplication.Web.Controllers
             return View(members);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult PostBioPage(User user)
-        {
-            //dao.SaveBioPage(User user); this is where the code will go to save this page.
-            return RedirectToAction("PerspectiveDates", "Account");
-        }
 
 
         [HttpGet]
