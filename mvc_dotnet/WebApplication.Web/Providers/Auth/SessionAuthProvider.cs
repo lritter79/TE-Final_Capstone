@@ -111,7 +111,7 @@ namespace WebApplication.Web.Providers.Auth
 
             if (!String.IsNullOrEmpty(username))
             {
-                return userDAL.GetUsers();
+                return userDAL.GetUsers(GetCurrentUser().Id);
             }
 
             return null;

@@ -145,7 +145,7 @@ public User GetUser(string username)
             return new Composer(Name);
         }
 
-        public List<User> GetUsers()
+        public List<User> GetUsers(int excludeCurrentUserId)
         {
             List<User> users = new List<User>();
             try
@@ -153,7 +153,8 @@ public User GetUser(string username)
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM USERS;", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM USERS where id <> @excludeCurrentUserId;", conn);
+                    cmd.Parameters.AddWithValue("@excludeCurrentUserId", excludeCurrentUserId);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
