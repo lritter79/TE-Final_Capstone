@@ -5,20 +5,57 @@
 
 }
 
+<div id="inbox">
+    <h2>Inbox</h2>
 
+    <div class="full-page">
+        <p style="padding: 10px;">You have @Model.Count Message(s)</p>
 
-<h2>Inbox</h2>
+        @foreach (KeyValuePair<string, Message> kvp in Model)
+        {
+        <div class="Message">
+            <b>@kvp.Key</b>
+            <div class="Details">
+                <p>@kvp.Value.Text</p>
 
-<p>You have @Model.Count Message(s)</p>
+                @kvp.Value.DateSent
+            </div>
 
-@foreach (KeyValuePair<string, Message> kvp in Model)
-{
-    <div class="Message">
-        <b>@kvp.Key</b>
-        <p>@kvp.Value.Text</p>
-        <div>
-            @kvp.Value.DateSent
         </div>
-
+        }
     </div>
-}
+</div>
+
+<style>
+
+    body {
+        width: 100%;
+        height: auto;
+        background: url(../images/sheetmusic.jpg) no-repeat center center;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        color: #8a6d3b;
+    }
+
+    .Message {
+        background-color: brown;
+        border-style: solid;
+        border-width: 5px;
+        border-color: sienna;
+        border-radius: 5px;
+        padding: 5px;
+        margin: 15px;
+        color: khaki;
+    }
+
+    .Details{
+        font:caption;
+        padding: 10px;
+    }
+
+    #inbox{
+        background-color: navajowhite;
+    }
+</style>

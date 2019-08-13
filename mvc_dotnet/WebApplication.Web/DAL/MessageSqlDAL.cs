@@ -81,11 +81,14 @@ namespace WebApplication.Web.DAL
 
                         reader = cmd.ExecuteReader();
 
-                        while (reader.Read())
-                        {
-                            
-                            messagesByUsername.Add(Username, MapRowToMessage(reader));
-                        }
+                            if (reader.Read())
+                            {
+                                if (!messagesByUsername.ContainsKey(Username))
+                                {
+                                    messagesByUsername.Add(Username, MapRowToMessage(reader));
+                                }
+                                
+                            }
                         reader.Close();
                     }
                     
