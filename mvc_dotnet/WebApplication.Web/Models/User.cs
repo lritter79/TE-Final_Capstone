@@ -15,6 +15,7 @@ namespace WebApplication.Web.Models
             this.ListOfInstruments = new List<Instrument>();
             this.ListOfPlaces = new List<Place>();
             this.ListOfComposers = new List<Composer>();
+            this.ListOfMessages = new List<Message>();
             this.SelfDescription = "";
             this.IsPublic = true;
         }
