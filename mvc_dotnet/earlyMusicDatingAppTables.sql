@@ -25,8 +25,6 @@ home_city varchar(50) NOT NULL,
 home_state varchar(50) NOT NULL,
 self_description varchar(Max) NULL,
 profile_pic varchar(200) NULL,
-
-
 password	varchar(50)	not null,
 salt		varchar(50)	not null,
 role		varchar(50)	default('user'),
@@ -35,8 +33,10 @@ is_public bit NOT NULL,
 --seeking_men bit NOT NULL,
 --seeking_women bit NOT NULL,
 
-CONSTRAINT pk_users PRIMARY KEY (id)
 
+CONSTRAINT pk_users PRIMARY KEY (id),
+CONSTRAINT uc_username UNIQUE (username),
+CONSTRAINT uc_email UNIQUE (email)
 );
 
 CREATE TABLE Places (
@@ -45,14 +45,14 @@ city varchar(50) NOT NULL,
 state_name varchar(50) NOT NULL,
 from_date datetime NOT NULL,
 to_date datetime NOT NULL,
-CONSTRAINT fk_places_users FOREIGN KEY (user_id) REFERENCES Users (ID)
+CONSTRAINT fk_places_users FOREIGN KEY (user_id) REFERENCES Users (id)
 );
 
 CREATE TABLE Instruments_Played (
 user_id int NOT NULL,
 instrument_name varchar(50) NOT NULL,
 
-CONSTRAINT fk_instuments_played_users FOREIGN KEY (user_id) REFERENCES Users (ID)
+CONSTRAINT fk_instuments_played_users FOREIGN KEY (user_id) REFERENCES Users (id)
 );
 
 CREATE TABLE Composers (
@@ -68,9 +68,19 @@ Create table tblImages
     Name nvarchar(255),
     Size int,
     ImageData varbinary(max)
+
 );
 
+CREATE TABLE message_table
+(
+	sender_id int not null,
+	reciever_id int not null,
+	message_text varchar(Max) Not null,
+	date_sent datetime not null
 
+	CONSTRAINT fk_sender_id FOREIGN KEY (sender_id) REFERENCES Users (id),
+	CONSTRAINT fk_reciever_id FOREIGN KEY (reciever_id) REFERENCES Users (id)
+);
 
 COMMIT
 

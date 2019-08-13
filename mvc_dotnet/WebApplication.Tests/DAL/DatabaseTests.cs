@@ -27,7 +27,7 @@ namespace WebApplication.Tests.DAL
             {
                 connection.Open();
                 //Delete everything from our tables
-                string cmdText = "delete from Users;delete from Instruments_Played;delete from Places;";
+                string cmdText = "delete from Users;delete from Instruments_Played;delete from Places;delete from message_table;";
                 SqlCommand command = new SqlCommand(cmdText, connection);
                 command.ExecuteNonQuery();
 
