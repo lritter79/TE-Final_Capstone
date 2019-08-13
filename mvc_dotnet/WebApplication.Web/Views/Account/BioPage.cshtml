@@ -30,7 +30,8 @@
  <form method="post" action="/Account/AddComposer">
     <label>add a favorite composer</label><br />
     <input type="text" name="composer"><br />
-    <input type="submit" value="Go" />
+    <input type="submit" value="Go" /> 
+     <hr />
  </form>
 
  <p>
@@ -55,24 +56,28 @@
         <input readonly="readonly" type="hidden" value="1" name="isPublic"/>
         <input type="submit" value="Go Public" />
     }
- </form>
+ </form> 
+      <hr />
 
- <p>composers:</p>
+ 
  <p></p>
  <p class="self-description">@Model.SelfDescription</p><br />
  <form method="post" action="/Account/AddDescription">
     <label>Update Bio</label><br />
-    <textarea rows="4" cols="50" name="description"></textarea><br />
+    <textarea rows="4" cols="50" name="description" placeholder="@Model.SelfDescription"></textarea><br />
     <input class="submitgo" type="submit" value="Go" />
  </form> 
 </div>
 
 
 
-<style>
+<style> 
+    .musicimage{
+        width:100%;
+    }
     .profileinput {
         position: absolute;
-        margin-top: -100%;
+        margin-top: -125%;
         color: black;
         margin-left: 27%;
         border: 1px solid black; 
