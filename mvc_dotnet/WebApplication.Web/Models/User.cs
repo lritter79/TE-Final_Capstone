@@ -91,6 +91,9 @@ namespace WebApplication.Web.Models
         [Display(Name = "Favorite Composers")]
         public List<Composer> ListOfComposers { get; set; }
 
+        [Display(Name = "Messages")]
+        public List<Message> ListOfMessages { get; set; }
+
 
         //public static List<SelectListItem> ComposersMenu = new List<SelectListItem>()
         //{
