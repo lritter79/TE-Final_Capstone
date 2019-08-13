@@ -33,45 +33,6 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Register(RegisterViewModel registerViewModel)
-        {
-            if (ModelState.IsValid)
-            {
-                // Register them as a new user (and set default role)
-                // When a user registeres they need to be given a role. If you don't need anything special
-                // just give them "User".
-                authProvider.Register(registerViewModel.Email, registerViewModel.Username, registerViewModel.BirthDate, registerViewModel.HomeCity, registerViewModel.HomeState, registerViewModel.SelfDescription, registerViewModel.Password, role: "User");
-
-                // Redirect the user where you want them to go after registering
-
-
-                return RedirectToAction("RegistrationComplete", "Account");
-            }
-
-            return View(registerViewModel);
-        }
-
-        [HttpGet]
-        public IActionResult RegistrationComplete()
-        {
-            return View();
-        }
-
-        //////[HttpPost]
-        //////[ValidateAntiForgeryToken]
-        ////public IActionResult RegistrationComplete(RegisterViewModel registerViewMode)
-        ////{
-        ////    return RedirectToAction("Login", "Account");
-        ////}
-
-        [HttpGet]
         public IActionResult Login()
         {            
             return View();
@@ -105,15 +66,53 @@ namespace WebApplication.Web.Controllers
             // Redirect the user where you want them to go after logoff
             return RedirectToAction("Index", "Home");
         }
+        
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult PostBioPage(User user)
-        {
-            //dao.SaveBioPage(User user); this is where the code will go to save this page.
-            return RedirectToAction("PerspectiveDates", "Account");
+        public IActionResult Register(RegisterViewModel registerViewModel)
+        {    
+            
+            
+
+            if (ModelState.IsValid)
+            {
+
+                // Register them as a new user (and set default role)
+                // When a user registeres they need to be given a role. If you don't need anything special
+                // just give them "User
+                try
+                {
+                    authProvider.Register(registerViewModel.Email, registerViewModel.Username, registerViewModel.BirthDate, registerViewModel.HomeCity, registerViewModel.HomeState, registerViewModel.SelfDescription, registerViewModel.Password, role: "User");
+
+                }
+
+                catch
+                {
+                    ModelState.AddModelError("Username", "That user name or email is taken, please enter another");
+                    //ModelState.AddModelError("Email", "That user email is taken, please enter another");
+                    return View(registerViewModel);
+                }
+                               // Redirect the user where you want them to go after registering
+
+
+                return RedirectToAction("RegistrationComplete", "Account");
+            }
+
+            return View(registerViewModel);
         }
 
+        [HttpGet]
+        public IActionResult RegistrationComplete()
+        {
+            return View();
+
+        }
 
         [HttpGet]
         public IActionResult PerspectiveDates()
@@ -123,6 +122,13 @@ namespace WebApplication.Web.Controllers
             return View(members);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult PostBioPage(User user)
+        {
+            //dao.SaveBioPage(User user); this is where the code will go to save this page.
+            return RedirectToAction("PerspectiveDates", "Account");
+        }
 
 
         [HttpGet]
