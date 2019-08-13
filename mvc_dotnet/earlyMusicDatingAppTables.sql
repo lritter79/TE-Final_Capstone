@@ -28,10 +28,9 @@ profile_pic varchar(200) NULL,
 password	varchar(50)	not null,
 salt		varchar(50)	not null,
 role		varchar(50)	default('user'),
-is_public bit NOT NULL,
---gender bit NOT NULL,
---seeking_men bit NOT NULL,
---seeking_women bit NOT NULL,
+is_public   bit NOT NULL,
+gender      bit NULL,
+seeking     int NULL,
 
 
 CONSTRAINT pk_users PRIMARY KEY (id),

@@ -102,7 +102,7 @@ namespace WebApplication.Web.Controllers
                 try
                 {
 
-                    authProvider.Register(registerViewModel.Email, registerViewModel.Username, registerViewModel.BirthDate, registerViewModel.HomeCity, registerViewModel.HomeState, registerViewModel.SelfDescription, registerViewModel.Password, role: "User");
+                    authProvider.Register(registerViewModel.Email, registerViewModel.Username, registerViewModel.BirthDate, registerViewModel.HomeCity, registerViewModel.HomeState, registerViewModel.Gender, registerViewModel.Seeking, registerViewModel.SelfDescription, registerViewModel.Password, role: "User");
 
                 }
 
@@ -113,8 +113,15 @@ namespace WebApplication.Web.Controllers
                     return View(registerViewModel);
                 }
                 // Redirect the user where you want them to go after registering
+                if (registerViewModel.Gender == 0)
+                {
+                    authProvider.AddPic("/images/profile_pics/female avatar.jpg");
+                }
+                else
+                {
+                    authProvider.AddPic("/images/profile_pics/male avatar.jpg");
+                }
 
-                authProvider.AddPic("/images/profile_pics/female avatar.jpg");
                 return RedirectToAction("RegistrationComplete", "Account");
             }
             

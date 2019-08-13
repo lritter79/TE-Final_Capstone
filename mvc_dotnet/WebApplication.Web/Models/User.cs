@@ -9,7 +9,7 @@ namespace WebApplication.Web.Models
 {
     public class User
     {
-   
+
         public User()
         {
             this.ListOfInstruments = new List<Instrument>();
@@ -68,6 +68,10 @@ namespace WebApplication.Web.Models
         public string AbbreviatedDescription { get
             {
                 string output = "";
+                if (SelfDescription is null)
+                {
+                    return null;
+                }
                 if (SelfDescription.Length > 159)
                 {
                     for (int i = 0; i < 159; i++)
@@ -113,6 +117,13 @@ namespace WebApplication.Web.Models
 
         [Display(Name = "Messages")]
         public List<Message> ListOfMessages { get; set; }
+
+        [Display(Name = "Gender")]
+        public int Gender { get; set; }
+
+        [Display(Name = "Seeking")]
+        public int Seeking {get; set;}
+
 
 
         //public static List<SelectListItem> ComposersMenu = new List<SelectListItem>()

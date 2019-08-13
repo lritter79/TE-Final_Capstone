@@ -27,12 +27,14 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO users (email, username, birthdate, home_city, home_state, password, salt, role, is_public) VALUES (@email, @username, @birthdate, @home_city, @home_state, @password, @salt, @role, '1');", conn);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO users (email, username, birthdate, home_city, home_state, password, salt, role, is_public, gender, seeking) VALUES (@email, @username, @birthdate, @home_city, @home_state, @password, @salt, @role, '1', @gender, @seeking);", conn);
                     cmd.Parameters.AddWithValue("@email", user.Email);
                     cmd.Parameters.AddWithValue("@username", user.Username);
                     cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
                     cmd.Parameters.AddWithValue("@home_city", user.HomeCity);
                     cmd.Parameters.AddWithValue("@home_state", user.HomeState);
+                    cmd.Parameters.AddWithValue("@gender", user.Gender);
+                    cmd.Parameters.AddWithValue("@seeking", user.Seeking);
                     //cmd.Parameters.AddWithValue("@self_description", user.SelfDescription);
                     cmd.Parameters.AddWithValue("@password", user.Password);
                     cmd.Parameters.AddWithValue("@salt", user.Salt);
@@ -132,6 +134,8 @@ public User GetUser(string username)
                 IsPublic = Convert.ToBoolean(reader["is_public"]),
                 ProfilePic = Convert.ToString(reader["profile_pic"]),
                 BirthDate = Convert.ToDateTime(reader["birthdate"]),
+                Gender = Convert.ToInt32(reader["gender"]),
+                Seeking = Convert.ToInt32(reader["seeking"]),
                 HomeCity = Convert.ToString(reader["home_city"]),
                 HomeState = Convert.ToString(reader["home_State"]),
                 Salt = Convert.ToString(reader["salt"]),

@@ -144,7 +144,7 @@ namespace WebApplication.Web.Providers.Auth
         /// <param name="password"></param>
         /// <param name="role"></param>
         /// <returns></returns>
-        public void Register(string email, string username, DateTime birthdate, string homeCity, string homeState, string selfDescription, string password, string role)
+        public void Register(string email, string username, DateTime birthdate, string homeCity, string homeState, int gender, int seeking, string selfDescription, string password, string role)
         {
             var hashProvider = new HashProvider();
             var passwordHash = hashProvider.HashPassword(password);
@@ -156,6 +156,8 @@ namespace WebApplication.Web.Providers.Auth
                 BirthDate = birthdate,
                 HomeCity = homeCity,
                 HomeState = homeState,
+                Gender = gender,
+                Seeking = seeking,
                 SelfDescription = selfDescription,
                 Password = passwordHash.Password,
                 Salt = passwordHash.Salt,

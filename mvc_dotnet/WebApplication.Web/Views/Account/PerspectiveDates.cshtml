@@ -99,8 +99,14 @@
                 <h5>@member.HomeCity, @member.HomeState</h5>
                 <div class="self-description">
                     <p>
-                      
-                        @member.AbbreviatedDescription
+                        @if (member.AbbreviatedDescription is null || member.AbbreviatedDescription == "")
+                        {
+                            <span><i><b>@member.Username</b> has not added a description yet.</i></span>
+                        }
+                        else
+                        {
+                            @member.AbbreviatedDescription
+                        }
 
                     </p>
                 </div>
