@@ -15,12 +15,14 @@ namespace WebApplication.Web.Providers.Auth
     {
         private readonly IHttpContextAccessor contextAccessor;
         private readonly IUserDAL userDAL;
+        private readonly IMessageSqlDAL messageSqlDAL;
         public static string SessionKey = "Auth_User";
 
-        public SessionAuthProvider(IHttpContextAccessor contextAccessor, IUserDAL userDAL)
+        public SessionAuthProvider(IHttpContextAccessor contextAccessor, IUserDAL userDAL, IMessageSqlDAL messageSqlDAL)
         {
             this.contextAccessor = contextAccessor;
             this.userDAL = userDAL;
+            this.messageSqlDAL = messageSqlDAL;
         }
 
         /// <summary>
@@ -112,6 +114,18 @@ namespace WebApplication.Web.Providers.Auth
             if (!String.IsNullOrEmpty(username))
             {
                 return userDAL.GetUsers();
+            }
+
+            return null;
+        }
+
+        public Dictionary<string, Message> GetMessagesByUsername(User user)
+        {
+            var username = Session.GetString(SessionKey);
+
+            if (!String.IsNullOrEmpty(username))
+            {
+                return messageSqlDAL.GetMessagesByUsername(user);
             }
 
             return null;

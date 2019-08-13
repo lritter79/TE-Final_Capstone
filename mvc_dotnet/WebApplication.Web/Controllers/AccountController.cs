@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApplication.Web.Models;
 using WebApplication.Web.Models.Account;
 using WebApplication.Web.Providers.Auth;
+using WebApplication.Web.DAL;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
@@ -133,6 +134,15 @@ namespace WebApplication.Web.Controllers
             MembersModel members = new MembersModel();
             members.Members = authProvider.GetAllUsers();
             return View(members);
+        }
+
+        [HttpGet]
+        public IActionResult Inbox()
+        {
+            var user = authProvider.GetCurrentUser();
+            var inbox = authProvider.GetMessagesByUsername(user);  
+           
+            return View(inbox);
         }
 
         [HttpPost]

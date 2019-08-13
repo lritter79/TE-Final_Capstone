@@ -83,7 +83,7 @@ namespace WebApplication.Web.DAL
 /// </summary>
 /// <param name="username"></param>
 /// <returns></returns>
-public User GetUser(string username)
+    public User GetUser(string username)
         {
             User user = null;
             try

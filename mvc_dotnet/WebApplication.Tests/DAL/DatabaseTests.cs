@@ -32,7 +32,7 @@ namespace WebApplication.Tests.DAL
                 command.ExecuteNonQuery();
 
                 ///Add row to user table
-                cmdText = $"INSERT INTO Users (email, username, age, home_city, home_state, self_description, password, salt,is_public) VALUES('x@y.com','luteMan', '69','Pittsburgh','PA','Just a small-town girl','pep','salty', '1');SELECT SCOPE_IDENTITY();";
+                cmdText = $"INSERT INTO Users (email, username, birthdate, home_city, home_state, self_description, password, salt,is_public) VALUES('x@y.com','luteMan', '{DateTime.Now}','Pittsburgh','PA','Just a small-town girl','pep','salty', '1');SELECT SCOPE_IDENTITY();";
                 command = new SqlCommand(cmdText, connection);
                 command.ExecuteNonQuery();
 
@@ -58,7 +58,7 @@ namespace WebApplication.Tests.DAL
                 command.ExecuteNonQuery();
 
                 ///Add row to user table
-                cmdText = $"INSERT INTO Users VALUES('x@y.com','luteMan2', 18,'Pittsburgh','PA','Just a small-town girl','pep','salty', 'User','1');SELECT SCOPE_IDENTITY();";
+                cmdText = $"INSERT INTO Users VALUES('z@a.com','luteMan2', '{DateTime.Now}','Pittsburgh','PA','Just a small-town girl','null','pep','salty', 'User','1');SELECT SCOPE_IDENTITY();";
                 command = new SqlCommand(cmdText, connection);
                 command.ExecuteNonQuery();
 
@@ -75,6 +75,10 @@ namespace WebApplication.Tests.DAL
                 command.ExecuteNonQuery();
 
                 cmdText = $"INSERT INTO Composers VALUES('{userIdTwo}','Purcell');INSERT INTO Composers VALUES('{userIdTwo}','Monteverdi');";
+                command = new SqlCommand(cmdText, connection);
+                command.ExecuteNonQuery();
+
+                cmdText = $"INSERT INTO message_table VALUES('{userIdTwo}','{userId}', 'x', '{DateTime.Now}');INSERT INTO message_table VALUES('{userId}','{userIdTwo}', 'y', '{DateTime.Now}');";
                 command = new SqlCommand(cmdText, connection);
                 command.ExecuteNonQuery();
 

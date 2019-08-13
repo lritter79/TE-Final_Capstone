@@ -1,0 +1,24 @@
+﻿@model Dictionary<string, Message>
+
+@{
+    ViewData["Title"] = "Inbox";
+
+}
+
+
+
+<h2>Inbox</h2>
+
+<p>You have @Model.Count Message(s)</p>
+
+@foreach (KeyValuePair<string, Message> kvp in Model)
+{
+    <div class="Message">
+        <b>@kvp.Key</b>
+        <p>@kvp.Value.Text</p>
+        <div>
+            @kvp.Value.DateSent
+        </div>
+
+    </div>
+}

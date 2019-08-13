@@ -63,5 +63,7 @@ namespace WebApplication.Web.Providers.Auth
 
         List<User> GetAllUsers();
 
+        Dictionary<string, Message> GetMessagesByUsername(User user);
+
     }
 }
