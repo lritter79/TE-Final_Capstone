@@ -45,15 +45,28 @@ namespace WebApplication.Web.Controllers
             // Ensure the fields were filled out
             if (ModelState.IsValid)
             {
+                bool validLogin = false;
                 // Check that they provided correct credentials
-                bool validLogin = authProvider.SignIn(loginViewModel.Username, loginViewModel.Password);
+                try
+                {
+                    validLogin = authProvider.SignIn(loginViewModel.Username, loginViewModel.Password);
+
+                }
+                catch
+                {
+                    ModelState.AddModelError("Username", "That user name is not connected to an account");
+                    //ModelState.AddModelError("Email", "That user email is taken, please enter another");
+                    return View(loginViewModel);
+                }
+
                 if (validLogin)
                 {
                     // Redirect the user where you want them to go after successful login
                     return RedirectToAction("BioPage", "Account");
+
                 }
             }
-
+            ModelState.AddModelError("Password", "Incorrect password");
             return View(loginViewModel);
         }
         
@@ -103,7 +116,7 @@ namespace WebApplication.Web.Controllers
 
                 return RedirectToAction("RegistrationComplete", "Account");
             }
-
+            
             return View(registerViewModel);
         }
 
