@@ -49,7 +49,8 @@ namespace WebApplication.Web.Models
                 int age = now.Year - BirthDate.Year;
 
                 return age;
-            } }
+            }
+        }
 
         [Required(ErrorMessage = "Home city is required.")]
         [Display(Name = "Home City")]

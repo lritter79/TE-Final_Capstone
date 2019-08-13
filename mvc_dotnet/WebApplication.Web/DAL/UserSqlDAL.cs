@@ -131,6 +131,9 @@ public User GetUser(string username)
                 SelfDescription = Convert.ToString(reader["self_description"]),
                 IsPublic = Convert.ToBoolean(reader["is_public"]),
                 ProfilePic = Convert.ToString(reader["profile_pic"]),
+                BirthDate = Convert.ToDateTime(reader["birthdate"]),
+                HomeCity = Convert.ToString(reader["home_city"]),
+                HomeState = Convert.ToString(reader["home_State"]),
                 Salt = Convert.ToString(reader["salt"]),
                 Role = Convert.ToString(reader["role"])
             };

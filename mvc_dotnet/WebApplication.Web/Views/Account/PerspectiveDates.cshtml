@@ -79,26 +79,7 @@
     <div class="container body-content">
 
         <div class="row  text-center text-dark memberBios">
-            <div class="col-md-3">
-                <h5><strong>Status: </strong>Standard Member</h5>
-                <h1>Choices</h1>
-                <div class="list-group ">
-                    <p class="choices text=left">
-                        <ul class="noBullets">
-                            <li>
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-home"></span>
-                                </a>  Home
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <span class="glyphicon glyphicon-heart"></span>
-                                </a> Saved Favorites
-                            </li>
-                        </ul>
-                    </p>
-
-                </div>
+          
             </div>
             @foreach (User member in Model.Members)
             {
@@ -121,7 +102,7 @@
                         </a>
                     </p>
                     <h5><strong>@member.Age </strong>years old</h5>
-                    <h5>@member.HomeCity</h5>
+                    <h5>@member.HomeCity, @member.HomeState</h5>
                     <h5>@member.SelfDescription</h5>
                 </div>
 
@@ -168,10 +149,6 @@
         margin-right: 5%;
     }
 
-    .choices {
-        display: block;
-        text-align: left;
-    }
 
     .glyphicon-heart {
         color: red;
