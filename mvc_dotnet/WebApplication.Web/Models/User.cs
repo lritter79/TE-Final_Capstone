@@ -125,6 +125,8 @@ namespace WebApplication.Web.Models
         [Display(Name = "Seeking")]
         public int Seeking {get; set;}
 
+        public List<User> BlockedUsers { get; set; }
+
 
 
         //public static List<SelectListItem> ComposersMenu = new List<SelectListItem>()

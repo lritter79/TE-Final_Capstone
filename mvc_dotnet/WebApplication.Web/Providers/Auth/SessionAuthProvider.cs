@@ -195,5 +195,9 @@ namespace WebApplication.Web.Providers.Auth
             return (user != null) && 
                 roles.Any(r => r.ToLower() == user.Role.ToLower());
         }
+        public void BlockUser(int blockedUserId)
+        {
+            userDAL.BlockUser(GetCurrentUser().Id, blockedUserId);
+        }
     }
 }

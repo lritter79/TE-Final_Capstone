@@ -232,5 +232,12 @@ namespace WebApplication.Web.Controllers
             authProvider.AddComposer(composer);
             return RedirectToAction("BioPage", "Account");
         }
+
+        [HttpPost]
+        public IActionResult BlockUser(int blockedUserId)
+        {
+            authProvider.BlockUser(blockedUserId);
+            return RedirectToAction("BioPage", "Account");
+        }
     }
 }

@@ -34,6 +34,14 @@
      <hr />
  </form>
 
+    @*<h2>BLOCKED USERS:</h2>
+     <ul>
+         @foreach (User blockedUser in Model.BlockedUsers)
+         {
+             <li>@blockedUser.Username</li>
+         }
+     </ul>*@
+    
  <p>
     @if (Model.IsPublic)
     {

@@ -76,16 +76,37 @@ namespace WebApplication.Web.DAL
                 throw ex;
             }
         }
+        public void BlockUser(int userId, int blockedUserId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("INSERT INTO blocked (current_user_id, blocked_user_id) VALUES (@userId, blockedUserId);", conn);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    cmd.Parameters.AddWithValue("@blockedUserId", blockedUserId);
+
+                    cmd.ExecuteNonQuery();
+
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
 
 
 
-       
 /// <summary>
 /// Gets the user from the database.
 /// </summary>
 /// <param name="username"></param>
 /// <returns></returns>
-    public User GetUser(string username)
+        public User GetUser(string username)
         {
             User user = null;
             try
@@ -111,6 +132,15 @@ namespace WebApplication.Web.DAL
                         user.ListOfComposers.Add(MapRowToComposer(reader));
                     }
                     reader.Close();
+                    //SqlCommand blockCommand = new SqlCommand($"SELECT * from USERS WHERE id in(SELECT blocked_user_id FROM blocked WHERE current_user_id={user.Id})", conn);
+                    //reader = blockCommand.ExecuteReader();
+
+                    //while (reader.Read())
+                    //{
+                    //    User blockedUser = MapRowToUser(reader);
+                    //    user.BlockedUsers.Add(blockedUser);
+                    //}
+                    //reader.Close();
                 }
 
                 return user;
@@ -149,7 +179,41 @@ namespace WebApplication.Web.DAL
             return new Composer(Name);
         }
 
-        public List<User> GetUsers(int excludeCurrentUserId)
+        private Composer MapRowToBlocked(SqlDataReader reader)
+        {
+            string Name = Convert.ToString(reader["composer_name"]);
+            return new Composer(Name);
+        }
+
+        public List<int> GetBlockedIds(int currentUserId)
+        {
+            List<int> blockedUsers = new List<int>();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("SELECT blocked_user_id FROM blocked where current_user_id = @currentUserId", conn);
+                    cmd.Parameters.AddWithValue("@currentUserId", currentUserId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        blockedUsers.Add(Convert.ToInt32(reader["blocked_user_id"]));
+                    }
+                    reader.Close();
+                }
+
+                return blockedUsers;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+
+        }
+        public List<User> GetUsers(int currentUserId)
         {
             List<User> users = new List<User>();
             try
@@ -157,8 +221,8 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM USERS where id <> @excludeCurrentUserId;", conn);
-                    cmd.Parameters.AddWithValue("@excludeCurrentUserId", excludeCurrentUserId);
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM USERS where id <> @currentUserId and id not in (SELECT current_user_id FROM blocked where blocked_user_id = @currentUserId) and id not in (SELECT current_user_id FROM blocked where blocked_user_id = @currentUserId) and id not in (SELECT blocked_user_id FROM blocked where current_user_id = @currentUserId);", conn);
+                    cmd.Parameters.AddWithValue("@currentUserId", currentUserId);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
