@@ -8,14 +8,33 @@
 <h1></h1>
 <h4 class="instruct">Please </h4>
 
+<div class="bg-image bg-image-homepage">
+    @*<img class="index" src="~/images/musiclesson.jpg" />*@
+</div>
 
-<img class="index" src="~/images/musiclesson.jpg" />
 <style>
 
-    .index {
+   .bg-image{
+       height: 930px;
+       width: auto;
+   }
+
+   .bg-image-homepage {
+       background-image: url(img/musiclesson_1140x1330.22.jpg);
+       -ms-background-position-x: center;
+       -ms-background-position-y: bottom;
+       background-position: center bottom;
+       background-size: cover;
+       -ms-behavior: url(/backgroundsize.min.htc);
+       max-width: 1200px;
+    }
+
+
+
+   @* .index {
         width: 100%;
         vertical-align:bottom;
-    }
+    }*@
 
     .wordart {
         position: absolute;
