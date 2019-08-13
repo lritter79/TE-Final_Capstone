@@ -52,7 +52,7 @@ namespace WebApplication.Web.Providers.Auth
         /// <param name="password"></param>
         /// <param name="role"></param>
         /// <returns></returns>
-        void Register(string email, string username, DateTime birthdate, string homeCity, string homeState, string selfDescription, string password, string role);
+        void Register(string email, string username, DateTime birthdate, string homeCity, string homeState, int gender, int seeking, string selfDescription, string password, string role);
 
         /// <summary>
         /// Checks to see if a user has a given role.

@@ -173,3 +173,9 @@ footer, #push {
 .submit-button {
     margin-left: 30%;
     }
+
+.fit-square {
+    object-fit: cover !important;
+    width: 230px !important;
+    height: 230px !important;
+}

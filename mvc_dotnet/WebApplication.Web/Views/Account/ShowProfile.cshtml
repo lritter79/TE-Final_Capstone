@@ -1,36 +1,88 @@
 ﻿@using WebApplication.Web.Models.Account;
+@model User
 @{
-    ViewData["Title"] = "ShowProfile";
+    ViewData["Title"] = "PerspectiveDates";
 }
 
-
-<label>@ViewData["description"]</label><br />
-<img src="@ViewData["fileLocation"]">
-
-<div class="col-md-3">
-    <h5><strong>Status: </strong>Standard Member</h5>
-    <h1>Choices</h1>
-    <div class="list-group ">
-        <p class="choices text=left">
-            <ul class="noBullets">
-                <li>
-                    <a href="#">
-                        <span class="glyphicon glyphicon-home"></span>
-                    </a>  Home
-                </li>
-                <li>
+<div class="full-page dates-bg">
+            <div id=" memberImage" class="col-md-3">
+                <h5><span id="cName">@Model.Username</span></h5>
+                <a href="#" class="thumbnail">
+                    <img src="../../@Model.ProfilePic">
+                </a>
+                <p class="heart text-left">
+                    Favorite
                     <a href="#">
                         <span class="glyphicon glyphicon-heart"></span>
-                    </a> Saved Favorites
-                </li>
-            </ul>
-        </p>
+                    </a>
+                </p>
+                <p class="music text-right">
+                    Exchange Notes
+                    <a href="#">
+                        <span class="glyphicon glyphicon-music"></span>
+                    </a>
+                </p>
+                <h5><strong>@Model.Age </strong>years old</h5>
+                <h5>@Model.HomeCity, @Model.HomeState</h5>
+                <h5>@Model.SelfDescription</h5>
+            </div>
+</div>
 
-    </div>
-<style>
-    .choices {
-        display: block;
-        text-align: left;
-    }
 
-</style>
+
+    <style>
+
+        .dates-bg {
+            width: 100%;
+            height: auto;
+            background: url(../images/sheetmusic.jpg) no-repeat center center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            color: #8a6d3b;
+        }
+
+        .bg-danger {
+            background-color: #fcf8e3;
+            margin-left: 5%;
+            margin-right: 7%
+        }
+
+        #logoutColor {
+            color: darkcyan;
+        }
+
+        .membersBio {
+            background-color: antiquewhite;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+
+        .glyphicon-heart {
+            color: red;
+        }
+
+        .noBullets {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+            text-align: left;
+        }
+
+        #cName {
+            color: #bb635f;
+        }
+
+        .heart {
+            font-size: x-small;
+            color: #bb635f;
+        }
+
+        .music {
+            font-size: x-small;
+            color: #bb635f;
+        }
+    </style>

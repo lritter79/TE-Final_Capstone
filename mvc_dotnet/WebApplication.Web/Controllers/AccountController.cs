@@ -102,7 +102,8 @@ namespace WebApplication.Web.Controllers
                 // just give them "User
                 try
                 {
-                    authProvider.Register(registerViewModel.Email, registerViewModel.Username, registerViewModel.BirthDate, registerViewModel.HomeCity, registerViewModel.HomeState, registerViewModel.SelfDescription, registerViewModel.Password, role: "User");
+
+                    authProvider.Register(registerViewModel.Email, registerViewModel.Username, registerViewModel.BirthDate, registerViewModel.HomeCity, registerViewModel.HomeState, registerViewModel.Gender, registerViewModel.Seeking, registerViewModel.SelfDescription, registerViewModel.Password, role: "User");
 
                 }
 
@@ -112,8 +113,15 @@ namespace WebApplication.Web.Controllers
                     //ModelState.AddModelError("Email", "That user email is taken, please enter another");
                     return View(registerViewModel);
                 }
-                               // Redirect the user where you want them to go after registering
-
+                // Redirect the user where you want them to go after registering
+                if (registerViewModel.Gender == 0)
+                {
+                    authProvider.AddPic("/images/profile_pics/female avatar.jpg");
+                }
+                else
+                {
+                    authProvider.AddPic("/images/profile_pics/male avatar.jpg");
+                }
 
                 return RedirectToAction("RegistrationComplete", "Account");
             }
@@ -160,20 +168,20 @@ namespace WebApplication.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult ShowProfile(string description, IFormFile pic)
+        [HttpGet]
+        public IActionResult ShowProfile(int id)
         {
-            ViewData["description"] = description;
-            if(pic != null)
+            MembersModel members = new MembersModel();
+            members.Members = authProvider.GetAllUsers();
+            User member = new User();
+            foreach(User user in members.Members)
             {
-                var profilePicsPath = he.WebRootPath + "\\images\\profile_pics";
-                var fileName = Path.Combine(profilePicsPath, Path.GetFileName(pic.FileName));
-                pic.CopyTo(new FileStream(fileName, FileMode.Create));
-                var imagePath = "/images/profile_pics/" + Path.GetFileName(pic.FileName);
-                ViewData["fileLocation"] = imagePath;
-
+                if(user.Id == id)
+                {
+                    member = user;
+                }
             }
-            return View();
+            return View(member);
         }
 
         [HttpGet]

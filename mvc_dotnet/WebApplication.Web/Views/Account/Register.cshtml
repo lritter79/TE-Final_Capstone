@@ -64,6 +64,35 @@
                                 <td></td>
                                 <td>
                                     <div class="form-group">
+                                        <label asp-for="Gender"></label><br />
+                                        <select class="well-sm well" asp-for="Gender">
+                                            <option value="1">Male</option>
+                                            <option value="0">Female</option>
+                                        </select>
+                                        <span asp-validation-for="Gender"></span>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class="form-group">
+                                        <label asp-for="Seeking "></label><br />
+                                            <select class="well-sm well" asp-for="Seeking">
+                                                <option value="0">Seeking Women</option>
+                                                <option value="1">Seeking Men</option>
+                                                <option value="2">Seeking Men and Women</option>
+                                            </select>                                        
+                                        <span asp-validation-for="Seeking"></span>
+                                    </div>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div class="form-group">
                                         <label asp-for="Email"></label><br />
                                         <input type="email" asp-for="Email" />
                                         <span asp-validation-for="Email"></span>
@@ -95,17 +124,17 @@
                                 <td></td>
                             </tr>
                             @*<tr>
-                                <td></td>
-                                <td>
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <label asp-for="SelfDescription"></label><br />
-                                            <input type="text" asp-for="SelfDescription" />
-                                            <span asp-validation-for="SelfDescription"></span>
-                                        </div>
-                                </td>
-                                <td></td>
-                            </tr>*@
+            <td></td>
+            <td>
+                <div class="form-group">
+                    <div class="form-group">
+                        <label asp-for="SelfDescription"></label><br />
+                        <input type="text" asp-for="SelfDescription" />
+                        <span asp-validation-for="SelfDescription"></span>
+                    </div>
+            </td>
+            <td></td>
+        </tr>*@
                             <tr>
                                 <td></td>
                                 <td>

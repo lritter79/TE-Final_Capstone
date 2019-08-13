@@ -5,7 +5,7 @@
 }
 
 <div class="full-page dates-bg">
-    <div class="container ">
+    <div class="container fit-width">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h2></h2>
@@ -77,45 +77,63 @@
 
     <div class="container body-content membersBio">
 
-        <div class="row  text-center text-dark memberBios">
-          
-            </div>
+        <div class="row  text-center text-dark">
+
+
             @foreach (User member in Model.Members)
             {
-
-                <div id=" memberImage" class="col-md-3">
-                    <h5><span id="cName">@member.Username</span></h5>
-                    <a href="#" class="thumbnail">
-                        <img src="../@member.ProfilePic">
+        <div id=" memberImage" class="col-md-3">
+            <h5><span id="cName">@member.Username</span></h5>
+            <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
+                    <img class="fit-square" src="../@member.ProfilePic">
+                </a>
+            <div class="details-box">
+                <p class="music">
+                    Exchange Notes
+                    <a href="#">
+                        <span class="glyphicon glyphicon-music"></span>
                     </a>
-                    <p class="heart text-left">
-                        Favorite
-                        <a href="#">
-                            <span class="glyphicon glyphicon-heart"></span>
-                        </a>
+                </p>
+
+                <h5><strong>@member.Age </strong>years old</h5>
+                <h5>@member.HomeCity, @member.HomeState</h5>
+                <div class="self-description">
+                    <p>
+                        @if (member.AbbreviatedDescription is null || member.AbbreviatedDescription == "")
+                        {
+                            <span><i><b>@member.Username</b> has not added a description yet.</i></span>
+                        }
+                        else
+                        {
+                            @member.AbbreviatedDescription
+                        }
+
                     </p>
-                    <p class="music text-right">
-                        Exchange Notes
-                        <a href="#">
-                            <span class="glyphicon glyphicon-music"></span>
-                        </a>
-                    </p>
-                    <h5><strong>@member.Age </strong>years old</h5>
-                    <h5>@member.HomeCity, @member.HomeState</h5>
-                    <h5>@member.SelfDescription</h5>
                 </div>
+                
+            </div>
+        </div>
               }
-
-
-
-
-       
-</div>
+            </div>
 
 
 
 <style>
-
+    .self-description {
+        display: table-cell;
+        width: 250px;
+        height: 110px;
+        padding: 10px;
+        border: 2px dashed #96606e;
+        vertical-align: middle;
+    }
+    .details-box {
+        background-color: #decaca;
+        height: 210px;
+    }
+    .fit-width {
+        width: 100%;
+    }
     .dates-bg {
         width: 100%;
         height: auto;
@@ -137,10 +155,13 @@
         color: darkcyan;
     }
 
+    .remove-bottom-margin {
+        margin-bottom: 0px !important;
+    }
     .membersBio {
         background-color: antiquewhite;
-        margin-left: 5%;
-        margin-right: 5%;
+        margin-left: 6.23%;
+        width: 87.6%;
     }
 
 
@@ -155,6 +176,8 @@
         display: inline-block;
         text-align: left;
     }
+
+  
 
     #cName {
         color: #bb635f;
