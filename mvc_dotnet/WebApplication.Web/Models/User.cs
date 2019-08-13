@@ -9,12 +9,13 @@ namespace WebApplication.Web.Models
 {
     public class User
     {
-   
+
         public User()
         {
             this.ListOfInstruments = new List<Instrument>();
             this.ListOfPlaces = new List<Place>();
             this.ListOfComposers = new List<Composer>();
+            this.ListOfMessages = new List<Message>();
             this.SelfDescription = "";
             this.IsPublic = true;
         }
@@ -68,6 +69,10 @@ namespace WebApplication.Web.Models
         public string AbbreviatedDescription { get
             {
                 string output = "";
+                if (SelfDescription is null)
+                {
+                    return null;
+                }
                 if (SelfDescription.Length > 159)
                 {
                     for (int i = 0; i < 159; i++)
@@ -113,6 +118,15 @@ namespace WebApplication.Web.Models
 
         [Display(Name = "Messages")]
         public List<Message> ListOfMessages { get; set; }
+
+        [Display(Name = "Gender")]
+        public int Gender { get; set; }
+
+        [Display(Name = "Seeking")]
+        public int Seeking {get; set;}
+
+        public List<User> BlockedUsers { get; set; }
+
 
 
         //public static List<SelectListItem> ComposersMenu = new List<SelectListItem>()

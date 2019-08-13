@@ -25,6 +25,14 @@ namespace WebApplication.Web.Models.Account
         [Display(Name = "Birth Date")]
         public DateTime BirthDate { get; set; }
 
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Gender")]
+        public Int32 Gender { get; set; }
+
+        [Required(ErrorMessage = "*")]
+        [Display(Name = "Seeking")]
+        public Int32 Seeking { get; set; }
+
         [Required]
         [Display(Name = "Home City")]
         public string HomeCity { get; set; }

@@ -15,12 +15,14 @@ namespace WebApplication.Web.Providers.Auth
     {
         private readonly IHttpContextAccessor contextAccessor;
         private readonly IUserDAL userDAL;
+        private readonly IMessageSqlDAL messageSqlDAL;
         public static string SessionKey = "Auth_User";
 
-        public SessionAuthProvider(IHttpContextAccessor contextAccessor, IUserDAL userDAL)
+        public SessionAuthProvider(IHttpContextAccessor contextAccessor, IUserDAL userDAL, IMessageSqlDAL messageSqlDAL)
         {
             this.contextAccessor = contextAccessor;
             this.userDAL = userDAL;
+            this.messageSqlDAL = messageSqlDAL;
         }
 
         /// <summary>
@@ -117,6 +119,18 @@ namespace WebApplication.Web.Providers.Auth
             return null;
         }
 
+        public Dictionary<string, Message> GetMessagesByUsername(User user)
+        {
+            var username = Session.GetString(SessionKey);
+
+            if (!String.IsNullOrEmpty(username))
+            {
+                return messageSqlDAL.GetMessagesByUsername(user);
+            }
+
+            return null;
+        }
+
         public void AddPic(string filename)
         {
             userDAL.UpdatePic(GetCurrentUser(), filename);
@@ -144,7 +158,7 @@ namespace WebApplication.Web.Providers.Auth
         /// <param name="password"></param>
         /// <param name="role"></param>
         /// <returns></returns>
-        public void Register(string email, string username, DateTime birthdate, string homeCity, string homeState, string selfDescription, string password, string role)
+        public void Register(string email, string username, DateTime birthdate, string homeCity, string homeState, int gender, int seeking, string selfDescription, string password, string role)
         {
             var hashProvider = new HashProvider();
             var passwordHash = hashProvider.HashPassword(password);
@@ -156,6 +170,8 @@ namespace WebApplication.Web.Providers.Auth
                 BirthDate = birthdate,
                 HomeCity = homeCity,
                 HomeState = homeState,
+                Gender = gender,
+                Seeking = seeking,
                 SelfDescription = selfDescription,
                 Password = passwordHash.Password,
                 Salt = passwordHash.Salt,
@@ -178,6 +194,10 @@ namespace WebApplication.Web.Providers.Auth
             var user = GetCurrentUser();
             return (user != null) && 
                 roles.Any(r => r.ToLower() == user.Role.ToLower());
+        }
+        public void BlockUser(int blockedUserId)
+        {
+            userDAL.BlockUser(GetCurrentUser().Id, blockedUserId);
         }
     }
 }

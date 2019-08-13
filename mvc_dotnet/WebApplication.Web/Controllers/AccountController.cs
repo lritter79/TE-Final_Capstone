@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApplication.Web.Models;
 using WebApplication.Web.Models.Account;
 using WebApplication.Web.Providers.Auth;
+using WebApplication.Web.DAL;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
@@ -102,7 +103,7 @@ namespace WebApplication.Web.Controllers
                 try
                 {
 
-                    authProvider.Register(registerViewModel.Email, registerViewModel.Username, registerViewModel.BirthDate, registerViewModel.HomeCity, registerViewModel.HomeState, registerViewModel.SelfDescription, registerViewModel.Password, role: "User");
+                    authProvider.Register(registerViewModel.Email, registerViewModel.Username, registerViewModel.BirthDate, registerViewModel.HomeCity, registerViewModel.HomeState, registerViewModel.Gender, registerViewModel.Seeking, registerViewModel.SelfDescription, registerViewModel.Password, role: "User");
 
                 }
 
@@ -113,8 +114,15 @@ namespace WebApplication.Web.Controllers
                     return View(registerViewModel);
                 }
                 // Redirect the user where you want them to go after registering
+                if (registerViewModel.Gender == 0)
+                {
+                    authProvider.AddPic("/images/profile_pics/female avatar.jpg");
+                }
+                else
+                {
+                    authProvider.AddPic("/images/profile_pics/male avatar.jpg");
+                }
 
-                authProvider.AddPic("/images/profile_pics/female avatar.jpg");
                 return RedirectToAction("RegistrationComplete", "Account");
             }
             
@@ -134,6 +142,15 @@ namespace WebApplication.Web.Controllers
             MembersModel members = new MembersModel();
             members.Members = authProvider.GetAllUsers();
             return View(members);
+        }
+
+        [HttpGet]
+        public IActionResult Inbox()
+        {
+            var user = authProvider.GetCurrentUser();
+            var inbox = authProvider.GetMessagesByUsername(user);  
+           
+            return View(inbox);
         }
 
         [HttpPost]
@@ -213,6 +230,13 @@ namespace WebApplication.Web.Controllers
         public IActionResult AddComposer(string composer)
         {
             authProvider.AddComposer(composer);
+            return RedirectToAction("BioPage", "Account");
+        }
+
+        [HttpPost]
+        public IActionResult BlockUser(int blockedUserId)
+        {
+            authProvider.BlockUser(blockedUserId);
             return RedirectToAction("BioPage", "Account");
         }
     }

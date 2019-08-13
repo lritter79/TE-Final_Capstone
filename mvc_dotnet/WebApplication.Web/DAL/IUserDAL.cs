@@ -39,6 +39,10 @@ namespace WebApplication.Web.DAL
 
         List<User> GetUsers(int excludeCurrentUserId);
 
+        List<int> GetBlockedIds(int currentUserId);
+
         void AddComposer(User user, string composer);
+
+        void BlockUser(int userId, int blockedUserId);
     }
 }

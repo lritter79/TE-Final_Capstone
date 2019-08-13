@@ -28,10 +28,9 @@ profile_pic varchar(200) NULL,
 password	varchar(50)	not null,
 salt		varchar(50)	not null,
 role		varchar(50)	default('user'),
-is_public bit NOT NULL,
---gender bit NOT NULL,
---seeking_men bit NOT NULL,
---seeking_women bit NOT NULL,
+is_public   bit NOT NULL,
+gender      bit NULL,
+seeking     int NULL,
 
 
 CONSTRAINT pk_users PRIMARY KEY (id),
@@ -78,8 +77,7 @@ CREATE TABLE message_table
 	message_text varchar(Max) Not null,
 	date_sent datetime not null
 
-	CONSTRAINT fk_sender_id FOREIGN KEY (sender_id) REFERENCES Users (id),
-	CONSTRAINT fk_reciever_id FOREIGN KEY (reciever_id) REFERENCES Users (id)
+	
 );
 
 COMMIT
