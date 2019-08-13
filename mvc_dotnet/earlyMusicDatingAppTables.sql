@@ -35,7 +35,8 @@ is_public bit NOT NULL,
 
 
 CONSTRAINT pk_users PRIMARY KEY (id),
-CONSTRAINT uc_users UNIQUE (username)
+CONSTRAINT uc_users UNIQUE (username),
+CONSTRAINT uc_users UNIQUE (email)
 );
 
 CREATE TABLE Places (

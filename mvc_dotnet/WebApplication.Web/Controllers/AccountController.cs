@@ -76,21 +76,29 @@ namespace WebApplication.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Register(RegisterViewModel registerViewModel)
-        {            
+        {    
+            
+            
+
             if (ModelState.IsValid)
             {
+
                 // Register them as a new user (and set default role)
                 // When a user registeres they need to be given a role. If you don't need anything special
-                // just give them "User".
-                authProvider.Register(registerViewModel.Email, registerViewModel.Username, registerViewModel.BirthDate, registerViewModel.HomeCity, registerViewModel.HomeState, registerViewModel.SelfDescription, registerViewModel.Password, role: "User"); 
+                // just give them "User
+                try
+                {
+                    authProvider.Register(registerViewModel.Email, registerViewModel.Username, registerViewModel.BirthDate, registerViewModel.HomeCity, registerViewModel.HomeState, registerViewModel.SelfDescription, registerViewModel.Password, role: "User");
 
-                // Redirect the user where you want them to go after registering
+                }
 
-<<<<<<< HEAD
-          
+                catch
+                {
+                    return View(registerViewModel);
+                }
+                               // Redirect the user where you want them to go after registering
 
-=======
->>>>>>> a54bfba88c51c263672b63c59c4c60273108f2fb
+
                 return RedirectToAction("RegistrationComplete", "Account");
             }
 
@@ -101,11 +109,7 @@ namespace WebApplication.Web.Controllers
         public IActionResult RegistrationComplete()
         {
             return View();
-<<<<<<< HEAD
 
-=======
-
->>>>>>> a54bfba88c51c263672b63c59c4c60273108f2fb
         }
 
         [HttpGet]
