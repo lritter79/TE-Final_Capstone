@@ -94,6 +94,8 @@ namespace WebApplication.Web.Controllers
 
                 catch
                 {
+                    ModelState.AddModelError("Username", "That user name or email is taken, please enter another");
+                    //ModelState.AddModelError("Email", "That user email is taken, please enter another");
                     return View(registerViewModel);
                 }
                                // Redirect the user where you want them to go after registering
