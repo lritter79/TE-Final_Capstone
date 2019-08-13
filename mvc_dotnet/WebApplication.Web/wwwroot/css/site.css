@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
 for details on configuring this project to bundle and minify static web assets. */
 body {
@@ -179,3 +180,102 @@ footer, #push {
     width: 230px !important;
     height: 230px !important;
 }
+=======
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification\ 
+for details on configuring this project to bundle and minify static web assets. */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
+
+@media screen and (min-aspect-ratio: 2000/1192) {
+    .bg-registration {
+        width: 100%;
+        z-index: 0;
+    }
+}
+
+@media screen and (max-aspect-ratio: 2000/1192) {
+
+    .bg-registration {
+        z-index: 0;
+        height: 100%; /*min-height hack*/
+    }
+}
+
+.bg-login {
+    width: 100%;
+    z-index: 0;
+}
+
+
+.transparent-overlay {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.3);
+    padding-bottom: 25px;
+}
+
+    .transparent-overlay label, .transparent-overlay h2 {
+        color: white;
+    }
+
+    .transparent-overlay textarea {
+        width: 200px;
+        height: 80px;
+    }
+
+.center-form {
+    margin-left: 20%;
+}
+
+body {
+    overflow-x: hidden;
+    background-color: black;
+    color: gray;
+    height: 100%;
+}
+
+footer, #push {
+    height: 4em;
+}
+
+.field-validation-error {
+    color: black;
+    text-shadow: 2px 2px 5px red;
+    font-size: 80%;
+}
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3

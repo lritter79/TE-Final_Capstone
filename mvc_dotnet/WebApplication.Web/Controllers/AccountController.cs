@@ -2,19 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Http;
+=======
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
 using Microsoft.AspNetCore.Mvc;
 using WebApplication.Web.Models;
 using WebApplication.Web.Models.Account;
 using WebApplication.Web.Providers.Auth;
+<<<<<<< HEAD
 using WebApplication.Web.DAL;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+=======
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
 
 namespace WebApplication.Web.Controllers
 {    
     public class AccountController : Controller
     {
+<<<<<<< HEAD
         private readonly IHostingEnvironment he;
 
         private readonly IAuthProvider authProvider;
@@ -22,6 +29,12 @@ namespace WebApplication.Web.Controllers
         {
             this.authProvider = authProvider;
             he = e;
+=======
+        private readonly IAuthProvider authProvider;
+        public AccountController(IAuthProvider authProvider)
+        {
+            this.authProvider = authProvider;
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
         }
         
         //[AuthorizationFilter] // actions can be filtered to only those that are logged in
@@ -46,6 +59,7 @@ namespace WebApplication.Web.Controllers
             // Ensure the fields were filled out
             if (ModelState.IsValid)
             {
+<<<<<<< HEAD
                 bool validLogin = false;
                 // Check that they provided correct credentials
                 try
@@ -68,6 +82,17 @@ namespace WebApplication.Web.Controllers
                 }
             }
             ModelState.AddModelError("Password", "Incorrect password");
+=======
+                // Check that they provided correct credentials
+                bool validLogin = authProvider.SignIn(loginViewModel.Email, loginViewModel.Password);
+                if (validLogin)
+                {
+                    // Redirect the user where you want them to go after successful login
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
             return View(loginViewModel);
         }
         
@@ -89,6 +114,7 @@ namespace WebApplication.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+<<<<<<< HEAD
         public IActionResult Register(RegisterViewModel registerViewModel)
         {    
             
@@ -232,5 +258,40 @@ namespace WebApplication.Web.Controllers
             authProvider.AddComposer(composer);
             return RedirectToAction("BioPage", "Account");
         }
+=======
+        public IActionResult Register(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                // Register them as a new user (and set default role)
+                // When a user registeres they need to be given a role. If you don't need anything special
+                // just give them "User".
+                authProvider.Register(user.Email, user.PasswordHash);
+
+                // Redirect the user where you want them to go after registering
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(user);
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Register(RegisterViewModel registerViewModel)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Register them as a new user (and set default role)
+        //        // When a user registeres they need to be given a role. If you don't need anything special
+        //        // just give them "User".
+        //        authProvider.Register(registerViewModel.Email, registerViewModel.Password, role: "User");
+
+        //        // Redirect the user where you want them to go after registering
+        //        return RedirectToAction("Index", "Home");
+        //    }
+
+        //    return View(registerViewModel);
+        //}
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
     }
 }

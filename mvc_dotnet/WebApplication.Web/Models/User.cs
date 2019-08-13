@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
+=======
+﻿using System;
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,6 +18,7 @@ namespace WebApplication.Web.Models
         {
             this.ListOfInstruments = new List<Instrument>();
             this.ListOfPlaces = new List<Place>();
+<<<<<<< HEAD
             this.ListOfComposers = new List<Composer>();
             this.ListOfMessages = new List<Message>();
             this.SelfDescription = "";
@@ -23,6 +28,13 @@ namespace WebApplication.Web.Models
         /// <summary>
         /// The user's id.
         /// </summary>
+=======
+        }
+        /// <summary>
+        /// The user's id.
+        /// </summary>
+        /// 
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
         [Required]
         public int Id { get; set; }
 
@@ -40,6 +52,7 @@ namespace WebApplication.Web.Models
         [MaxLength(50)]
         public string Username { get; set; }
 
+<<<<<<< HEAD
         public DateTime BirthDate { get; set; }
 
         [Required(ErrorMessage = "Age is required. Min age at least 18")]
@@ -90,19 +103,42 @@ namespace WebApplication.Web.Models
         [Display(Name = "Profile URL")]
         public string ProfilePic { get; set; }
 
+=======
+        [Required(ErrorMessage = "Birth Date is required.Min age at least 18, Max age < 110")]
+        [Display(Name = "Date of Birth")]
+        public DateTime BirthDate { get; set; }
+
+        [Required]
+        [Display(Name = "Home City")]
+        public string HomeCity { get; set; }
+
+        [Required]
+        [Display(Name = "Home State")]
+        public string HomeState { get; set; }
+
+        [Required]
+        public string SelfDescription { get; set; }
+
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
         /// <summary>
         /// The user's password.
         /// </summary>
         [Required]
+<<<<<<< HEAD
         public string Password { get; set; }
 
         /// The user's role.
+=======
+        public string PasswordHash { get; set; }
+
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
         /// <summary>
         /// The user's salt.
         /// </summary>
         [Required]
         public string Salt { get; set; }
 
+<<<<<<< HEAD
         public bool IsPublic { get; set; }
 
         [Display(Name = "Intrument(s) played. Choose up to three. If voice is entered please give range.")]
@@ -140,5 +176,15 @@ namespace WebApplication.Web.Models
         /// <summary>
         /// </summary>
         public string Role { get; set; }
+=======
+        [Required]
+        [Display(Name = "Intrument(s) played. Choose up to three. If voice is entered please give range.")]
+
+        public List<Instrument> ListOfInstruments { get; set; }
+        
+
+        [Display(Name = "Touring cities this year")]
+        public List<Place> ListOfPlaces { get; set; }
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
     }
 }

@@ -18,6 +18,7 @@ namespace WebApplication.Tests.DAL
             User user = new User();
 
             //populates our fake user with info
+<<<<<<< HEAD
             user.BirthDate = DateTime.Now;
             user.Email = "fake@gmail.com";
             user.HomeCity = "pittsburgh";
@@ -36,10 +37,31 @@ namespace WebApplication.Tests.DAL
             Instrument viola = new Instrument("Viola");
 
 
+=======
+            user.BirthDate = new DateTime(2018, 1, 15);
+            user.Email = "fake@gmail.com";
+            user.HomeCity = "pittsburgh";
+            user.HomeState = "PA";
+            
+            user.PasswordHash = "fake";
+            user.Salt = "testSalt";
+            
+            user.SelfDescription = "testdescription";
+            user.Username = "fakeuser";
+            user.ListOfInstruments = new List<Instrument>();
+            Instrument horn = new Instrument("Horn");
+            
+            Instrument violin = new Instrument("Violin");
+            
+            Instrument viola = new Instrument("Viola");
+            
+            
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
             user.ListOfInstruments.Add(horn);
             user.ListOfInstruments.Add(violin);
             user.ListOfInstruments.Add(viola);
 
+<<<<<<< HEAD
             Composer b = new Composer("Bach");
 
             Composer l = new Composer("Lully");
@@ -55,6 +77,12 @@ namespace WebApplication.Tests.DAL
             Place secondPlace = new Place("fooburgh", "barland", DateTime.Today, DateTime.Today);
 
 
+=======
+            Place firstPlace = new Place("foo", "bar", DateTime.Today, DateTime.Today);
+            Place secondPlace = new Place("fooburgh", "barland", DateTime.Today, DateTime.Today);
+
+            user.ListOfPlaces = new List<Place>();
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
             user.ListOfPlaces.Add(firstPlace);
             user.ListOfPlaces.Add(secondPlace);
 
@@ -77,6 +105,7 @@ namespace WebApplication.Tests.DAL
                 command = new SqlCommand(cmdText, connection);
                 string userInstrument = Convert.ToString(command.ExecuteScalar());
 
+<<<<<<< HEAD
                 cmdText = $"SELECT from_date FROM Places WHERE user_id = '{userId}'";
                 command = new SqlCommand(cmdText, connection);
                 string userDate = Convert.ToString(command.ExecuteScalar());
@@ -90,6 +119,16 @@ namespace WebApplication.Tests.DAL
                 //Assert.AreEqual($"{DateTime.Today}", actual: $"{userDate}");
                 //Assert.AreEqual($"Bach", actual: $"{userComposer}");
 
+=======
+                cmdText = $"SELECT from_date FROM PLaces WHERE user_id = '{userId}'";
+                command = new SqlCommand(cmdText, connection);
+                string userDate = Convert.ToString(command.ExecuteScalar());
+
+                Assert.AreEqual("fake@gmail.com", $"{userEmail}");
+                Assert.AreEqual("Horn", $"{userInstrument}");
+                Assert.AreEqual($"{DateTime.Today}", actual: $"{userDate}");
+                
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
             }
         }
 
@@ -97,6 +136,7 @@ namespace WebApplication.Tests.DAL
         public void GetUserTest()
         {
             UserSqlDAL dal = new UserSqlDAL(ConnectionString);
+<<<<<<< HEAD
             string name = "luteMan";
             User user = dal.GetUser(name);
             Assert.IsNotNull(user);
@@ -112,4 +152,11 @@ namespace WebApplication.Tests.DAL
         //}
     }
 
+=======
+            User user = dal.GetUser("luteMan");
+            Assert.IsNotNull(user);
+        }
+    }
+    
+>>>>>>> 556773158a5b0361be99a3ccc184136586f700d3
 }
