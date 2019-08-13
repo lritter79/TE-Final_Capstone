@@ -5,32 +5,37 @@
 }
 
 <div class="full-page dates-bg">
-            <div id=" memberImage" class="col-md-3">
-                <h5><span id="cName">@Model.Username</span></h5>
-                <a href="#" class="thumbnail">
-                    <img src="../../@Model.ProfilePic">
-                </a>
-                <p class="heart text-left">
-                    Favorite
-                    <a href="#">
-                        <span class="glyphicon glyphicon-heart"></span>
-                    </a>
-                </p>
-                <p class="music text-right">
-                    Exchange Notes
-                    <a href="#">
-                        <span class="glyphicon glyphicon-music"></span>
-                    </a>
-                </p>
-                <h5><strong>@Model.Age </strong>years old</h5>
-                <h5>@Model.HomeCity, @Model.HomeState</h5>
-                <h5>@Model.SelfDescription</h5>
-            </div>
+    <img class="profilebackground" src="~/images/sheetmusic.jpg" />
+    <div id=" memberImage" class="col-md-3">
+        
+        <h5><span id="cName">@Model.Username</span></h5>
+        <a href="#" class="thumbnail">
+            <img src="../../@Model.ProfilePic">
+        </a>
+        <p class="heart text-left">
+            Favorite
+            <a href="#">
+                <span class="glyphicon glyphicon-heart"></span>
+            </a>
+        </p>
+        <p class="music text-right">
+            Exchange Notes
+            <a href="#">
+                <span class="glyphicon glyphicon-music"></span>
+            </a>
+        </p>
+        <h5><strong>@Model.Age </strong>years old</h5>
+        <h5>@Model.HomeCity, @Model.HomeState</h5>
+        <h5>@Model.SelfDescription</h5>
+    </div>
 </div>
 
 
 
-    <style>
+    <style> 
+        .profilebackground{
+            width:100%;
+        }
 
         .dates-bg {
             width: 100%;
@@ -42,7 +47,11 @@
             background-size: cover;
             color: #8a6d3b;
         }
-
+         .col-md-3{
+            position:absolute; 
+            margin-top: -125%; 
+            margin-left: 5%;
+        }
         .bg-danger {
             background-color: #fcf8e3;
             margin-left: 5%;
@@ -57,8 +66,7 @@
             background-color: antiquewhite;
             margin-left: 5%;
             margin-right: 5%;
-        }
-
+        } 
 
         .glyphicon-heart {
             color: red;
@@ -73,7 +81,8 @@
         }
 
         #cName {
-            color: #bb635f;
+            color: #bb635f; 
+            
         }
 
         .heart {
@@ -84,5 +93,6 @@
         .music {
             font-size: x-small;
             color: #bb635f;
-        }
+        } 
+        
     </style>
