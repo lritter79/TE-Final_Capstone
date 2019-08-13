@@ -15,6 +15,7 @@ namespace WebApplication.Web.Models.Account
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
+        
         public string Password { get; set; }
     }
 }
