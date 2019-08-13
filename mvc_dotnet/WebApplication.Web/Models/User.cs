@@ -65,6 +65,23 @@ namespace WebApplication.Web.Models
         [Display(Name = "Bio")]
         public string SelfDescription { get; set; }
 
+        public string AbbreviatedDescription { get
+            {
+                string output = "";
+                if (SelfDescription.Length > 159)
+                {
+                    for (int i = 0; i < 159; i++)
+                    {
+                        output += SelfDescription[i];
+                    }
+                    return output + ". . .";
+                }
+                else
+                {
+                    return SelfDescription;
+                }
+            } }
+
         [Display(Name = "Profile URL")]
         public string ProfilePic { get; set; }
 
