@@ -68,6 +68,8 @@ namespace WebApplication.Web.Providers.Auth
         void BlockUser(int blockedUserId);
         void UnBlockUser(int blockedUserId);
 
+        List<Message> GetConversation(string sender, string receiver);
+
 
     }
 }

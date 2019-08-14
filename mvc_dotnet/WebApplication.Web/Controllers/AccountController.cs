@@ -149,7 +149,7 @@ namespace WebApplication.Web.Controllers
         {
             var user = authProvider.GetCurrentUser();
             var inbox = authProvider.GetMessagesByUsername(user);  
-           
+            
             return View(inbox);
         }
 
@@ -245,13 +245,23 @@ namespace WebApplication.Web.Controllers
         {
             authProvider.UnBlockUser(unBlockedUserId);
             return RedirectToAction("BioPage", "Account");
-        }  
+        }
 
-        [HttpGet]
-        public IActionResult Conversation()
+        [HttpPost]
+        public IActionResult Conversation(string sender)
         {
-            
-            return View();
+            var user = authProvider.GetCurrentUser();
+            List<Message> messages = authProvider.GetConversation(sender, user.Username);
+            ConversationModel convo = new ConversationModel();
+            convo.Messages = messages;
+            convo.Receiver = user.Username;
+            convo.Sender = sender;
+            convo.CurrentUser = user;
+
+            return View(convo);
+
+            //Model.sender = sender;
+            //return View(Model);
         }
     }
 }

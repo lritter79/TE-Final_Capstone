@@ -28,7 +28,7 @@ namespace WebApplication.Web.DAL
                     cmd.Parameters.AddWithValue("@senderId", message.SenderId);
                     cmd.Parameters.AddWithValue("@recieverId", message.RecieiverId);
                     cmd.Parameters.AddWithValue("@text", message.Text);
-                    cmd.Parameters.AddWithValue("@date", message.DateSent);
+                    cmd.Parameters.AddWithValue("@date", DateTime.Now);
 
                     cmd.ExecuteNonQuery();
 
@@ -110,7 +110,7 @@ namespace WebApplication.Web.DAL
         //            conn.Open();
 
         //            SqlCommand cmd = new SqlCommand($"SELECT sender_id, date_sent FROM message_table WHERE reciever_id = '{user.Id}' GROUP BY sender_id, date_sent ORDER BY date_sent DESC;", conn);
-                    
+
 
         //            SqlDataReader reader = cmd.ExecuteReader();
 
@@ -204,64 +204,64 @@ namespace WebApplication.Web.DAL
 
         //}
 
-        //public List<Message> GetConversation(string SenderUsername, string RecieverUsername)
-        //{
-        //    List<Message> Conversation = new List<Message>();
-        //    int SenderId = -1;
-        //    int RecieverId = -1;
+        public List<Message> GetConversation(string SenderUsername, string RecieverUsername)
+        {
+            List<Message> Conversation = new List<Message>();
+            int SenderId = -1;
+            int RecieverId = -1;
 
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(connectionString))
-        //        {
-        //            conn.Open();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
 
-        //            SqlCommand cmd = new SqlCommand("SELECT id FROM users WHERE username = @sender;", conn);
-        //            cmd.Parameters.AddWithValue("@sender", SenderUsername);
+                    SqlCommand cmd = new SqlCommand("SELECT id FROM users WHERE username = @sender;", conn);
+                    cmd.Parameters.AddWithValue("@sender", SenderUsername);
 
-        //            SqlDataReader reader = cmd.ExecuteReader();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-        //            if (reader.Read())
-        //            {
-        //                SenderId = Convert.ToInt32(reader["sender_id"]);
-        //            }
-        //            reader.Close();
+                    if (reader.Read())
+                    {
+                        SenderId = Convert.ToInt32(reader["id"]);
+                    }
+                    reader.Close();
 
-        //            cmd = new SqlCommand("SELECT id FROM users WHERE username = @reciever;", conn);
-        //            cmd.Parameters.AddWithValue("@reciever", RecieverUsername);
+                    cmd = new SqlCommand("SELECT id FROM users WHERE username = @reciever;", conn);
+                    cmd.Parameters.AddWithValue("@reciever", RecieverUsername);
 
-        //            reader = cmd.ExecuteReader();
+                    reader = cmd.ExecuteReader();
 
-        //            if (reader.Read())
-        //            {
-        //                RecieverId = Convert.ToInt32(reader["reciever_id"]);
-        //            }
-        //            reader.Close();
+                    if (reader.Read())
+                    {
+                        RecieverId = Convert.ToInt32(reader["id"]);
+                    }
+                    reader.Close();
 
-        //            cmd = new SqlCommand("SELECT * FROM message_table WHERE sender_id = @sender AND recieiver_id = @reciever;", conn);
-        //            cmd.Parameters.AddWithValue("@sender", SenderId);
-        //            cmd.Parameters.AddWithValue("@reciever", RecieverId);
+                    cmd = new SqlCommand("SELECT * FROM message_table WHERE (sender_id = @sender AND reciever_id = @reciever_id) or (sender_id = @reciever_id AND reciever_id = @sender) order by date_sent asc;", conn);
+                    cmd.Parameters.AddWithValue("@sender", SenderId);
+                    cmd.Parameters.AddWithValue("@reciever_id", RecieverId);
 
-        //            reader = cmd.ExecuteReader();
+                    reader = cmd.ExecuteReader();
 
 
-        //            /// keep working on this section
-                   
+                    /// keep working on this section
 
-        //            while (reader.Read())
-        //            {
-        //                Conversation.Add(MapRowToMessage(reader));
-        //            }
-        //            reader.Close();
-        //        }
 
-        //        return Conversation;
-        //    }
-        //    catch (SqlException ex)
-        //    {
-        //        throw ex;
-        //    }
-        //}
+                    while (reader.Read())
+                    {
+                        Conversation.Add(MapRowToMessage(reader));
+                    }
+                    reader.Close();
+                }
+
+                return Conversation;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
 
         public Message MapRowToMessage(SqlDataReader reader)
         {
