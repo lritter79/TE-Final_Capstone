@@ -85,7 +85,7 @@ body {
 }
 
 .overlay-border-login {
-    top: 80%;
+    top:30%;
     background: rgb(2,0,36);
     background: linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(112,73,27,1) 0%, rgba(218,187,117,1) 100%);
     color: black;
@@ -149,7 +149,7 @@ footer, #push {
     width: 100%;
     height: auto;
     padding-bottom: 30%;
-    padding-top: 10%;
+    /*padding-top: 10%;*/
     background: url(../images/lutepassion.jpg) no-repeat center center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
