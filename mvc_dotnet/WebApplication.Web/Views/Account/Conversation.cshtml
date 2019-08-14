@@ -1,17 +1,33 @@
-﻿
+﻿@using WebApplication.Web.Models.Account;
+@model ConversationModel;
+
 @{
     ViewData["Title"] = "Conversation";
-    
+
 }
 
 <div id="chatbox">
     <h2>Conversation</h2>
+    @foreach (Message message in Model.Messages)
+    {
+        @if (message.RecieiverId == Model.CurrentUser.Id)
+        {
+            <div class="message">
+                <p>@Model.Receiver: @message.Text</p>
+            </div>
+        }
+        else
+        {
+            <div class="message">
+                <p>@Model.Sender: @message.Text</p>
+            </div>
+        }
 
-
+    }
 
 </div>
-
 <style>
+
 
     body {
         width: 100%;

@@ -203,5 +203,9 @@ namespace WebApplication.Web.Providers.Auth
         {
             userDAL.UnBlockUser(GetCurrentUser().Id, blockedUserId);
         }
+        public List<Message> GetConversation(string sender, string receiver)
+        {
+            return messageSqlDAL.GetConversation(sender, receiver);
+        }
     }
 }
