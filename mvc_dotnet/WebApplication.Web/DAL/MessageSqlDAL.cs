@@ -26,7 +26,11 @@ namespace WebApplication.Web.DAL
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("INSERT INTO message_table VALUES (@senderId, @receiverId, @text, @date);", conn);
                     cmd.Parameters.AddWithValue("@senderId", message.SenderId);
+<<<<<<< HEAD
                     cmd.Parameters.AddWithValue("@receiverId", message.receiverId);
+=======
+                    cmd.Parameters.AddWithValue("@receiverId", message.ReceiverId);
+>>>>>>> bce154abb5b3aed8e9db83f2e120b1ff61db8d00
                     cmd.Parameters.AddWithValue("@text", message.Text);
                     cmd.Parameters.AddWithValue("@date", DateTime.Now);
 

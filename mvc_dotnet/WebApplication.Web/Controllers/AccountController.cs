@@ -292,12 +292,19 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpPost]
+<<<<<<< HEAD
         public IActionResult Reply(int receiverId, string message, string username)
         {
             authProvider.SendMessage(receiverId, message);
             return RedirectToAction("Conversation", "Account");
 
 
+=======
+        public IActionResult AutoMessage(int receiverId, string message)
+        {
+            authProvider.SendMessage(receiverId, message);
+            return RedirectToAction("PerspectiveDates", "Account");
+>>>>>>> bce154abb5b3aed8e9db83f2e120b1ff61db8d00
         }
 
         [HttpPost]
