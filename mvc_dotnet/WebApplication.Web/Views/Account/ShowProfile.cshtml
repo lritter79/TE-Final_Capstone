@@ -5,27 +5,28 @@
 }
 
 <div class="full-page dates-bg">
-            <div id=" memberImage" class="col-md-3">
-                <h5><span id="cName">@Model.Username</span></h5>
-                <a href="#" class="thumbnail">
-                    <img src="../../@Model.ProfilePic">
-                </a>
-                <p class="heart text-left">
-                    Favorite
-                    <a href="#">
-                        <span class="glyphicon glyphicon-heart"></span>
-                    </a>
-                </p>
-                <p class="music text-right">
-                    Exchange Notes
-                    <a href="#">
-                        <span class="glyphicon glyphicon-music"></span>
-                    </a>
-                </p>
-                <h5><strong>@Model.Age </strong>years old</h5>
-                <h5>@Model.HomeCity, @Model.HomeState</h5>
-                <h5>@Model.SelfDescription</h5>
-            </div>
+    <img class="sheetmusicnotes" src="~/images/sheetmusic.jpg" />
+    <div id=" memberImage" class="col-md-3">
+        <h5><span id="cName">@Model.Username</span></h5>
+        <a href="#" class="thumbnail">
+            <img src="../../@Model.ProfilePic">
+        </a>
+        <p class="heart text-left">
+            Favorite
+            <a href="#">
+                <span class="glyphicon glyphicon-heart"></span>
+            </a>
+        </p>
+        <p class="music text-right">
+            Exchange Notes
+            <a href="#">
+                <span class="glyphicon glyphicon-music"></span>
+            </a>
+        </p>
+        <h5><strong>@Model.Age </strong>years old</h5>
+        <h5>@Model.HomeCity, @Model.HomeState</h5>
+        <h5>@Model.SelfDescription</h5>
+    </div>
 </div>
 
 <form method="post" action="/Account/BlockUser">
@@ -36,7 +37,10 @@
 </form>
 
 
-    <style>
+    <style> 
+        .sheetmusicnotes{ 
+            width:100%;
+        }
 
         .dates-bg {
             width: 100%;
