@@ -5,7 +5,7 @@
 }
 
 <img class="musicimage" src="~/images/sheetmusic.jpg" />  
-<
+
 <div class="profileinput">
  <h2>@Model.Username</h2>
  <div class="thumb1">
@@ -13,9 +13,9 @@
  </div>
  <img class="fit-square" src="@Model.ProfilePic">
  <form method="post" action="/Account/AddPic" enctype="multipart/form-data">
-    <label>Update Profile Pic</label>
+    <label>UPDATE PROFILE PICTURE</label>
     <input type="file" name="pic" /></br>
-    <input type="submit" value="Go" />
+    <input style="background-color:darkorange" type="submit" value="Go" />
  </form>
 
  <hr />
@@ -28,20 +28,20 @@
 
 
  <form method="post" action="/Account/AddComposer">
-    <label>add a favorite composer</label><br />
+    <label>ADD A FAVORITE COMPOSER</label><br />
     <input type="text" name="composer"><br />
-    <input type="submit" value="Go" /> 
+    <input style="background-color:darkorange"type="submit" value="Go" /> 
      <hr />
  </form>
 
-    <h2>BLOCKED USERS:</h2>
+    <h5 style="font-weight:bold">BLOCKED USERS:</h5>
     <ul>
         @foreach (KeyValuePair<int, string> kvp in Model.BlockedUsersDictionary)
         {
             <li>@kvp.Value</li>
             <form method="post" action="/Account/UnBlockUser">
                 <input type="hidden" value="@kvp.Key" name="unBlockedUserId"><br />
-                <input type="submit" value="Unblock" />
+                <input style="background-color:darkorange" type="submit" value="Unblock" />
                 <hr />
             </form>
         }
@@ -58,16 +58,16 @@
     }
  </p>
  <form method="post" action="/Account/ChangePrivacy">
-    <label>Update Privacy</label><br />
+    <label>UPDATE PRIVACY</label><br />
     @if (Model.IsPublic)
     {
         <input readonly="readonly" type="hidden" value="0" name="isPublic"/>
-        <input type="submit" value="Go Private" />
+        <input style="background-color:darkorange"type="submit" value="Go Private" />
     }
     else
     {
         <input readonly="readonly" type="hidden" value="1" name="isPublic"/>
-        <input type="submit" value="Go Public" />
+        <input style="background-color:darkorange" type="submit" value="Go Public" />
     }
  </form> 
       <hr />
@@ -76,9 +76,9 @@
  <p></p>
  <p class="self-description">@Model.SelfDescription</p><br />
  <form method="post" action="/Account/AddDescription">
-    <label>Update Bio</label><br />
+    <label>UPDATE ABOUT YOURSELF</label><br />
     <textarea rows="4" cols="50" name="description" placeholder="@Model.SelfDescription"></textarea><br />
-    <input class="submitgo" type="submit" value="Go" />
+    <input style="background-color:darkorange"type="submit" value="Go" />
  </form> 
 </div>
 
@@ -93,19 +93,27 @@
         margin-top: -125%;
         color: black;
         margin-left: 27%;
-        border: 1px solid black; 
-        background-color:burlywood;
+        border-style: groove;
+        border-color: darkorange;
+        border-width: 10px;
+        background-color: burlywood;
     }
     .fit-square {
         object-fit: cover;
         width: 230px;
         height: 230px;
+        border-style:groove;
+        border-color:saddlebrown;
+        border-width: 5px;
+        background-color:burlywood;
     }
 
     .self-description {
         white-space: pre-line;
     }
-    .submitgo {
-        
-    }
+   hr{
+       border-color:saddlebrown; 
+       border-width:5px;
+   } 
+   
 </style>

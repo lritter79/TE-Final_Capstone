@@ -29,7 +29,7 @@
 
         <form method="post" action="/Account/BlockUser">
             <input type="hidden" value="@Model.User.Id" name="blockedUserId"><br />
-            <input type="submit" value="Block this User" />
+            <input style="background-color:darkorange" type="submit" value="Block this User" />
             
         </form>
 
@@ -70,6 +70,7 @@
             border-style: outset;
             border-color: darkorange;
             border-width: thick; 
+            
             
         } 
        
@@ -127,5 +128,8 @@
         .music {
             font-size: x-small;
             color: #bb635f;
+        } 
+        .input{
+            text-decoration-color:black;
         }
     </style>
