@@ -34,13 +34,18 @@
      <hr />
  </form>
 
-    @*<h2>BLOCKED USERS:</h2>
-     <ul>
-         @foreach (User blockedUser in Model.BlockedUsers)
-         {
-             <li>@blockedUser.Username</li>
-         }
-     </ul>*@
+    <h2>BLOCKED USERS:</h2>
+    <ul>
+        @foreach (KeyValuePair<int, string> kvp in Model.BlockedUsersDictionary)
+        {
+            <li>@kvp.Value</li>
+            <form method="post" action="/Account/UnBlockUser">
+                <input type="hidden" value="@kvp.Key" name="unBlockedUserId"><br />
+                <input type="submit" value="Unblock" />
+                <hr />
+            </form>
+        }
+    </ul>
     
  <p>
     @if (Model.IsPublic)

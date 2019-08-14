@@ -66,6 +66,8 @@ namespace WebApplication.Web.Providers.Auth
         Dictionary<string, Message> GetMessagesByUsername(User user);
 
         void BlockUser(int blockedUserId);
+        void UnBlockUser(int blockedUserId);
+
 
     }
 }

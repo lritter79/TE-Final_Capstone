@@ -239,5 +239,11 @@ namespace WebApplication.Web.Controllers
             authProvider.BlockUser(blockedUserId);
             return RedirectToAction("BioPage", "Account");
         }
+        [HttpPost]
+        public IActionResult UnBlockUser(int unBlockedUserId)
+        {
+            authProvider.UnBlockUser(unBlockedUserId);
+            return RedirectToAction("BioPage", "Account");
+        }
     }
 }
