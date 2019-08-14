@@ -16,13 +16,15 @@ namespace WebApplication.Web.Providers.Auth
         private readonly IHttpContextAccessor contextAccessor;
         private readonly IUserDAL userDAL;
         private readonly IMessageSqlDAL messageSqlDAL;
+        private readonly INoteSqlDAL noteSqlDAL;
         public static string SessionKey = "Auth_User";
 
-        public SessionAuthProvider(IHttpContextAccessor contextAccessor, IUserDAL userDAL, IMessageSqlDAL messageSqlDAL)
+        public SessionAuthProvider(IHttpContextAccessor contextAccessor, IUserDAL userDAL, IMessageSqlDAL messageSqlDAL, INoteSqlDAL noteSqlDAL)
         {
             this.contextAccessor = contextAccessor;
             this.userDAL = userDAL;
             this.messageSqlDAL = messageSqlDAL;
+            this.noteSqlDAL = noteSqlDAL;
         }
 
         /// <summary>
@@ -206,6 +208,26 @@ namespace WebApplication.Web.Providers.Auth
         public List<Message> GetConversation(string sender, string receiver)
         {
             return messageSqlDAL.GetConversation(sender, receiver);
+        }
+        public void AddNote(int notePageId, string text)
+        {
+            Note note = new Note();
+            note.CurrentUserId = GetCurrentUser().Id;
+            note.ProfileId = notePageId;
+            note.Text = text;
+            note.DateSent = DateTime.Now;
+
+            noteSqlDAL.AddNote(note);
+        }
+
+        public void DeleteNote(int noteId)
+        {
+            noteSqlDAL.DeleteNote(noteId);
+        }
+
+        public List<Note> GetNotes(int notePageId)
+        {
+            return noteSqlDAL.GetNotes(GetCurrentUser().Id, notePageId);
         }
     }
 }
