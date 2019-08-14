@@ -107,8 +107,16 @@
                         <ul class="dropdown-menu">
                             @foreach (string flirt in Model.Flirts)
                             {
-                                <li><a class="flirtfire" value="@flirt" href="https://www.google.com/">@flirt</a></li>
+                                <li><a class="flirtfire" value="@flirt" href="#">@flirt</a></li>
                             }
+                                
+                                <li>
+                                    <form id="customFlirt" method="post" action="/Account/AutoMessage">
+                                        <input type="text" class="myflirt" placeholder="Write a custom message...">
+                                    </form>
+                                        
+                                </li>
+
                         </ul>
 
                         @*<a id="flirt" href="#">test submit</a>*@
@@ -152,16 +160,37 @@
 
         <script>
             $(document).ready(function () {
+                var custom = "";
+
+                $(".customMessage").keyup(function () {
+                    custom = $(this).val();
+                    $("#flirtMessage").attr("value", custom);
+                });
+
+                //$('.customSend').keypress(function (e) {
+                //    if (e.which == 13) {
+                //        Swal.fire({
+                //            showCancelButton: true,
+                //            title: custom,
+                //            width: 600,
+                //            padding: '3em',
+                //            backdrop: `
+                //                    blue 
+                //                    url("/images/bottleclear.png") 
+                //                    center center 
+                //                    no-repeat 
+                //                    `
+                //        }
+                //            return false;    //<---- Add this line
+                //});
+
                 $(".flirtfire").click(function (event) {
                     event.preventDefault();
+                    event.stopPropagation();
                     var message = $(this).attr("value");
                     $(this).html(message);
                     $("#flirtMessage").attr("value", message);
-                    //swal("Message to " + message + ":", {
-                    //    buttons: ["Cancel", true],
-                    //    background: '#fff',
 
-                    //});
                     Swal.fire({
                         showCancelButton: true,
                         title: message,
@@ -174,11 +203,12 @@
                                     no-repeat 
                                   `
                     })
-
-                    //$("#flirtform").submit();
-
-
+                    $(".swal2-container div:nth-child(1)").addClass("alert-gradient")
                 });
+                $(".swal2-confirm").click(function (event) {
+                    event.preventDefault();
+                    $("#flirtform").submit();
+                })
 
             });
 
@@ -191,6 +221,17 @@
         <style>
             .swal2-container div:nth-child(1) {
                 background-color :orange !imporant;
+            }
+            .alert-gradient {
+                background: rgb(2,0,36);
+                background: linear-gradient(306deg, rgba(2,0,36,1) 0%, rgba(74,84,181,1) 0%, rgba(255,255,255,1) 100%);
+                opacity: .7;
+            }
+            .swal2-title{
+                color:black;
+            }
+            .swal2-header {
+                background: none;
             }
             .self-description {
                 display: table-cell;
