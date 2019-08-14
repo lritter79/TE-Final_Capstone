@@ -82,114 +82,139 @@
 
             @foreach (User member in Model.Members)
             {
-        <div id=" memberImage" class="col-md-3">
-            <h5><span id="cName">@member.Username</span></h5>
-            <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
+            <div id=" memberImage" class="col-md-3">
+                <h5><span id="cName">@member.Username</span></h5>
+                <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
                     <img class="fit-square" src="../@member.ProfilePic">
                 </a>
-            <div class="details-box">
-                <p class="music">
-                    Exchange Notes
-                    <a href="#">
-                        <span class="glyphicon glyphicon-music"></span>
-                    </a>
-                </p>
+                <div class="details-box">
+                    <div class="col-md-3 dropdown">
 
-                <h5><strong>@member.Age </strong>years old</h5>
-                <h5>@member.HomeCity, @member.HomeState</h5>
-                <div class="self-description">
-                    <p>
-                        @if (member.AbbreviatedDescription is null || member.AbbreviatedDescription == "")
-                        {
-                            <span><i><b>@member.Username</b> has not added a description yet.</i></span>
-                        }
-                        else
-                        {
-                            @member.AbbreviatedDescription
-                        }
+                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            Exchange Notes <span class="glyphicon glyphicon-music"></span><span class="carat"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            
+                            
+                           <li> <a asp-for="Note">Oh baby, ye, all night long ... is how long it takes to tune my lute</a></li> 
+                           <li><a asp-for="Note">yerr you tryna grab a drink</a></li> 
+                            
+                        </ul>
 
-                    </p>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <h2></h2>
+                        </div>
+                    </div>
+                    <h5><strong>@member.Age </strong>years old</h5>
+                    <h5>@member.HomeCity, @member.HomeState</h5>
+                    <div class="self-description">
+                        <p>
+                            @if (member.AbbreviatedDescription is null || member.AbbreviatedDescription == "")
+                            {
+                                <span><i><b>@member.Username</b> has not added a description yet.</i></span>
+                            }
+                            else
+                            {
+                                @member.AbbreviatedDescription
+                            }
+
+                        </p>
+                    </div>
+
                 </div>
-                
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <h2></h2>
+                    </div>
+                </div>
             </div>
+            }
         </div>
-              }
-            </div>
 
 
 
-<style>
-    .self-description {
-        display: table-cell;
-        width: 250px;
-        height: 110px;
-        padding: 10px;
-        border: 2px dashed #96606e;
-        vertical-align: middle;
-    }
-    .details-box {
-        background-color: #decaca;
-        height: 210px;
-    }
-    .fit-width {
-        width: 100%;
-    }
-    .dates-bg {
-        width: 100%;
-        height: auto;
-        background: url(../images/sheetmusic.jpg) no-repeat center center;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        color: #8a6d3b;
-    }
+        <style>
+            .self-description {
+                display: table-cell;
+                width: 250px;
+                height: 110px;
+                padding: 10px;
+                border: 2px dashed #96606e;
+                vertical-align: middle;
+            }
 
-    .bg-danger {
-        background-color: #fcf8e3;
-        margin-left: 5%;
-        margin-right: 5%
-    }
+            .details-box {
+                background-color: #decaca;
+                height: 210px;
+            }
 
-    #logoutColor {
-        color: darkcyan;
-    }
+            .fit-width {
+                width: 100%;
+            }
 
-    .remove-bottom-margin {
-        margin-bottom: 0px !important;
-    }
-    .membersBio {
-        background-color: antiquewhite;
-        margin-left: 6.23%;
-        width: 87.6%;
-    }
+            .dates-bg {
+                width: 100%;
+                height: auto;
+                background: url(../images/sheetmusic.jpg) no-repeat center center;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                color: #8a6d3b;
+            }
+
+            .bg-danger {
+                background-color: #fcf8e3;
+                margin-left: 5%;
+                margin-right: 5%
+            }
+
+            #logoutColor {
+                color: darkcyan;
+            }
+
+            .remove-bottom-margin {
+                margin-bottom: 0px !important;
+            }
+
+            .membersBio {
+                background-color: antiquewhite;
+                margin-left: 6.23%;
+                width: 87.6%;
+            }
 
 
-    .glyphicon-heart {
-        color: red;
-    }
+            .glyphicon-heart {
+                color: red;
+            }
 
-    .noBullets {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: inline-block;
-        text-align: left;
-    }
+            .noBullets {
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+                display: inline-block;
+                text-align: left;
+            }
 
-  
 
-    #cName {
-        color: #bb635f;
-    }
 
-    .heart {
-        font-size: x-small;
-        color: #bb635f;
-    }
+            #cName {
+                color: #bb635f;
+            }
 
-    .music {
-        font-size: x-small;
-        color: #bb635f;
-    }
-</style>
+            .heart {
+                font-size: x-small;
+                color: #bb635f;
+            }
+
+            .music {
+                font-size: x-small;
+                color: #bb635f;
+            }
+
+            
+        </style>
+
+      
