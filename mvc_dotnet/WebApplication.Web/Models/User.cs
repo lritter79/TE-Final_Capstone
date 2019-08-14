@@ -125,7 +125,7 @@ namespace WebApplication.Web.Models
         [Display(Name = "Seeking")]
         public int Seeking {get; set;}
 
-        public List<User> BlockedUsers { get; set; }
+        public Dictionary<int, string> BlockedUsersDictionary { get; set; }
 
 
 

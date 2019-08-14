@@ -44,5 +44,6 @@ namespace WebApplication.Web.DAL
         void AddComposer(User user, string composer);
 
         void BlockUser(int userId, int blockedUserId);
+        void UnBlockUser(int userId, int blockedUserId);
     }
 }

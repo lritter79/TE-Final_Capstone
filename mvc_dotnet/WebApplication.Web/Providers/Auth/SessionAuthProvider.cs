@@ -199,5 +199,9 @@ namespace WebApplication.Web.Providers.Auth
         {
             userDAL.BlockUser(GetCurrentUser().Id, blockedUserId);
         }
+        public void UnBlockUser(int blockedUserId)
+        {
+            userDAL.UnBlockUser(GetCurrentUser().Id, blockedUserId);
+        }
     }
 }
