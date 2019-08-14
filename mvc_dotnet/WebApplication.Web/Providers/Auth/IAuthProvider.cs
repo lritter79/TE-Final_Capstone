@@ -69,6 +69,7 @@ namespace WebApplication.Web.Providers.Auth
         void UnBlockUser(int blockedUserId);
 
         List<Message> GetConversation(string sender, string receiver);
+        
 
         void AddNote(int notePageId, string note);
         void SendMessage(int receiverId, string text);

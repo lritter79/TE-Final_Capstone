@@ -228,6 +228,8 @@ namespace WebApplication.Web.Providers.Auth
             messageSqlDAL.CreateMessage(message);
         }
 
+
+
         public void DeleteNote(int noteId)
         {
             noteSqlDAL.DeleteNote(noteId);

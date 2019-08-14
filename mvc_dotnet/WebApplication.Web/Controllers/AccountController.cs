@@ -249,14 +249,26 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Conversation(string sender)
+        public IActionResult Conversation(string otherUsername)
         {
             var user = authProvider.GetCurrentUser();
-            List<Message> messages = authProvider.GetConversation(sender, user.Username);
+
+            MembersModel members = new MembersModel();
+            members.Members = authProvider.GetAllUsers();
+            List<Message> messages = authProvider.GetConversation(otherUsername, user.Username);
             ConversationModel convo = new ConversationModel();
+
+            foreach (User member in members.Members)
+            {
+                if (member.Username == otherUsername)
+                {
+                    convo.OtherUsername = member.Username;
+                }
+            }
+            
             convo.Messages = messages;
             convo.Receiver = user.Username;
-            convo.Sender = sender;
+            
             convo.CurrentUser = user;
 
             return View(convo);
@@ -277,6 +289,15 @@ namespace WebApplication.Web.Controllers
         {
             authProvider.SendMessage(receiverId, message);
             return RedirectToAction("ShowProfile", "Account", new { id = receiverId });
+        }
+
+        [HttpPost]
+        public IActionResult Reply(int receiverId, string message, string username)
+        {
+            authProvider.SendMessage(receiverId, message);
+            return RedirectToAction("Conversation", "Account");
+
+
         }
 
         [HttpPost]

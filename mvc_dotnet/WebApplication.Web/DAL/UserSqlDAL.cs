@@ -292,24 +292,28 @@ namespace WebApplication.Web.DAL
 
         public void UpdateDescription(User user, string description)
         {
-            try
+            if (description != null)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                try
                 {
-                    conn.Open();
-                    SqlCommand cmd = new SqlCommand("UPDATE users SET self_description = @description WHERE id = @id;", conn);
-                    cmd.Parameters.AddWithValue("@description", description);
-                    cmd.Parameters.AddWithValue("@id", user.Id);
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand("UPDATE users SET self_description = @description WHERE id = @id;", conn);
+                        cmd.Parameters.AddWithValue("@description", description);
+                        cmd.Parameters.AddWithValue("@id", user.Id);
 
-                    cmd.ExecuteNonQuery();
+                        cmd.ExecuteNonQuery();
 
-                    return;
+                        return;
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
                 }
             }
-            catch (SqlException ex)
-            {
-                throw ex;
-            }
+            
         }
 
         public void UpdatePic(User user, string filename)
