@@ -83,7 +83,29 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO blocked (current_user_id, blocked_user_id) VALUES (@userId, blockedUserId);", conn);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO blocked (current_user_id, blocked_user_id) VALUES (@userId, @blockedUserId);", conn);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    cmd.Parameters.AddWithValue("@blockedUserId", blockedUserId);
+
+                    cmd.ExecuteNonQuery();
+
+
+                    return;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+        }
+        public void UnBlockUser(int userId, int blockedUserId)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand("DELETE from blocked where current_user_id = @userId and blocked_user_id = @blockedUserId", conn);
                     cmd.Parameters.AddWithValue("@userId", userId);
                     cmd.Parameters.AddWithValue("@blockedUserId", blockedUserId);
 
@@ -101,14 +123,16 @@ namespace WebApplication.Web.DAL
 
 
 
-/// <summary>
-/// Gets the user from the database.
-/// </summary>
-/// <param name="username"></param>
-/// <returns></returns>
+        /// <summary>
+        /// Gets the user from the database.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
         public User GetUser(string username)
         {
             User user = null;
+            Dictionary<int, string> blockedUsers = new Dictionary<int, string>();
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -124,6 +148,7 @@ namespace WebApplication.Web.DAL
                         user = MapRowToUser(reader);
                     }
                     reader.Close();
+
                     SqlCommand composerCmd = new SqlCommand($"SELECT composer_name FROM composers WHERE user_id={user.Id}", conn);
                     reader = composerCmd.ExecuteReader();
 
@@ -132,15 +157,16 @@ namespace WebApplication.Web.DAL
                         user.ListOfComposers.Add(MapRowToComposer(reader));
                     }
                     reader.Close();
-                    //SqlCommand blockCommand = new SqlCommand($"SELECT * from USERS WHERE id in(SELECT blocked_user_id FROM blocked WHERE current_user_id={user.Id})", conn);
-                    //reader = blockCommand.ExecuteReader();
 
-                    //while (reader.Read())
-                    //{
-                    //    User blockedUser = MapRowToUser(reader);
-                    //    user.BlockedUsers.Add(blockedUser);
-                    //}
-                    //reader.Close();
+                    SqlCommand blockCommand = new SqlCommand($"SELECT * from USERS WHERE id in(SELECT blocked_user_id FROM blocked WHERE current_user_id={user.Id})", conn);
+                    reader = blockCommand.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        blockedUsers[Convert.ToInt32(reader["id"])] = Convert.ToString(reader["username"]);
+                    }
+                    user.BlockedUsersDictionary = blockedUsers;
+                    reader.Close();
                 }
 
                 return user;
@@ -179,11 +205,6 @@ namespace WebApplication.Web.DAL
             return new Composer(Name);
         }
 
-        private Composer MapRowToBlocked(SqlDataReader reader)
-        {
-            string Name = Convert.ToString(reader["composer_name"]);
-            return new Composer(Name);
-        }
 
         public List<int> GetBlockedIds(int currentUserId)
         {
