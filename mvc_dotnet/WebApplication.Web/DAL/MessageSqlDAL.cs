@@ -24,9 +24,9 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO message_table VALUES (@senderId, @recieverId, @text, @date);", conn);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO message_table VALUES (@senderId, @receiverId, @text, @date);", conn);
                     cmd.Parameters.AddWithValue("@senderId", message.SenderId);
-                    cmd.Parameters.AddWithValue("@recieverId", message.RecieiverId);
+                    cmd.Parameters.AddWithValue("@receiverId", message.ReceiverId);
                     cmd.Parameters.AddWithValue("@text", message.Text);
                     cmd.Parameters.AddWithValue("@date", DateTime.Now);
 
@@ -53,7 +53,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand($"SELECT sender_id FROM message_table WHERE reciever_id = {user.Id} GROUP BY sender_id", conn);
+                    SqlCommand cmd = new SqlCommand($"SELECT sender_id FROM message_table WHERE receiver_id = {user.Id} GROUP BY sender_id", conn);
 
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -109,7 +109,7 @@ namespace WebApplication.Web.DAL
         //        {
         //            conn.Open();
 
-        //            SqlCommand cmd = new SqlCommand($"SELECT sender_id, date_sent FROM message_table WHERE reciever_id = '{user.Id}' GROUP BY sender_id, date_sent ORDER BY date_sent DESC;", conn);
+        //            SqlCommand cmd = new SqlCommand($"SELECT sender_id, date_sent FROM message_table WHERE receiver_id = '{user.Id}' GROUP BY sender_id, date_sent ORDER BY date_sent DESC;", conn);
 
 
         //            SqlDataReader reader = cmd.ExecuteReader();
@@ -145,11 +145,11 @@ namespace WebApplication.Web.DAL
 
         //}
 
-        //public Message GetRecentMessage(int SenderUsername, int RecieverUsername)
+        //public Message GetRecentMessage(int SenderUsername, int receiverUsername)
         //{
         //    Message recent = null;
         //    int SenderId = -1;
-        //    int RecieverId = -1;
+        //    int receiverId = -1;
 
         //    try
         //    {
@@ -168,20 +168,20 @@ namespace WebApplication.Web.DAL
         //            }
         //            reader.Close();
 
-        //            cmd = new SqlCommand("SELECT id FROM users WHERE username = @reciever;", conn);
-        //            cmd.Parameters.AddWithValue("@reciever", RecieverUsername);
+        //            cmd = new SqlCommand("SELECT id FROM users WHERE username = @receiver;", conn);
+        //            cmd.Parameters.AddWithValue("@receiver", receiverUsername);
 
         //            reader = cmd.ExecuteReader();
 
         //            if (reader.Read())
         //            {
-        //                RecieverId = Convert.ToInt32(reader["reciever_id"]);
+        //                receiverId = Convert.ToInt32(reader["receiver_id"]);
         //            }
         //            reader.Close();
 
-        //            cmd = new SqlCommand("SELECT * FROM message_table WHERE sender_id = @sender AND recieiver_id = @reciever ORDER BY date_sent DESC;", conn);
+        //            cmd = new SqlCommand("SELECT * FROM message_table WHERE sender_id = @sender AND receiver_id = @receiver ORDER BY date_sent DESC;", conn);
         //            cmd.Parameters.AddWithValue("@sender", SenderId);
-        //            cmd.Parameters.AddWithValue("@reciever", RecieverId);
+        //            cmd.Parameters.AddWithValue("@receiver", receiverId);
 
         //            reader = cmd.ExecuteReader();
 
@@ -204,11 +204,11 @@ namespace WebApplication.Web.DAL
 
         //}
 
-        public List<Message> GetConversation(string SenderUsername, string RecieverUsername)
+        public List<Message> GetConversation(string SenderUsername, string receiverUsername)
         {
             List<Message> Conversation = new List<Message>();
             int SenderId = -1;
-            int RecieverId = -1;
+            int receiverId = -1;
 
             try
             {
@@ -227,20 +227,20 @@ namespace WebApplication.Web.DAL
                     }
                     reader.Close();
 
-                    cmd = new SqlCommand("SELECT id FROM users WHERE username = @reciever;", conn);
-                    cmd.Parameters.AddWithValue("@reciever", RecieverUsername);
+                    cmd = new SqlCommand("SELECT id FROM users WHERE username = @receiver;", conn);
+                    cmd.Parameters.AddWithValue("@receiver", receiverUsername);
 
                     reader = cmd.ExecuteReader();
 
                     if (reader.Read())
                     {
-                        RecieverId = Convert.ToInt32(reader["id"]);
+                        receiverId = Convert.ToInt32(reader["id"]);
                     }
                     reader.Close();
 
-                    cmd = new SqlCommand("SELECT * FROM message_table WHERE (sender_id = @sender AND reciever_id = @reciever_id) or (sender_id = @reciever_id AND reciever_id = @sender) order by date_sent asc;", conn);
+                    cmd = new SqlCommand("SELECT * FROM message_table WHERE (sender_id = @sender AND receiver_id = @receiver_id) or (sender_id = @receiver_id AND receiver_id = @sender) order by date_sent asc;", conn);
                     cmd.Parameters.AddWithValue("@sender", SenderId);
-                    cmd.Parameters.AddWithValue("@reciever_id", RecieverId);
+                    cmd.Parameters.AddWithValue("@receiver_id", receiverId);
 
                     reader = cmd.ExecuteReader();
 
@@ -268,8 +268,8 @@ namespace WebApplication.Web.DAL
             string Text = Convert.ToString(reader["message_text"]);
             DateTime DateSent = Convert.ToDateTime(reader["date_sent"]);
             int SenderId = Convert.ToInt32(reader["sender_id"]);
-            int RecieverId = Convert.ToInt32(reader["reciever_id"]);
-            Message message = new Message(Text, DateSent, SenderId, RecieverId);
+            int receiverId = Convert.ToInt32(reader["receiver_id"]);
+            Message message = new Message(Text, DateSent, SenderId, receiverId);
 
             return message;
         }

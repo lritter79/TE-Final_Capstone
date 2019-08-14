@@ -220,6 +220,14 @@ namespace WebApplication.Web.Providers.Auth
             noteSqlDAL.AddNote(note);
         }
 
+        public void SendMessage(int receiverId, string text)
+        {
+            int currentUserId = GetCurrentUser().Id;
+            Message message = new Message(text, DateTime.Now,currentUserId, receiverId);
+
+            messageSqlDAL.CreateMessage(message);
+        }
+
         public void DeleteNote(int noteId)
         {
             noteSqlDAL.DeleteNote(noteId);

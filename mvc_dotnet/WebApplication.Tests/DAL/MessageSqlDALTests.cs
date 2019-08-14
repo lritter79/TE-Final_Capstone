@@ -23,7 +23,7 @@ namespace WebApplication.Tests.DAL
             {
                 connection.Open();
 
-                string cmdText = "SELECT sender_id FROM message_table WHERE reciever_id = '-2';";
+                string cmdText = "SELECT sender_id FROM message_table WHERE receiver_id = '-2';";
                 SqlCommand command = new SqlCommand(cmdText, connection);
                 string senderId = Convert.ToString(command.ExecuteScalar());
 

@@ -9,6 +9,7 @@ namespace WebApplication.Web.Models.Account
     {
         public List<Note> Notes { get; set; }
         public User User { get; set; }
+        //public Message Message { get; set; }
 
 
 

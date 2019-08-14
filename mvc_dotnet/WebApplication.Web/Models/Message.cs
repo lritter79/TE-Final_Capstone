@@ -8,12 +8,12 @@ namespace WebApplication.Web.Models
     public class Message
     {
 
-        public Message(string text, DateTime date, int sender, int reciever)
+        public Message(string text, DateTime date, int sender, int receiver)
         {
             Text = text;
             DateSent = date;
             SenderId = sender;
-            RecieiverId = reciever;
+            ReceiverId = receiver;
         }
 
         public string Text { get; set; }
@@ -22,7 +22,7 @@ namespace WebApplication.Web.Models
 
         public int SenderId { get; set; }
 
-        public int RecieiverId { get; set; }
+        public int ReceiverId { get; set; }
             
     }
 }

@@ -71,6 +71,7 @@ namespace WebApplication.Web.Providers.Auth
         List<Message> GetConversation(string sender, string receiver);
 
         void AddNote(int notePageId, string note);
+        void SendMessage(int receiverId, string text);
         void DeleteNote(int noteId);
 
         List<Note> GetNotes(int notePageId);
