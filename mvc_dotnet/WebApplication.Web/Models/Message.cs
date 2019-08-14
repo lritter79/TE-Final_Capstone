@@ -13,11 +13,7 @@ namespace WebApplication.Web.Models
             Text = text;
             DateSent = date;
             SenderId = sender;
-<<<<<<< HEAD
-            receiverId = receiver;
-=======
             ReceiverId = receiver;
->>>>>>> bce154abb5b3aed8e9db83f2e120b1ff61db8d00
         }
 
         public string Text { get; set; }
@@ -26,11 +22,7 @@ namespace WebApplication.Web.Models
 
         public int SenderId { get; set; }
 
-<<<<<<< HEAD
-        public int receiverId { get; set; }
-=======
         public int ReceiverId { get; set; }
->>>>>>> bce154abb5b3aed8e9db83f2e120b1ff61db8d00
             
     }
 }

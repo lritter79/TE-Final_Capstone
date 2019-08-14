@@ -80,55 +80,6 @@
         <div class="row  text-center text-dark">
 
 
-<<<<<<< HEAD
-            @*@foreach (User member in Model.Members)
-            {
-                <div id=" memberImage" class="col-md-3">
-                    <h5><span id="cName">@member.Username</span></h5>
-                    <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
-                        <img class="fit-square" src="../@member.ProfilePic">
-                    </a>
-                    <div class="details-box">
-                        <div class="col-md-3 dropdown">
-                            <form id="flirt" method="post" action="/Account/SendMessage">
-                                <input id="flirtInput" asp-for="Note" type="hidden" />
-                                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                    Exchange Notes <span class="glyphicon glyphicon-music"></span><span class="carat"></span>
-                                </button>
-                            </form>
-                            <select>
-                                <option>Oh baby, ye, all night long ... is how long it takes to tune my lute</option>
-
-                            </select>
-                            <ul class="dropdown-menu">
-                                @foreach (string flirt in @Model.Flirts)
-                                {
-                                    <li> <a onclick="document.getElementById('form1').submit()>@flirt</a></li>
-                                    }
-                                </ul>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <h2></h2>
-                                </div>
-                            </div>
-                            <h5><strong>@member.Age </strong>years old</h5>
-                            <h5>@member.HomeCity, @member.HomeState</h5>
-                            <div class="self-description">
-                                <p>
-                                    @if (member.AbbreviatedDescription is null || member.AbbreviatedDescription == "")
-                                    {
-                                        <span><i><b>@member.Username</b> has not added a description yet.</i></span>
-                                    }
-                                    else
-                                    {
-                                        @member.AbbreviatedDescription
-                                    }
-
-                                </p>
-                            </div>
-=======
 
         </div>
 
@@ -171,7 +122,6 @@
                         @*<a id="flirt" href="#">test submit</a>*@
 
 
->>>>>>> bce154abb5b3aed8e9db83f2e120b1ff61db8d00
 
                         </div>
                         <div class="row">
@@ -180,12 +130,6 @@
                             </div>
                         </div>
                     </div>
-<<<<<<< HEAD
-                </div>*@
-            }
-       
-       
-=======
                     <h5><strong>@member.Age </strong>years old</h5>
                     <h5>@member.HomeCity, @member.HomeState</h5>
                     <div class="self-description">
@@ -208,13 +152,13 @@
                         <h2></h2>
                     </div>
                 </div>
-            </div>
+            
+        
         }
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         @*<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>*@
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
->>>>>>> bce154abb5b3aed8e9db83f2e120b1ff61db8d00
 
         <script>
             $(document).ready(function () {
