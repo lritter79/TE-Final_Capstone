@@ -1,29 +1,14 @@
-﻿@model Dictionary<string, Message>
-
+﻿
 @{
-    ViewData["Title"] = "Inbox";
-
+    ViewData["Title"] = "Conversation";
+    
 }
 
-<div id="inbox">
-    <h2>Inbox</h2>
+<div id="chatbox">
+    <h2>Conversation</h2>
 
-    <div class="full-page">
-        <p style="padding: 10px;">You have @Model.Count Message(s)</p>
 
-        @foreach (KeyValuePair<string, Message> kvp in Model)
-        {
-        <div class="Message">
-            <b>@kvp.Key</b>
-            <div class="Details">
-                <p>@kvp.Value.Text</p>
 
-                @kvp.Value.DateSent
-            </div>
-            <input type="submit" value="Reply" class="btn btn-default submit-button" style="margin-left: auto"/>
-        </div>
-        }
-    </div>
 </div>
 
 <style>
@@ -55,7 +40,7 @@
         padding: 10px;
     }
 
-    #inbox {
+    #chatbox {
         background-color: navajowhite;
     }
 </style>
