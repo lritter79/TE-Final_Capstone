@@ -76,7 +76,13 @@ CREATE TABLE message_table
 	reciever_id int not null,
 	message_text varchar(Max) Not null,
 	date_sent datetime not null
+	
+);
 
+CREATE TABLE blocked
+(
+	current_user_id int not null,
+	blocked_user_id int not null,
 	
 );
 
