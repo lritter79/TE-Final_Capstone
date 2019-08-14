@@ -37,35 +37,37 @@
 </div> 
 
 <div class="messagebox">
-<form method="post" action="/Account/AddNote">
-    <input type="hidden" value="@Model.User.Id" name="pageId" />
-    <input type="text" name="note" />
-    <input style="background-color:darkorange"type="submit" value="Add Note" />
+    <form method="post" action="/Account/AddNote">
+        <input type="hidden" value="@Model.User.Id" name="pageId" />
+        <input type="text" name="note" />
+        <input style="background-color:darkorange" type="submit" value="Add Note" />
 
-</form>
+    </form>
 
-<ul>
-    @foreach(Note note in Model.Notes)
-    {
-        <li class="hotnotes">@note.Text <i>(@note.DateSent)</i></li> 
-        <form method="post" action="/Account/DeleteNote">
-            <input type="hidden" value="@Model.User.Id" name="pageId" />
-            <input type="hidden" value="@note.NoteId" name="noteId" />
-            <input style="background-color:darkorange" type="submit" value="Delete Note" />
+    <ul>
+        @foreach (Note note in Model.Notes)
+        {
+            <li class="hotnotes">@note.Text <i>(@note.DateSent)</i></li>
+            <form method="post" action="/Account/DeleteNote">
+                <input type="hidden" value="@Model.User.Id" name="pageId" />
+                <input type="hidden" value="@note.NoteId" name="noteId" />
+                <input style="background-color:darkorange" type="submit" value="Delete Note" />
 
-        </form>
-    }
-</ul>
-<<<<<<< HEAD
+            </form>
+        }
+    </ul>
 
-<form method="post" action="/Account/DeleteNote">
-    <input type="hidden" value="@Model.User.Id" name="ReceiverId" />
-    <input type="submit" value="Delete Note" />
-=======
+    <br />
+    <form method="post" action="/Account/SendMessage">
+        <input type="hidden" value="@Model.User.Id" name="receiverId" />
+        <input type="text" name="message" />
+        <input style="background-color:darkorange" type="submit" value="Send Message" />
+
+    </form>
+
+
+
 </div>
->>>>>>> bd85bfe5bea72555626f2a6f71d3b406c54451ca
-
-</form>
 
 
     <style> 

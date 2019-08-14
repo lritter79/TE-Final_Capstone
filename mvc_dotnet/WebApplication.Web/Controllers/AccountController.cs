@@ -273,6 +273,13 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpPost]
+        public IActionResult SendMessage(int receiverId, string message)
+        {
+            authProvider.SendMessage(receiverId, message);
+            return RedirectToAction("ShowProfile", "Account", new { id = receiverId });
+        }
+
+        [HttpPost]
         public IActionResult DeleteNote(int pageId, int noteId)
         {
             authProvider.DeleteNote(noteId);
