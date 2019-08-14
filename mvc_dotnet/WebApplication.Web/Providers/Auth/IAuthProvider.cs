@@ -70,6 +70,9 @@ namespace WebApplication.Web.Providers.Auth
 
         List<Message> GetConversation(string sender, string receiver);
 
+        void AddNote(int notePageId, string note);
+        void DeleteNote(int noteId);
 
+        List<Note> GetNotes(int notePageId);
     }
 }

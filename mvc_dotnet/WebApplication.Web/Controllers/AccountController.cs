@@ -171,17 +171,18 @@ namespace WebApplication.Web.Controllers
         [HttpGet]
         public IActionResult ShowProfile(int id)
         {
+            ShowProfileModel showProf = new ShowProfileModel();
             MembersModel members = new MembersModel();
             members.Members = authProvider.GetAllUsers();
-            User member = new User();
             foreach(User user in members.Members)
             {
                 if(user.Id == id)
                 {
-                    member = user;
+                    showProf.User = user;
                 }
             }
-            return View(member);
+            showProf.Notes = authProvider.GetNotes(id);
+            return View(showProf);
         }
 
         [HttpGet]
@@ -262,6 +263,20 @@ namespace WebApplication.Web.Controllers
 
             //Model.sender = sender;
             //return View(Model);
+        }
+
+        [HttpPost]
+        public IActionResult AddNote(int pageId, string note)
+        {
+            authProvider.AddNote(pageId, note);
+            return RedirectToAction("ShowProfile", "Account", new { id = pageId });
+        }
+
+        [HttpPost]
+        public IActionResult DeleteNote(int pageId, int noteId)
+        {
+            authProvider.DeleteNote(noteId);
+            return RedirectToAction("ShowProfile", "Account", new { id = pageId });
         }
     }
 }

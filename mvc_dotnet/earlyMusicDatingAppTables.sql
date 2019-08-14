@@ -86,6 +86,16 @@ CREATE TABLE blocked
 	
 );
 
+CREATE TABLE notes
+(
+	id int identity (1, 1) NOT NULL,
+	current_user_id int not null,
+	other_user_id int not null,
+	note varchar(Max) not null,
+	date_written datetime not null,
+	
+);
+
 COMMIT
 
 BEGIN TRANSACTION;

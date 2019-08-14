@@ -1,5 +1,5 @@
 ﻿@using WebApplication.Web.Models.Account;
-@model User
+@model ShowProfileModel
 @{
     ViewData["Title"] = "PerspectiveDates";
 }
@@ -7,9 +7,9 @@
 <div class="full-page dates-bg">
     <img class="sheetmusicnotes" src="~/images/sheetmusic.jpg" />
     <div id=" memberImage" class="col-md-3">
-        <h5><span id="cName">@Model.Username</span></h5>
+        <h5><span id="cName">@Model.User.Username</span></h5>
         <a href="#" class="thumbnail">
-            <img src="../../@Model.ProfilePic">
+            <img src="../../@Model.User.ProfilePic">
         </a>
         <p class="heart text-left">
             Favorite
@@ -23,18 +23,38 @@
                 <span class="glyphicon glyphicon-music"></span>
             </a>
         </p>
-        <h5><strong>@Model.Age </strong>years old</h5>
-        <h5>@Model.HomeCity, @Model.HomeState</h5>
-        <h5>@Model.SelfDescription</h5> 
+        <h5><strong>@Model.User.Age </strong>years old</h5>
+        <h5>@Model.User.HomeCity, @Model.User.HomeState</h5>
+        <h5>@Model.User.SelfDescription</h5> 
 
         <form method="post" action="/Account/BlockUser">
-            <input type="hidden" value="@Model.Id" name="blockedUserId"><br />
+            <input type="hidden" value="@Model.User.Id" name="blockedUserId"><br />
             <input type="submit" value="Block this User" />
             
         </form>
 
     </div>
 </div>
+
+<form method="post" action="/Account/AddNote">
+    <input type="hidden" value="@Model.User.Id" name="pageId" />
+    <input type="text" name="note" />
+    <input type="submit" value="Add Note" />
+
+</form>
+
+<ul>
+    @foreach(Note note in Model.Notes)
+    {
+        <li>@note.Text <i>(@note.DateSent)</i></li> 
+        <form method="post" action="/Account/DeleteNote">
+            <input type="hidden" value="@Model.User.Id" name="pageId" />
+            <input type="hidden" value="@note.NoteId" name="noteId" />
+            <input type="submit" value="Delete Note" />
+
+        </form>
+    }
+</ul>
 
 
 
