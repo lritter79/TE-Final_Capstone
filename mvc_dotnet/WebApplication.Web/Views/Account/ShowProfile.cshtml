@@ -25,21 +25,35 @@
         </p>
         <h5><strong>@Model.Age </strong>years old</h5>
         <h5>@Model.HomeCity, @Model.HomeState</h5>
-        <h5>@Model.SelfDescription</h5>
+        <h5>@Model.SelfDescription</h5> 
+
+        <form method="post" action="/Account/BlockUser">
+            <input type="hidden" value="@Model.Id" name="blockedUserId"><br />
+            <input type="submit" value="Block this User" />
+            
+        </form>
+
     </div>
 </div>
 
-<form method="post" action="/Account/BlockUser">
-    <input type="hidden" value="@Model.Id" name="blockedUserId"><br />
-    <input type="submit" value="Block this User" />
-    <hr />
-</form>
+
 
 
     <style> 
         .sheetmusicnotes{ 
             width:100%;
         }
+        .col-md-3 {
+            margin-top: -137%;
+            margin-left: 5%;
+            background-color: black;
+            border-style: outset;
+            border-color: darkorange;
+            border-width: thick; 
+            
+        } 
+       
+        
 
         .dates-bg {
             width: 100%;
