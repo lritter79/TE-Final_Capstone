@@ -82,36 +82,39 @@
 
             @foreach (User member in Model.Members)
             {
-        <div id=" memberImage" class="col-md-3">
-            <h5><span id="cName">@member.Username</span></h5>
-            <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
+            <div id=" memberImage" class="col-md-3">
+                <h5><span id="cName">@member.Username</span></h5>
+                <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
                     <img class="fit-square" src="../@member.ProfilePic">
                 </a>
-            <div class="details-box">
-                <p class="music">
-                    Exchange Notes
-                    <a href="#">
-                        <span class="glyphicon glyphicon-music"></span>
-                    </a>
-                </p>
-
-                <h5><strong>@member.Age </strong>years old</h5>
-                <h5>@member.HomeCity, @member.HomeState</h5>
-                <div class="self-description">
-                    <p>
-                        @if (member.AbbreviatedDescription is null || member.AbbreviatedDescription == "")
-                        {
-                            <span><i><b>@member.Username</b> has not added a description yet.</i></span>
-                        }
-                        else
-                        {
-                            @member.AbbreviatedDescription
-                        }
-
+                <div class="details-box">
+                    <p class="music">
+                        Exchange Notes
+                        <a href="#">
+                            <span class="glyphicon glyphicon-music"></span>
+                        </a>
                     </p>
+
+                    <h5><strong>@member.Age </strong>years old</h5>
+                    <h5>@member.HomeCity, @member.HomeState</h5>
+                    <div class="self-description">
+                        <p>
+                            @if (member.AbbreviatedDescription is null || member.AbbreviatedDescription == "")
+                            {
+                                <span><i><b>@member.Username</b> has not added a description yet.</i></span>
+                            }
+                            else
+                            {
+                                @member.AbbreviatedDescription
+                            }
+
+                        </p>
+                    </div>
                 </div>
-              }
-    </div>
+            </div>
+             }  
+         </div>
+    </div>   
 </div>
 
 
