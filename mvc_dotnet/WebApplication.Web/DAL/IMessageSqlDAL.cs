@@ -12,7 +12,7 @@ namespace WebApplication.Web.DAL
 
         Dictionary<string, Message> GetMessagesByUsername(User user);
 
-        List<Message> GetConversation(string SenderUsername, string RecieverUsername);
+        List<Message> GetConversation(string SenderUsername, string receiverUsername);
 
     }
 }

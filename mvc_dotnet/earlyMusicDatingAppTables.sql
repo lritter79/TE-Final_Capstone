@@ -73,7 +73,7 @@ Create table tblImages
 CREATE TABLE message_table
 (
 	sender_id int not null,
-	reciever_id int not null,
+	receiver_id int not null,
 	message_text varchar(Max) Not null,
 	date_sent datetime not null
 	

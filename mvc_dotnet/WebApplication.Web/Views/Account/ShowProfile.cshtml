@@ -56,7 +56,11 @@
     }
 </ul>
 
+<form method="post" action="/Account/DeleteNote">
+    <input type="hidden" value="@Model.User.Id" name="ReceiverId" />
+    <input type="submit" value="Delete Note" />
 
+</form>
 
 
     <style> 
