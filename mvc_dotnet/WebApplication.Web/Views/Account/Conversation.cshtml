@@ -10,7 +10,7 @@
     <h2>Conversation</h2>
     @foreach (Message message in Model.Messages)
     {
-        @if (message.RecieiverId == Model.CurrentUser.Id)
+        @if (message.ReceiverId == Model.CurrentUser.Id)
         {
             <div class="message">
                 <p>@Model.Receiver: @message.Text</p>

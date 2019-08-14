@@ -17,7 +17,7 @@ namespace WebApplication.Web.Models.Account
         public List<string> Flirts { get
             {
                 List<string> flirts = new List<string> {
-                    "Oh baby, ye, all night long ... is how long it takes to tune my lute",
+                    "Oh baby, yeah, all night long ... is how long it takes to tune my lute",
                     "yerrr you tryna grab a drink"
                 };
                 return flirts;

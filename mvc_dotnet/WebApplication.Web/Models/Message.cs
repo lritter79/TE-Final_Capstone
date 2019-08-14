@@ -13,7 +13,7 @@ namespace WebApplication.Web.Models
             Text = text;
             DateSent = date;
             SenderId = sender;
-            RecieiverId = receiver;
+            ReceiverId = receiver;
         }
 
         public string Text { get; set; }
@@ -22,7 +22,7 @@ namespace WebApplication.Web.Models
 
         public int SenderId { get; set; }
 
-        public int RecieiverId { get; set; }
+        public int ReceiverId { get; set; }
             
     }
 }

@@ -80,8 +80,13 @@
         <div class="row  text-center text-dark">
 
 
-            @foreach (User member in Model.Members)
-            {
+
+        </div>
+
+        @foreach (User member in Model.Members)
+        {
+
+
             <div id=" memberImage" class="col-md-3">
                 <h5><span id="cName">@member.Username</span></h5>
                 <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
@@ -89,22 +94,26 @@
                 </a>
                 <div class="details-box">
                     <div class="col-md-3 dropdown">
-                        <form id="flirt" method="post" action="/Account/SendMessage">
-                            <input id="flirtInput" asp-for="Note" type="hidden" />
-                            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                Exchange Notes <span class="glyphicon glyphicon-music"></span><span class="carat"></span>
-                            </button>
-                        </form>
-                        <select>
-                            <option>Oh baby, ye, all night long ... is how long it takes to tune my lute</option>
 
-                        </select>
+                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            Exchange Notes <span class="glyphicon glyphicon-music"></span><span class="carat"></span>
+                        </button>
+
+                        <form id="flirtform" method="post" action="/Account/AutoMessage">
+                            <input id="flirtMessage" name="message" value="" type="hidden" />
+                            <input id="flirtInput" name="receiverId" value="@member.Id" type="hidden" />
+                        </form>
+
                         <ul class="dropdown-menu">
-                            @foreach (string flirt in @Model.Flirts)
+                            @foreach (string flirt in Model.Flirts)
                             {
-                                <li> <a onclick="document.getElementById('form1').submit()>@flirt</a></li>
-                                }
-                            </ul>
+                                <li><a class="flirtfire" value="@flirt" href="https://www.google.com/">@flirt</a></li>
+                            }
+                        </ul>
+
+                        @*<a id="flirt" href="#">test submit</a>*@
+
+
 
                     </div>
                     <div class="row">
@@ -135,12 +144,54 @@
                     </div>
                 </div>
             </div>
-            }
-        </div>
+        }
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        @*<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>*@
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+
+        <script>
+            $(document).ready(function () {
+                $(".flirtfire").click(function (event) {
+                    event.preventDefault();
+                    var message = $(this).attr("value");
+                    $(this).html(message);
+                    $("#flirtMessage").attr("value", message);
+                    //swal("Message to " + message + ":", {
+                    //    buttons: ["Cancel", true],
+                    //    background: '#fff',
+
+                    //});
+                    Swal.fire({
+                        showCancelButton: true,
+                        title: message,
+                        width: 600,
+                        padding: '3em',
+                        backdrop: `
+                                    blue 
+                                    url("/images/bottleclear.png") 
+                                    center center 
+                                    no-repeat 
+                                  `
+                    })
+
+                    //$("#flirtform").submit();
+
+
+                });
+
+            });
 
 
 
+
+
+
+        </script>
         <style>
+            .swal2-container div:nth-child(1) {
+                background-color :orange !imporant;
+            }
             .self-description {
                 display: table-cell;
                 width: 250px;
@@ -218,8 +269,6 @@
                 font-size: x-small;
                 color: #bb635f;
             }
-
-            
         </style>
 
-      
+

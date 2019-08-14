@@ -280,6 +280,13 @@ namespace WebApplication.Web.Controllers
         }
 
         [HttpPost]
+        public IActionResult AutoMessage(int receiverId, string message)
+        {
+            authProvider.SendMessage(receiverId, message);
+            return RedirectToAction("PerspectiveDates", "Account");
+        }
+
+        [HttpPost]
         public IActionResult DeleteNote(int pageId, int noteId)
         {
             authProvider.DeleteNote(noteId);

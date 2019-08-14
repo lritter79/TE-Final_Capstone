@@ -26,7 +26,7 @@ namespace WebApplication.Web.DAL
                     conn.Open();
                     SqlCommand cmd = new SqlCommand("INSERT INTO message_table VALUES (@senderId, @receiverId, @text, @date);", conn);
                     cmd.Parameters.AddWithValue("@senderId", message.SenderId);
-                    cmd.Parameters.AddWithValue("@receiverId", message.RecieiverId);
+                    cmd.Parameters.AddWithValue("@receiverId", message.ReceiverId);
                     cmd.Parameters.AddWithValue("@text", message.Text);
                     cmd.Parameters.AddWithValue("@date", DateTime.Now);
 
@@ -179,7 +179,7 @@ namespace WebApplication.Web.DAL
         //            }
         //            reader.Close();
 
-        //            cmd = new SqlCommand("SELECT * FROM message_table WHERE sender_id = @sender AND recieiver_id = @receiver ORDER BY date_sent DESC;", conn);
+        //            cmd = new SqlCommand("SELECT * FROM message_table WHERE sender_id = @sender AND receiver_id = @receiver ORDER BY date_sent DESC;", conn);
         //            cmd.Parameters.AddWithValue("@sender", SenderId);
         //            cmd.Parameters.AddWithValue("@receiver", receiverId);
 
