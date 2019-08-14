@@ -56,10 +56,7 @@ body {
     z-index: 0;
 }
 
-.bg-regComplete {
-    width: 100%;
-    z-index: 0;
-}
+
 
 
 .overlay {
@@ -77,9 +74,6 @@ body {
     color: #13474d;
     padding: 1px;
     border-radius: 3%;
-}
-.reg-complete {
-    background: url(../images/balcony.jpg) no-repeat center center;
 }
 
 .overlay-login {
@@ -110,7 +104,7 @@ body {
 }
 
 .center-form {
-    margin-left: 20%;
+    margin-left: 5%;
 }
 
 body {
@@ -132,12 +126,13 @@ footer, #push {
 
 .confirmation-bg {
     width: 100%;
-    height: auto;
-    background: url(../images/balcony.jpg) no-repeat center center;
-    -webkit-background-size: cover;
+    height: 800px;
+    background: url(../images/balcony.jpg) no-repeat center bottom;
+    background-size: 100%;
+    /*-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
+    background-size: cover;*/
 }
 
 .registration-bg {

@@ -5,8 +5,8 @@
 }
 <div class="full-page login-bg">
     <div id="push"></div>
-    <div class="container body-content">
-        <div class="overlay-border-login col-xs-12 col-sm-8 col-md-4 col-lg-4 col-xs-offset-0 col-sm-offset-2 col-md-offset-4 col-lg-offset-4">
+    <div class="container body-content sign-in">
+        <div class="overlay-border-login col-xs-12 col-sm-8 col-md-4 col-lg-4">
             <div class="overlay-login">
                 <div class="center-form">
                     <form asp-controller="account" asp-action="login" method="post">
@@ -53,4 +53,12 @@
         </div>
     </div>
 </div>
+<style>
+    .sign-in {
+        margin-top: 15%;
+    }
+</style>
 
+
+
+@*//col-xs-offset-0 col-sm-offset-0 col-md-offset-2 col-lg-offset-3"//*@
