@@ -53,7 +53,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand($"SELECT sender_id FROM message_table WHERE reciever_id = {user.Id}", conn);
+                    SqlCommand cmd = new SqlCommand($"SELECT sender_id FROM message_table WHERE reciever_id = {user.Id} GROUP BY sender_id", conn);
 
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -71,7 +71,7 @@ namespace WebApplication.Web.DAL
 
                         reader = cmd.ExecuteReader();
 
-                        while (reader.Read())
+                        if (reader.Read())
                         {
                             Username = Convert.ToString(reader["username"]);
                         }
@@ -81,7 +81,7 @@ namespace WebApplication.Web.DAL
 
                         reader = cmd.ExecuteReader();
 
-                        while (reader.Read())
+                        if (reader.Read())
                         {
                             
                             messagesByUsername.Add(Username, MapRowToMessage(reader));
