@@ -34,28 +34,29 @@
         </form>
 
     </div>
-</div>
+</div> 
 
+<div class="messagebox">
 <form method="post" action="/Account/AddNote">
     <input type="hidden" value="@Model.User.Id" name="pageId" />
     <input type="text" name="note" />
-    <input type="submit" value="Add Note" />
+    <input style="background-color:darkorange"type="submit" value="Add Note" />
 
 </form>
 
 <ul>
     @foreach(Note note in Model.Notes)
     {
-        <li>@note.Text <i>(@note.DateSent)</i></li> 
+        <li class="hotnotes">@note.Text <i>(@note.DateSent)</i></li> 
         <form method="post" action="/Account/DeleteNote">
             <input type="hidden" value="@Model.User.Id" name="pageId" />
             <input type="hidden" value="@note.NoteId" name="noteId" />
-            <input type="submit" value="Delete Note" />
+            <input style="background-color:darkorange" type="submit" value="Delete Note" />
 
         </form>
     }
 </ul>
-
+</div>
 
 
 
@@ -131,5 +132,15 @@
         } 
         .input{
             text-decoration-color:black;
+        } 
+        .messagebox{
+            margin-top:-137%; 
+            margin-left:50%; 
+         
+        } 
+        .hotnotes{
+            color:black; 
+            font-size:medium; 
+            font-weight:900;
         }
     </style>
