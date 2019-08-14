@@ -89,17 +89,22 @@
                 </a>
                 <div class="details-box">
                     <div class="col-md-3 dropdown">
+                        <form id="flirt" method="post" action="/Account/SendMessage">
+                            <input id="flirtInput" asp-for="Note" type="hidden" />
+                            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                Exchange Notes <span class="glyphicon glyphicon-music"></span><span class="carat"></span>
+                            </button>
+                        </form>
+                        <select>
+                            <option>Oh baby, ye, all night long ... is how long it takes to tune my lute</option>
 
-                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            Exchange Notes <span class="glyphicon glyphicon-music"></span><span class="carat"></span>
-                        </button>
+                        </select>
                         <ul class="dropdown-menu">
-                            
-                            
-                           <li> <a asp-for="Note">Oh baby, ye, all night long ... is how long it takes to tune my lute</a></li> 
-                           <li><a asp-for="Note">yerr you tryna grab a drink</a></li> 
-                            
-                        </ul>
+                            @foreach (string flirt in @Model.Flirts)
+                            {
+                                <li> <a onclick="document.getElementById('form1').submit()>@flirt</a></li>
+                                }
+                            </ul>
 
                     </div>
                     <div class="row">
