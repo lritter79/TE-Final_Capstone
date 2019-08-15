@@ -295,7 +295,7 @@ namespace WebApplication.Web.Controllers
         public IActionResult Reply(int receiverId, string message, string username)
         {
             authProvider.SendMessage(receiverId, message);
-            return RedirectToAction("Conversation", "Account");
+            return RedirectToAction("Inbox", "Account");
 
         }
         [HttpPost]
