@@ -37,7 +37,7 @@
             @*@foreach(User member in Model.User)*@
             <div class="row text-center text-dark">
                 <div class="col-md-3">
-                    <h4>Welcome "PlaceholderUser" <span id="logoutColor">(LogOut)</span> </h4>
+                    <h4>Welcome @Model.CurrentUser.Username </h4>
                 </div>
                 <div class="col-md-3 dropdown">
                     Show by

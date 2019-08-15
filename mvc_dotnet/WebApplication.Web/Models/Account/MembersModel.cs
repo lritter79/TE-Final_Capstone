@@ -14,6 +14,8 @@ namespace WebApplication.Web.Models.Account
         [Display(Name = "Note")]
         public string Note { get; set; }
 
+        public User CurrentUser { get; set; }
+
         public List<string> Flirts { get
             {
                 List<string> flirts = new List<string> {
