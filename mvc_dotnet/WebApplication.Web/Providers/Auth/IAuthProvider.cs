@@ -61,6 +61,8 @@ namespace WebApplication.Web.Providers.Auth
         /// <returns></returns>
         bool UserHasRole(string[] roles);
 
+        User GetUserByUsername(string username);
+
         List<User> GetAllUsers();
 
         Dictionary<string, Message> GetMessagesByUsername(User user);
