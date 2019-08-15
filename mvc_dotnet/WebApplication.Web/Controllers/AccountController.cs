@@ -252,14 +252,16 @@ namespace WebApplication.Web.Controllers
         [HttpGet]
         public IActionResult Conversation(string otherUsername)
         {
-            var User = authProvider.GetCurrentUser();
+            var CurrentUser = authProvider.GetCurrentUser();
             var OtherUser = authProvider.GetUserByUsername(otherUsername);
            
-            List<Message> messages = authProvider.GetConversation(otherUsername, User.Username);
+            List<Message> messages = authProvider.GetConversation(otherUsername, CurrentUser.Username);
+
+            
             ConversationModel convo = new ConversationModel();
             
             convo.Messages = messages;
-            convo.CurrentUser = User;
+            convo.CurrentUser = CurrentUser;
             convo.OtherUser = OtherUser;
 
             return View(convo);
