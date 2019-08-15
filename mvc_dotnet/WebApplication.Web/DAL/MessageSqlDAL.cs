@@ -24,7 +24,7 @@ namespace WebApplication.Web.DAL
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO message_table VALUES (@senderId, @receiverId, @text, @date);", conn);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO message_table VALUES (@senderId, @receiverId, @text, @date, 0);", conn);
                     cmd.Parameters.AddWithValue("@senderId", message.SenderId);
                     cmd.Parameters.AddWithValue("@receiverId", message.ReceiverId);
                     cmd.Parameters.AddWithValue("@text", message.Text);
@@ -88,6 +88,7 @@ namespace WebApplication.Web.DAL
                         }
                         reader.Close();
                     }
+                    
                     
 
                     return messagesByUsername;
@@ -253,6 +254,11 @@ namespace WebApplication.Web.DAL
                         Conversation.Add(MapRowToMessage(reader));
                     }
                     reader.Close();
+                }
+
+                foreach (Message message in Conversation)
+                {
+                    message.isRead = true;
                 }
 
                 return Conversation;

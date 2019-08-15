@@ -15,7 +15,7 @@ namespace WebApplication.Web.Models
             this.ListOfInstruments = new List<Instrument>();
             this.ListOfPlaces = new List<Place>();
             this.ListOfComposers = new List<Composer>();
-            this.ListOfMessages = new List<Message>();
+            this.ListOfMessages = new Dictionary<string, Message>();
             this.SelfDescription = "";
             this.IsPublic = true;
         }
@@ -117,7 +117,7 @@ namespace WebApplication.Web.Models
         public List<Composer> ListOfComposers { get; set; }
 
         [Display(Name = "Messages")]
-        public List<Message> ListOfMessages { get; set; }
+        public Dictionary<string, Message> ListOfMessages { get; set; }
 
         [Display(Name = "Gender")]
         public int Gender { get; set; }

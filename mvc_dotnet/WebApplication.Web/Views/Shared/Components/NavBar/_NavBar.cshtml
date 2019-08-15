@@ -12,7 +12,15 @@
 }
 else
 {
-    <li><a asp-area="" asp-controller="Account" asp-action="Inbox">Inbox</a></li>
+    int newMessages = 0;
+    foreach (KeyValuePair<string, Message> kvp in Model.ListOfMessages)
+    {
+        if (!kvp.Value.isRead)
+        {
+            newMessages++;
+        }
+    }
+    <li><a asp-area="" asp-controller="Account" asp-action="Inbox">Inbox: @newMessages new message(s)</a></li>
     <li><a asp-area="" asp-controller="Account" asp-action="PerspectiveDates">Find a Match!</a></li>
     <li><a asp-area="" asp-controller="Account" asp-action="BioPage">Welcome @Model.Username</a></li>
     <li><a asp-area="" asp-controller="Account" asp-action="Logoff">Logout</a></li>
