@@ -36,7 +36,7 @@
             </div>
             @*@foreach(User member in Model.User)*@
             <div class="row text-center text-dark">
-                <div class="col-md-3">
+                @*<div class="col-md-3">
                     <h4>Welcome @Model.CurrentUser.Username </h4>
                 </div>
                 <div class="col-md-3 dropdown">
@@ -70,7 +70,7 @@
                         <li><a href="#">choose City</a></li>
                         <li><a href="#">choose State</a></li>
                     </ul>
-                </div>
+                </div>*@
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
 
 
         <div id=" memberImage" class="col-md-3">
-            <h5><span id="cName">@member.Username</span></h5>
+            <h5><span id="cName"><strong>@member.Username</strong></span></h5>
             <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
                 <img class="fit-square" src="../@member.ProfilePic">
             </a>
@@ -107,12 +107,12 @@
                             <li><a class="flirtfire" value="@flirt" href="#">@flirt</a></li>
                         }
 
-                        <li>
+                        @*<li>
                             <form id="customFlirt" method="post" action="/Account/AutoMessage">
                                 <input type="text" class="myflirt" placeholder="Write a custom message...">
                             </form>
 
-                        </li>
+                        </li>*@
 
                     </ul>
 
@@ -274,7 +274,9 @@
         .bg-danger {
             background-color: #fcf8e3;
             margin-left: 5%;
-            margin-right: 5%
+            margin-right: 5%;
+            border: 1px solid brown;
+            border-radius: 13px;
         }
 
         #logoutColor {
