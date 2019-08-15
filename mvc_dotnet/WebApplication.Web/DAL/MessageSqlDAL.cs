@@ -298,7 +298,7 @@ namespace WebApplication.Web.DAL
 
                 }
 
-                UpdateToRead(Conversation, CurrentUserId);
+                UpdateToRead(Conversation, CurrentUserId, OtherUserId);
 
                 return Conversation;
             }
@@ -322,7 +322,7 @@ namespace WebApplication.Web.DAL
             return message;
         }
 
-        public void UpdateToRead(List<Message> ListOfMessages, int CurrentUserId)
+        public void UpdateToRead(List<Message> ListOfMessages, int CurrentUserId, int OtherUserId)
         {
             foreach (Message message in ListOfMessages)
             {
@@ -331,9 +331,10 @@ namespace WebApplication.Web.DAL
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
                         conn.Open();
-                        SqlCommand cmd = new SqlCommand("UPDATE message_table set is_read = 1 WHERE receiver_id = @receiverId;", conn);
+                        SqlCommand cmd = new SqlCommand("UPDATE message_table set is_read = 1 WHERE receiver_id = @receiverId AND sender_id = @senderId;", conn);
                         
                         cmd.Parameters.AddWithValue("@receiverId", CurrentUserId);
+                        cmd.Parameters.AddWithValue("@senderId", OtherUserId);
 
                         cmd.ExecuteNonQuery();
 
