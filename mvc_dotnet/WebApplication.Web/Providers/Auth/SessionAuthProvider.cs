@@ -222,6 +222,12 @@ namespace WebApplication.Web.Providers.Auth
         {
             return messageSqlDAL.GetConversation(sender, receiver);
         }
+
+        public List<Message> GetCurrentUserMessages(User user)
+        {
+            return messageSqlDAL.GetCurrentUsersMessages(user);
+        }
+
         public void AddNote(int notePageId, string text)
         {
             Note note = new Note();

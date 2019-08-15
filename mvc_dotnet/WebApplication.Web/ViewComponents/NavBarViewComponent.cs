@@ -27,6 +27,12 @@ namespace WebApplication.Web.ViewComponents
         public IViewComponentResult Invoke()
         {
             var user = authProvider.GetCurrentUser();
+            if (user != null)
+            {
+
+                user.Messages = authProvider.GetCurrentUserMessages(user);
+            }
+            
             return View("_NavBar", user);
         }
     }
