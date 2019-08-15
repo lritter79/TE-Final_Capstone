@@ -14,6 +14,7 @@ namespace WebApplication.Web.Models
             DateSent = date;
             SenderId = sender;
             ReceiverId = receiver;
+            
         }
 
         public string Text { get; set; }

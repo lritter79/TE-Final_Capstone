@@ -13,9 +13,9 @@
 else
 {
     int newMessages = 0;
-    foreach (KeyValuePair<string, Message> kvp in Model.ListOfMessages)
+    foreach (Message message in Model.Messages)
     {
-        if (!kvp.Value.isRead)
+        if (!message.isRead)
         {
             newMessages++;
         }

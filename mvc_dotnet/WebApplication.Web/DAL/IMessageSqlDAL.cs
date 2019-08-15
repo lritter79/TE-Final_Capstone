@@ -14,5 +14,8 @@ namespace WebApplication.Web.DAL
 
         List<Message> GetConversation(string SenderUsername, string receiverUsername);
 
+        void UpdateToRead(List<Message> ListOfMessages, int CurrentUserId);
+
+        List<Message> GetCurrentUsersMessages(User user);
     }
 }

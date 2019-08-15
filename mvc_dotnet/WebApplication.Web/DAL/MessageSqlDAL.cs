@@ -42,6 +42,38 @@ namespace WebApplication.Web.DAL
             }
         }
 
+        public List<Message> GetCurrentUsersMessages(User user)
+        {
+            List<Message> CurrentUserMessages = new List<Message>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    SqlCommand cmd = new SqlCommand($"SELECT * FROM message_table WHERE receiver_id = {user.Id}", conn);
+
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        CurrentUserMessages.Add(MapRowToMessage(reader));
+                    }
+                    reader.Close();
+
+                    
+                }
+
+                return CurrentUserMessages;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            
+        }
+
         public Dictionary<string, Message> GetMessagesByUsername (User user)
         {
             
@@ -205,11 +237,11 @@ namespace WebApplication.Web.DAL
 
         //}
 
-        public List<Message> GetConversation(string SenderUsername, string receiverUsername)
+        public List<Message> GetConversation(string OtherUsername, string CurrentUsername)
         {
             List<Message> Conversation = new List<Message>();
-            int SenderId = -1;
-            int receiverId = -1;
+            int OtherUserId = -1;
+            int CurrentUserId = -1;
 
             try
             {
@@ -218,30 +250,30 @@ namespace WebApplication.Web.DAL
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand("SELECT id FROM users WHERE username = @sender;", conn);
-                    cmd.Parameters.AddWithValue("@sender", SenderUsername);
+                    cmd.Parameters.AddWithValue("@sender", OtherUsername);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
                     if (reader.Read())
                     {
-                        SenderId = Convert.ToInt32(reader["id"]);
+                        OtherUserId = Convert.ToInt32(reader["id"]);
                     }
                     reader.Close();
 
                     cmd = new SqlCommand("SELECT id FROM users WHERE username = @receiver;", conn);
-                    cmd.Parameters.AddWithValue("@receiver", receiverUsername);
+                    cmd.Parameters.AddWithValue("@receiver", CurrentUsername);
 
                     reader = cmd.ExecuteReader();
 
                     if (reader.Read())
                     {
-                        receiverId = Convert.ToInt32(reader["id"]);
+                        CurrentUserId = Convert.ToInt32(reader["id"]);
                     }
                     reader.Close();
 
                     cmd = new SqlCommand("SELECT * FROM message_table WHERE (sender_id = @sender AND receiver_id = @receiver_id) or (sender_id = @receiver_id AND receiver_id = @sender) order by date_sent asc;", conn);
-                    cmd.Parameters.AddWithValue("@sender", SenderId);
-                    cmd.Parameters.AddWithValue("@receiver_id", receiverId);
+                    cmd.Parameters.AddWithValue("@sender", OtherUserId);
+                    cmd.Parameters.AddWithValue("@receiver_id", CurrentUserId);
 
                     reader = cmd.ExecuteReader();
 
@@ -258,8 +290,15 @@ namespace WebApplication.Web.DAL
 
                 foreach (Message message in Conversation)
                 {
-                    message.isRead = true;
+                    if (message.ReceiverId == CurrentUserId)
+                    {
+                        message.isRead = true;
+                    }
+                    
+
                 }
+
+                UpdateToRead(Conversation, CurrentUserId);
 
                 return Conversation;
             }
@@ -275,9 +314,40 @@ namespace WebApplication.Web.DAL
             DateTime DateSent = Convert.ToDateTime(reader["date_sent"]);
             int SenderId = Convert.ToInt32(reader["sender_id"]);
             int receiverId = Convert.ToInt32(reader["receiver_id"]);
+            bool isRead = Convert.ToBoolean(reader["is_read"]);
             Message message = new Message(Text, DateSent, SenderId, receiverId);
+            message.isRead = isRead;
+            
 
             return message;
         }
+
+        public void UpdateToRead(List<Message> ListOfMessages, int CurrentUserId)
+        {
+            foreach (Message message in ListOfMessages)
+            {
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    {
+                        conn.Open();
+                        SqlCommand cmd = new SqlCommand("UPDATE message_table set is_read = 1 WHERE receiver_id = @receiverId;", conn);
+                        
+                        cmd.Parameters.AddWithValue("@receiverId", CurrentUserId);
+
+                        cmd.ExecuteNonQuery();
+
+
+                        
+                    }
+                }
+                catch (SqlException ex)
+                {
+                    throw ex;
+                }
+            }
+
+        }
     }
+
 }

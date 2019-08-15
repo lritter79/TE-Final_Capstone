@@ -29,7 +29,8 @@ namespace WebApplication.Web.ViewComponents
             var user = authProvider.GetCurrentUser();
             if (user != null)
             {
-                user.ListOfMessages = authProvider.GetMessagesByUsername(user);
+
+                user.Messages = authProvider.GetCurrentUserMessages(user);
             }
             
             return View("_NavBar", user);
