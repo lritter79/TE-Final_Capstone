@@ -141,6 +141,7 @@ namespace WebApplication.Web.Controllers
         {
             MembersModel members = new MembersModel();
             members.Members = authProvider.GetAllUsers();
+            members.CurrentUser = authProvider.GetCurrentUser();
             return View(members);
         }
 
