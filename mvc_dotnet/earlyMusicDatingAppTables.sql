@@ -96,6 +96,16 @@ CREATE TABLE notes
 	
 );
 
+SET IDENTITY_INSERT Users ON
+
+INSERT Users (id, email, username, birthdate, home_city, home_state, self_description, profile_pic, password, salt,role, is_public ,gender, seeking) VALUES (-2, 'qwerty@qwerty.com', 'Cutie4Quantz', 04/20/2000, 'Qwertown', 'Qwertyland', 'qwerty', '/images/profile_pics/male avatar.jpg', 'yeet', 'skeet', 'user', 0, 1, 0);
+INSERT Users (id, email, username, birthdate, home_city, home_state, self_description, profile_pic, password, salt,role, is_public ,gender, seeking) VALUES (-1, 'qwerty2@qwerty.com', 'JustinVonBiber', 04/20/2100, 'Qwertown', 'Qwertyland', 'qwerty', '/images/profile_pics/male avatar.jpg', 'yeet', 'skeet', 'user', 1, 0, 0);
+INSERT Users (id, email, username, birthdate, home_city, home_state, self_description, profile_pic, password, salt,role, is_public ,gender, seeking) VALUES (0, 'qwerty3@qwerty.com', 'NotACatfish', 04/20/1990, 'Qwertown', 'Qwertyland', 'Trust me, Im a human being', '/images/catfish.jpg', 'yeet', 'skeet', 'user', 1, 1, 0);
+
+SET IDENTITY_INSERT Users OFF
+
+
+
 COMMIT
 
 BEGIN TRANSACTION;

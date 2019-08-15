@@ -13,13 +13,15 @@
         @if (message.ReceiverId == Model.CurrentUser.Id)
         {
             <div class="message">
-                <p class="receivedMessage">@Model.OtherUsername: @message.Text</p>
+                <p class="receivedMessage">@Model.OtherUser.Username: @message.Text</p>
+                <p class="receivedMessageDate">@message.DateSent</p>
             </div>
         }
         if (message.SenderId == Model.CurrentUser.Id)
         {
             <div class="message">
                 <p class="sentMessage">@Model.CurrentUser.Username: @message.Text</p>
+                <p class="sentMessageDate">@message.DateSent</p>
             </div>
         }
 
@@ -30,8 +32,8 @@
     </div>
 
     <form method="post" action="/Account/Reply">
-        <input type="hidden" value="@Model.OtherUserId" name="receiverId" />
-        <input type="hidden" value="@Model.OtherUsername" name="username" />
+        <input type="hidden" value="@Model.OtherUser.Id" name="receiverId" />
+        <input type="hidden" value="@Model.OtherUser.Username" name="username" />
         <input type="text" name="message" />
         <input style="background-color:darkorange" type="submit" value="Send Message" />
 
@@ -42,6 +44,15 @@
 
 <style>
 
+    .receivedMessageDate {
+        color: greenyellow;
+        font-size: smaller
+    }
+    .sentMessageDate {
+        text-align: right;
+        color: greenyellow;
+        font-size: smaller
+    }
     .sentMessage {
         text-align: right;
         color: blue;

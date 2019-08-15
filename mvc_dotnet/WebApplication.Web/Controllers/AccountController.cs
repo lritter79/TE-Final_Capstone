@@ -141,6 +141,7 @@ namespace WebApplication.Web.Controllers
         {
             MembersModel members = new MembersModel();
             members.Members = authProvider.GetAllUsers();
+            members.CurrentUser = authProvider.GetCurrentUser();
             return View(members);
         }
 
@@ -248,28 +249,18 @@ namespace WebApplication.Web.Controllers
             return RedirectToAction("BioPage", "Account");
         }
 
-        [HttpPost]
+        [HttpGet]
         public IActionResult Conversation(string otherUsername)
         {
-            var user = authProvider.GetCurrentUser();
-
-            MembersModel members = new MembersModel();
-            members.Members = authProvider.GetAllUsers();
-            List<Message> messages = authProvider.GetConversation(otherUsername, user.Username);
+            var User = authProvider.GetCurrentUser();
+            var OtherUser = authProvider.GetUserByUsername(otherUsername);
+           
+            List<Message> messages = authProvider.GetConversation(otherUsername, User.Username);
             ConversationModel convo = new ConversationModel();
-
-            foreach (User member in members.Members)
-            {
-                if (member.Username == otherUsername)
-                {
-                    convo.OtherUsername = member.Username;
-                }
-            }
             
             convo.Messages = messages;
-            convo.Receiver = user.Username;
-            
-            convo.CurrentUser = user;
+            convo.CurrentUser = User;
+            convo.OtherUser = OtherUser;
 
             return View(convo);
 
@@ -295,7 +286,7 @@ namespace WebApplication.Web.Controllers
         public IActionResult Reply(int receiverId, string message, string username)
         {
             authProvider.SendMessage(receiverId, message);
-            return RedirectToAction("Inbox", "Account");
+            return RedirectToAction("Conversation", "Account",new { otherUsername = username });
 
         }
         [HttpPost]

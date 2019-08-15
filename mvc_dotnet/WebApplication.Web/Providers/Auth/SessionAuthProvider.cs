@@ -109,6 +109,19 @@ namespace WebApplication.Web.Providers.Auth
             return null;
         }
 
+        public User GetUserByUsername(string username)
+        {
+            
+
+            if (!String.IsNullOrEmpty(username))
+            {
+                return userDAL.GetUser(username);
+            }
+
+            return null;
+        }
+
+
         public List<User> GetAllUsers()
         {
             var username = Session.GetString(SessionKey);
