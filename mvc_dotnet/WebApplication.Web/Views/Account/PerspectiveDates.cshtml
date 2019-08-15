@@ -85,7 +85,7 @@
 
 
         <div id=" memberImage" class="col-md-3">
-            <h5><span id="cName">@member.Username</span></h5>
+            
             <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
                 <img class="fit-square" src="../@member.ProfilePic">
             </a>
@@ -125,6 +125,7 @@
                                 <h2></h2>
                             </div>
                         </div>
+                    <h5><span id="cName">@member.Username</span></h5>
                     <h5><strong>@member.Age </strong>years old</h5>
                     <h5>@member.HomeCity, @member.HomeState</h5>
                     <div class="self-description">
@@ -243,8 +244,7 @@
 
         .self-description {
             display: table-cell;
-            width: 255px;
-            height: 98px;
+            
             padding-left: 10px;
 
             border: 2px dashed #96606e;
