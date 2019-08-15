@@ -77,59 +77,54 @@
 
     <div class="container body-content membersBio">
 
-        <div class="row  text-center text-dark">
+        <div class="row  text-center text-dark"></div>
+    </div>
+
+    @foreach (User member in Model.Members)
+    {
 
 
+        <div id=" memberImage" class="col-md-3">
+            <h5><span id="cName">@member.Username</span></h5>
+            <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
+                <img class="fit-square" src="../@member.ProfilePic">
+            </a>
+            <div class="details-box">
+                <div class="col-md-3 dropdown">
 
-        </div>
+                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        Exchange Notes <span class="glyphicon glyphicon-music"></span><span class="carat"></span>
+                    </button>
 
-        @foreach (User member in Model.Members)
-        {
+                    <form id="flirtform" method="post" action="/Account/AutoMessage">
+                        <input id="flirtMessage" name="message" value="" type="hidden" />
+                        <input id="flirtInput" name="receiverId" value="@member.Id" type="hidden" />
+                    </form>
 
+                    <ul class="dropdown-menu">
+                        @foreach (string flirt in Model.Flirts)
+                        {
+                            <li><a class="flirtfire" value="@flirt" href="#">@flirt</a></li>
+                        }
 
-            <div id=" memberImage" class="col-md-3">
-                <h5><span id="cName">@member.Username</span></h5>
-                <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
-                    <img class="fit-square" src="../@member.ProfilePic">
-                </a>
-                <div class="details-box">
-                    <div class="col-md-3 dropdown">
+                        <li>
+                            <form id="customFlirt" method="post" action="/Account/AutoMessage">
+                                <input type="text" class="myflirt" placeholder="Write a custom message...">
+                            </form>
 
-                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            Exchange Notes <span class="glyphicon glyphicon-music"></span><span class="carat"></span>
-                        </button>
+                        </li>
 
-                        <form id="flirtform" method="post" action="/Account/AutoMessage">
-                            <input id="flirtMessage" name="message" value="" type="hidden" />
-                            <input id="flirtInput" name="receiverId" value="@member.Id" type="hidden" />
-                        </form>
+                    </ul>
 
-                        <ul class="dropdown-menu">
-                            @foreach (string flirt in Model.Flirts)
-                            {
-                                <li><a class="flirtfire" value="@flirt" href="#">@flirt</a></li>
-                            }
-                                
-                                <li>
-                                    <form id="customFlirt" method="post" action="/Account/AutoMessage">
-                                        <input type="text" class="myflirt" placeholder="Write a custom message...">
-                                    </form>
-                                        
-                                </li>
-
-                        </ul>
-
-                        @*<a id="flirt" href="#">test submit</a>*@
+                    @*<a id="flirt" href="#">test submit</a>*@
 
 
-
-                        </div>
+                  </div>
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <h2></h2>
                             </div>
                         </div>
-                    </div>
                     <h5><strong>@member.Age </strong>years old</h5>
                     <h5>@member.HomeCity, @member.HomeState</h5>
                     <div class="self-description">
@@ -145,173 +140,185 @@
 
                         </p>
                     </div>
-
-                </div>
-                <div class="row">
+            </div>
+        </div>
+    }
+             *<div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         <h2></h2>
                     </div>
                 </div>
-            
-        
-        }
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        @*<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>*@
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h2></h2>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    @*<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>*@
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 
 
-        <script>
-            $(document).ready(function () {
-                var custom = "";
+    <script>
+        $(document).ready(function () {
+            var custom = "";
 
-                $(".customMessage").keyup(function () {
-                    custom = $(this).val();
-                    $("#flirtMessage").attr("value", custom);
-                });
-
-                //$('.customSend').keypress(function (e) {
-                //    if (e.which == 13) {
-                //        Swal.fire({
-                //            showCancelButton: true,
-                //            title: custom,
-                //            width: 600,
-                //            padding: '3em',
-                //            backdrop: `
-                //                    blue 
-                //                    url("/images/bottleclear.png") 
-                //                    center center 
-                //                    no-repeat 
-                //                    `
-                //        }
-                //            return false;    //<---- Add this line
-                //});
-
-                $(".flirtfire").click(function (event) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    var message = $(this).attr("value");
-                    $(this).html(message);
-                    $("#flirtMessage").attr("value", message);
-
-                    Swal.fire({
-                        showCancelButton: true,
-                        title: message,
-                        width: 600,
-                        padding: '3em',
-                        backdrop: `
-                                    blue 
-                                    url("/images/bottleclear.png") 
-                                    center center 
-                                    no-repeat 
-                                  `
-                    })
-                    $(".swal2-container div:nth-child(1)").addClass("alert-gradient")
-                });
-                $(".swal2-confirm").click(function (event) {
-                    event.preventDefault();
-                    $("#flirtform").submit();
-                })
-
+            $(".customMessage").keyup(function () {
+                custom = $(this).val();
+                $("#flirtMessage").attr("value", custom);
             });
 
+            //$('.customSend').keypress(function (e) {
+            //    if (e.which == 13) {
+            //        Swal.fire({
+            //            showCancelButton: true,
+            //            title: custom,
+            //            width: 600,
+            //            padding: '3em',
+            //            backdrop: `
+            //                    blue
+            //                    url("/images/bottleclear.png")
+            //                    center center
+            //                    no-repeat
+            //                    `
+            //        }
+            //            return false;    //<---- Add this line
+            //});
+
+            $(".flirtfire").click(function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var message = $(this).attr("value");
+                $(this).html(message);
+                $("#flirtMessage").attr("value", message);
+
+                Swal.fire({
+                    showCancelButton: true,
+                    title: message,
+                    width: 600,
+                    padding: '3em',
+                    backdrop: `
+                                        blue
+                                        url("/images/bottleclear.png")
+                                        center center
+                                        no-repeat
+                                      `
+                })
+                $(".swal2-container div:nth-child(1)").addClass("alert-gradient")
+            });
+            $(".swal2-confirm").click(function (event) {
+                event.preventDefault();
+                $("#flirtform").submit();
+            })
+
+        });
 
 
 
 
 
-        </script>
-        <style>
-            .swal2-container div:nth-child(1) {
-                background-color :orange !imporant;
-            }
-            .alert-gradient {
-                background: rgb(2,0,36);
-                background: linear-gradient(306deg, rgba(2,0,36,1) 0%, rgba(74,84,181,1) 0%, rgba(255,255,255,1) 100%);
-                opacity: .7;
-            }
-            .swal2-title{
-                color:black;
-            }
-            .swal2-header {
-                background: none;
-            }
-            .self-description {
-                display: table-cell;
-                width: 250px;
-                height: 110px;
-                padding: 10px;
-                border: 2px dashed #96606e;
-                vertical-align: middle;
-            }
 
-            .details-box {
-                background-color: #decaca;
-                height: 210px;
-            }
+    </script>
 
-            .fit-width {
-                width: 100%;
-            }
+    <style>
+        .swal2-container div:nth-child(1) {
+            background-color: orange !imporant;
+        }
 
-            .dates-bg {
-                width: 100%;
-                height: auto;
-                background: url(../images/sheetmusic.jpg) no-repeat center center;
-                -webkit-background-size: cover;
-                -moz-background-size: cover;
-                -o-background-size: cover;
-                background-size: cover;
-                color: #8a6d3b;
-            }
+        .alert-gradient {
+            background: rgb(2,0,36);
+            background: linear-gradient(306deg, rgba(2,0,36,1) 0%, rgba(74,84,181,1) 0%, rgba(255,255,255,1) 100%);
+            opacity: .7;
+        }
 
-            .bg-danger {
-                background-color: #fcf8e3;
-                margin-left: 5%;
-                margin-right: 5%
-            }
+        .swal2-title {
+            color: black;
+        }
 
-            #logoutColor {
-                color: darkcyan;
-            }
+        .swal2-header {
+            background: none;
+        }
 
-            .remove-bottom-margin {
-                margin-bottom: 0px !important;
-            }
+        .self-description {
+            display: table-cell;
+            width: 255px;
+            height: 98px;
+            padding-left: 10px;
 
-            .membersBio {
-                background-color: antiquewhite;
-                margin-left: 6.23%;
-                width: 87.6%;
-            }
+            border: 2px dashed #96606e;
+            vertical-align: middle;
+        }
 
+        .details-box {
+            background-color: #decaca;
+            height: 210px;
+        }
 
-            .glyphicon-heart {
-                color: red;
-            }
+        .fit-width {
+            width: 100%;
+        }
 
-            .noBullets {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                display: inline-block;
-                text-align: left;
-            }
+        .dates-bg {
+            width: 100%;
+            height: auto;
+            background: url(../images/sheetmusic.jpg) no-repeat center center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            color: #8a6d3b;
+        }
+
+        .bg-danger {
+            background-color: #fcf8e3;
+            margin-left: 5%;
+            margin-right: 5%
+        }
+
+        #logoutColor {
+            color: darkcyan;
+        }
+
+        .remove-bottom-margin {
+            margin-bottom: 0px !important;
+        }
+
+        .membersBio {
+            background-color: antiquewhite;
+            margin-left: 6.23%;
+            width: 87.6%;
+        }
 
 
+        .glyphicon-heart {
+            color: red;
+        }
 
-            #cName {
-                color: #bb635f;
-            }
+        .noBullets {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+            text-align: left;
+        }
 
-            .heart {
-                font-size: x-small;
-                color: #bb635f;
-            }
 
-            .music {
-                font-size: x-small;
-                color: #bb635f;
-            }
-        </style>
+
+        #cName {
+            color: #bb635f;
+        }
+
+        .heart {
+            font-size: x-small;
+            color: #bb635f;
+        }
+
+        .music {
+            font-size: x-small;
+            color: #bb635f;
+        }
+    </style>
 
 
