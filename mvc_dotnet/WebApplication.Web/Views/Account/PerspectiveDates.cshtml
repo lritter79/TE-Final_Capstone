@@ -171,12 +171,12 @@
 
     <script>
         $(document).ready(function () {
-            var custom = "";
+            //var custom = "";
 
-            $(".customMessage").keyup(function () {
-                custom = $(this).val();
-                $("#flirtMessage").attr("value", custom);
-            });
+            //$(".customMessage").keyup(function () {
+            //    custom = $(this).val();
+            //    $("#flirtMessage").attr("value", custom);
+            //});
 
             //$('.customSend').keypress(function (e) {
             //    if (e.which == 13) {
@@ -194,33 +194,46 @@
             //        }
             //            return false;    //<---- Add this line
             //});
-
+            var message = "";
             $(".flirtfire").click(function (event) {
                 event.preventDefault();
                 event.stopPropagation();
-                var message = $(this).attr("value");
-                $(this).html(message);
+                message = $(this).attr("value");
                 $("#flirtMessage").attr("value", message);
+                
 
-                Swal.fire({
-                    showCancelButton: true,
-                    title: message,
-                    width: 600,
-                    padding: '3em',
-                    backdrop: `
-                                        blue
-                                        url("/images/bottleclear.png")
-                                        center center
-                                        no-repeat
-                                      `
-                })
-                $(".swal2-container div:nth-child(1)").addClass("alert-gradient")
-            });
-            $(".swal2-confirm").click(function (event) {
-                event.preventDefault();
+                //Swal.fire({
+                //    showCancelButton: true,
+                //    title: message,
+                //    width: 600,
+                //    padding: '3em',
+                //    backdrop: `
+                //                        blue
+                //                        url("/images/bottleclear.png")
+                //                        center center
+                //                        no-repeat
+                //                      `
+                //}, function () {
+                //    console.log("asdfsdflkj");
+                   
+                //});
+                //$(".swal2-container div:nth-child(1)").addClass("alert-gradient")
+                //alert("test");
+                //console.log("test");
+                
                 $("#flirtform").submit();
-            })
+            });
+            //$(".swal2-confirm").click(function () {
+            //    event.preventDefault();
+            //    event.stopPropagation();
+            //    event.stopImmediatePropagation();
 
+            //    console.log("test");
+                
+            //    (this).unbind('click').click();
+            //    //$("#flirtMessage").attr("value", message);
+            //    //$("#flirtform").submit();
+            //});
         });
 
 
