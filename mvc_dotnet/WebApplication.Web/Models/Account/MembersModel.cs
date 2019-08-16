@@ -19,6 +19,12 @@ namespace WebApplication.Web.Models.Account
         public List<string> Flirts { get
             {
                 List<string> flirts = new List<string> {
+                    "Meet me in Paris, we can make music...",
+                    "What's your instrument?",
+                    "You feel like compsing anything?",
+                    "Hey there hautbois ;)",
+                    "Je suis chaud",
+                    "Modern instruments are so overrated, don't you agree",
                     "Oh baby, yeah, all night long ... is how long it takes to tune my lute",
                     "yerrr you tryna grab a drink"
                 };
