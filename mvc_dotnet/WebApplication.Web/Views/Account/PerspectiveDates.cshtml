@@ -6,26 +6,27 @@
 
 <div class="full-page dates-bg">
     <div class="container fit-width">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h2></h2>
+        @*<div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h2></h2>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h2></h2>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h2></h2>
+                </div>
+            </div>*@
+        @*<div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h2></h2>
+                </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <h2></h2>
+                </div>
+            </div>*@
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h2></h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h2></h2>
-            </div>
-        </div><div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <h2></h2>
             </div>
@@ -37,99 +38,100 @@
             @*@foreach(User member in Model.User)*@
             <div class="row text-center text-dark">
                 @*<div class="col-md-3">
-                    <h4>Welcome @Model.CurrentUser.Username </h4>
-                </div>
-                <div class="col-md-3 dropdown">
-                    Show by
-                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        Your Age Range <span class="carat"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"></a></li>
-                        <li><a href="#">All Men and Women</a></li>
-                        <li><a href="#">All Women</a></li>
-                        <li><a href="#">All Men</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 dropdown">
-                    sort by
-                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        Residence<span class="carat"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">City</a></li>
-                        <li><a href="#">State</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 dropdown">
-                    Tour Schedule
-                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        City <span class="carat"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">choose City</a></li>
-                        <li><a href="#">choose State</a></li>
-                    </ul>
-                </div>*@
+                        <h4>Welcome @Model.CurrentUser.Username </h4>
+                    </div>
+                    <div class="col-md-3 dropdown">
+                        Show by
+                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            Your Age Range <span class="carat"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"></a></li>
+                            <li><a href="#">All Men and Women</a></li>
+                            <li><a href="#">All Women</a></li>
+                            <li><a href="#">All Men</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 dropdown">
+                        sort by
+                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            Residence<span class="carat"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">City</a></li>
+                            <li><a href="#">State</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3 dropdown">
+                        Tour Schedule
+                        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                            City <span class="carat"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">choose City</a></li>
+                            <li><a href="#">choose State</a></li>
+                        </ul>
+                    </div>*@
+
+
+
             </div>
         </div>
     </div>
 
-    <div class="container body-content membersBio">
-
-        <div class="row  text-center text-dark"></div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h2></h2>
+        </div>
     </div>
 
-    @foreach (User member in Model.Members)
-    {
+    <div class="container body-content membersBio ">
+        <div class="row  text-center text-dark"></div>
 
 
-        <div id=" memberImage" class="col-md-3">
-<<<<<<< HEAD
-            <h5><span id="cName"><strong>@member.Username</strong></span></h5>
-=======
-            
->>>>>>> 615dc268720516b554e510a7c9eb0a7fe7af6487
-            <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
-                <img class="fit-square" src="../@member.ProfilePic">
-            </a>
-            <div class="details-box">
-                <div class="col-md-3 dropdown">
-
-                    <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        Exchange Notes <span class="glyphicon glyphicon-music"></span><span class="carat"></span>
-                    </button>
-
-                    <form id="flirtform" method="post" action="/Account/AutoMessage">
-                        <input id="flirtMessage" name="message" value="" type="hidden" />
-                        <input id="flirtInput" name="receiverId" value="@member.Id" type="hidden" />
-                    </form>
-
-                    <ul class="dropdown-menu">
-                        @foreach (string flirt in Model.Flirts)
-                        {
-                            <li><a class="flirtfire" value="@flirt" href="#">@flirt</a></li>
-                        }
-
-                        @*<li>
-                            <form id="customFlirt" method="post" action="/Account/AutoMessage">
-                                <input type="text" class="myflirt" placeholder="Write a custom message...">
-                            </form>
-
-                        </li>*@
-
-                    </ul>
-
-                    @*<a id="flirt" href="#">test submit</a>*@
+        @foreach (User member in Model.Members)
+        {
 
 
-                  </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <h2></h2>
-                            </div>
+            <div id=" memberImage" class="col-md-3">
+                <h5><span id="cName"><strong>@member.Username</strong></span></h5>
+                <a class="thumbnail remove-bottom-margin" asp-area="" asp-controller="Account" asp-action="ShowProfile" asp-route-id="@member.Id">
+                    <img class="fit-square" src="../@member.ProfilePic">
+                </a>
+                <div class="details-box text-center text-dark">
+                    <div class="col-md-3 dropdown ">
+
+                        <button class="btn btn-primary dropdown-toggle center-block" data-toggle="dropdown">
+                            Exchange Notes <span class="glyphicon glyphicon-music"></span><span class="carat"></span>
+                        </button>
+
+                        <form id="flirtform" method="post" action="/Account/AutoMessage">
+                            <input id="flirtMessage" name="message" value="" type="hidden" />
+                            <input id="flirtInput" name="receiverId" value="@member.Id" type="hidden" />
+                        </form>
+
+                        <ul class="dropdown-menu">
+                            @foreach (string flirt in Model.Flirts)
+                            {
+                                <li><a class="flirtfire" value="@flirt" href="#">@flirt</a></li>
+                            }
+
+                            <li>
+                                <form id="customFlirt" method="post" action="/Account/AutoMessage">
+                                    <input type="text" class="myflirt" placeholder="Write a custom message...">
+                                </form>
+
+                            </li>
+
+                        </ul>
+
+                        @*<a id="flirt" href="#">test submit</a>*@
+                    </div>
+                    <div class="row ">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                         </div>
-                    <h5><span id="cName">@member.Username</span></h5>
+                    </div>
+                    @*<h5><span id="cName">@member.Username</span></h5>*@
                     <h5><strong>@member.Age </strong>years old</h5>
                     <h5>@member.HomeCity, @member.HomeState</h5>
                     <div class="self-description">
@@ -145,21 +147,22 @@
 
                         </p>
                     </div>
-            </div>
-        </div>
-    }
-             *<div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                        <h2></h2>
-                    </div>
                 </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <h2></h2>
             </div>
+        }
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h2></h2>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h2></h2>
+        </div>
+    </div>
+</div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     @*<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>*@
@@ -248,9 +251,9 @@
 
         .self-description {
             display: table-cell;
-            
             padding-left: 10px;
-
+            width:258px;
+            height:113px;
             border: 2px dashed #96606e;
             vertical-align: middle;
         }
